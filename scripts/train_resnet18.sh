@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PYTHONPATH="$(pwd)/src:${PYTHONPATH:-}"
+
+python -m aerial_svd.train --config configs/aid_resnet18.yaml
