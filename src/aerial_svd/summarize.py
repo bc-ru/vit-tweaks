@@ -42,16 +42,12 @@ def main():
             for mode, g in plot_df.groupby("svd_mode"):
                 g = g.sort_values("rank_ratio")
                 plt.figure()
-                plt.plot(
-                    g["rank_ratio"], 100.0 * g["test_top1"], marker="o", label=str(mode)
-                )
+                plt.plot(g["rank_ratio"], 100.0 * g["test_top1"], marker="o", label=str(mode))
                 plt.xlabel("rank ratio")
                 plt.ylabel("Top-1 accuracy, %")
                 plt.title(f"Accuracy vs rank ratio: {mode}")
                 plt.grid(True)
-                plt.savefig(
-                    out / f"accuracy_vs_rank_{mode}.png", dpi=160, bbox_inches="tight"
-                )
+                plt.savefig(out / f"accuracy_vs_rank_{mode}.png", dpi=160, bbox_inches="tight")
                 plt.close()
 
     if "total_params" in df.columns and "test_top1" in df.columns:

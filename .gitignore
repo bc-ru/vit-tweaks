@@ -30,3 +30,10 @@ reports
 !logs/.gitkeep
 !reports/.gitkeep
 !runs/.gitkeep
+*.zip
+docs/
+matrix_results/
+.codegraph
+*.tar.gz
+.qwen/
+.agents/
