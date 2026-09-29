@@ -5,12 +5,13 @@ from pathlib import Path
 
 import pandas as pd
 
-from aerial_svd.matrix_analysis import benchmark_randomized_svd, dataclass_records_to_dicts, filter_matrices, iter_weight_matrices, load_model_from_config
+from aerial_svd.analysis_backend import add_backend_arguments, prepare_analysis, finish_analysis
+from aerial_svd.matrix_records import dataclass_records_to_dicts
 
 
 def parse_args():
     p = argparse.ArgumentParser("Compare classical truncated SVD and randomized SVD on selected weight matrices")
-    p.add_argument("--config", required=True)
+    add_backend_arguments(p)
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--device", default="cpu")
     p.add_argument("--out-dir", default="matrix_results/randomized_svd")
@@ -27,16 +28,16 @@ def parse_args():
 def main():
     args = parse_args()
     out_dir = Path(args.out_dir)
+    backend, model_name, ckpt, matrices = prepare_analysis(args)
     out_dir.mkdir(parents=True, exist_ok=True)
-    model, cfg, ckpt = load_model_from_config(args.config, checkpoint=args.checkpoint, device=args.device)
-    model_name = cfg["model"]
     rows = []
-    matrices = list(filter_matrices(iter_weight_matrices(model), args.include_regex, args.exclude_regex))[: args.max_matrices]
+    matrices = list(matrices)[: args.max_matrices]
     for rec, W in matrices:
         r = min(args.rank, min(W.shape))
-        rows.append(benchmark_randomized_svd(model_name, ckpt, rec, W, rank=r, oversampling=args.oversampling, n_iter=args.n_iter, seed=args.seed))
+        rows.append(backend.benchmark_randomized_svd(model_name, ckpt, rec, W, rank=r, oversampling=args.oversampling, n_iter=args.n_iter, seed=args.seed))
     df = pd.DataFrame(dataclass_records_to_dicts(rows))
     df.to_csv(out_dir / f"{model_name}_randomized_svd_benchmark.csv", index=False)
+    finish_analysis(args)
     print(f"Saved: {out_dir}")
     if not df.empty:
         cols = ["name", "kind", "m", "n", "rank", "full_svd_time_sec", "randomized_svd_time_sec", "sigma_relative_error", "approximation_fro_error", "randomized_fro_error"]

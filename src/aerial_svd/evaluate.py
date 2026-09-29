@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+if __name__ == "__main__":
+    from aerial_svd.backend_dispatch import dispatch
+    dispatch("evaluate")
+
 import argparse
 import os
 from pathlib import Path

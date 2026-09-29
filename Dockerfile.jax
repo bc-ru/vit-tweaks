@@ -1,0 +1,18 @@
+FROM ghcr.io/bc-ru/pytorch-2.1.0-cuda11.8-cudnn8-runtime-timm-models:stable AS reference-codec
+FROM python:3.10-slim
+# Match reference ImageFolder JPEG pixels without installing Torch in this image.
+COPY --from=reference-codec /opt/conda/lib/libjpeg.so.9.5.0 /usr/local/lib/libjpeg.so.9
+# The reference prefix's headers were overwritten by turbo; use jpeg-9e's cache.
+COPY --from=reference-codec /opt/conda/pkgs/jpeg-9e-h5eee18b_1/include/jconfig.h /opt/conda/pkgs/jpeg-9e-h5eee18b_1/include/jerror.h /opt/conda/pkgs/jpeg-9e-h5eee18b_1/include/jmorecfg.h /opt/conda/pkgs/jpeg-9e-h5eee18b_1/include/jpeglib.h /usr/local/include/
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential zlib1g-dev libtiff-dev libwebp-dev libopenjp2-7-dev libfreetype6-dev liblcms2-dev && \
+    ln -s libjpeg.so.9 /usr/local/lib/libjpeg.so && ldconfig
+WORKDIR /workspace
+COPY requirements-jax.txt /tmp/requirements-jax.txt
+RUN CFLAGS='-I/usr/local/include' LDFLAGS='-L/usr/local/lib -Wl,-rpath,/usr/local/lib' \
+    python -m pip install --no-cache-dir --no-binary=pillow -r /tmp/requirements-jax.txt && \
+    python -c 'from PIL import features; assert features.version_codec("jpg") == "9.0"'
+ARG JAX_PLATFORM=cpu
+RUN if [ "$JAX_PLATFORM" = cuda12 ]; then python -m pip install --no-cache-dir 'jax[cuda12]==0.4.38'; \
+    elif [ "$JAX_PLATFORM" != cpu ]; then echo 'JAX_PLATFORM must be cpu or cuda12' >&2; exit 1; fi
+ENV PYTHONPATH=/workspace/src MPLBACKEND=Agg MPLCONFIGDIR=/tmp/matplotlib PYTHONDONTWRITEBYTECODE=1

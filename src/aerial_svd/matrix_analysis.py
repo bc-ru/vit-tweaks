@@ -3,7 +3,6 @@ from __future__ import annotations
 import math
 import re
 import time
-from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, Iterable, Iterator, List, Optional, Sequence, Tuple
 
@@ -13,76 +12,7 @@ import torch.nn as nn
 
 from aerial_svd.models import create_model
 from aerial_svd.utils import load_yaml
-
-
-@dataclass
-class MatrixRecord:
-    name: str
-    kind: str
-    shape: Tuple[int, int]
-    original_shape: Tuple[int, ...]
-    params: int
-
-
-@dataclass
-class SpectralRecord:
-    model: str
-    checkpoint: str
-    name: str
-    kind: str
-    m: int
-    n: int
-    params: int
-    sigma_max: float
-    sigma_min: float
-    sigma_min_eps: float
-    cond_eps: float
-    fro_norm: float
-    spectral_norm: float
-    stable_rank: float
-    numerical_rank_eps: int
-    r90: int
-    r95: int
-    r99: int
-    r90_ratio: float
-    r95_ratio: float
-    r99_ratio: float
-
-
-@dataclass
-class ApproximationRecord:
-    model: str
-    checkpoint: str
-    name: str
-    kind: str
-    m: int
-    n: int
-    rank: int
-    rank_ratio: float
-    dense_storage: int
-    lowrank_storage: int
-    storage_ratio: float
-    fro_error: float
-    spectral_error: float
-    retained_energy: float
-
-
-@dataclass
-class RandomizedSVDRecord:
-    model: str
-    checkpoint: str
-    name: str
-    kind: str
-    m: int
-    n: int
-    rank: int
-    oversampling: int
-    n_iter: int
-    full_svd_time_sec: float
-    randomized_svd_time_sec: float
-    sigma_relative_error: float
-    approximation_fro_error: float
-    randomized_fro_error: float
+from aerial_svd.matrix_records import (MatrixRecord, SpectralRecord, ApproximationRecord, RandomizedSVDRecord, dataclass_records_to_dicts)
 
 
 def load_model_from_config(config_path: str | Path, checkpoint: Optional[str] = None, device: str = "cpu") -> tuple[nn.Module, dict, str]:
@@ -305,7 +235,3 @@ def benchmark_randomized_svd(model_name: str, checkpoint: str, rec: MatrixRecord
         approximation_fro_error=full_err,
         randomized_fro_error=rand_err,
     )
-
-
-def dataclass_records_to_dicts(records: Sequence[object]) -> List[dict]:
-    return [asdict(r) for r in records]

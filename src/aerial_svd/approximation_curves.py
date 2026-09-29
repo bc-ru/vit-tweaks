@@ -6,12 +6,13 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from aerial_svd.matrix_analysis import approximation_records, dataclass_records_to_dicts, filter_matrices, iter_weight_matrices, load_model_from_config
+from aerial_svd.analysis_backend import add_backend_arguments, prepare_analysis, finish_analysis
+from aerial_svd.matrix_records import dataclass_records_to_dicts
 
 
 def parse_args():
     p = argparse.ArgumentParser("Low-rank approximation curves for model weight matrices")
-    p.add_argument("--config", required=True)
+    add_backend_arguments(p)
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--device", default="cpu")
     p.add_argument("--out-dir", default="matrix_results/approximation")
@@ -24,13 +25,12 @@ def parse_args():
 def main():
     args = parse_args()
     out_dir = Path(args.out_dir)
+    backend, model_name, ckpt, matrices = prepare_analysis(args)
     out_dir.mkdir(parents=True, exist_ok=True)
-    model, cfg, ckpt = load_model_from_config(args.config, checkpoint=args.checkpoint, device=args.device)
-    model_name = cfg["model"]
 
     rows = []
-    for rec, W in filter_matrices(iter_weight_matrices(model), args.include_regex, args.exclude_regex):
-        rows.extend(approximation_records(model_name, ckpt, rec, W, args.rank_ratios))
+    for rec, W in matrices:
+        rows.extend(backend.approximation_records(model_name, ckpt, rec, W, args.rank_ratios))
     df = pd.DataFrame(dataclass_records_to_dicts(rows))
     df.to_csv(out_dir / f"{model_name}_approximation_curves.csv", index=False)
 
@@ -59,6 +59,7 @@ def main():
         plt.savefig(out_dir / f"{model_name}_median_tradeoff_by_kind.png", dpi=200)
         plt.close()
 
+    finish_analysis(args)
     print(f"Saved: {out_dir}")
     if not df.empty:
         print(df.groupby(["kind", "rank_ratio"])[["fro_error", "spectral_error", "storage_ratio"]].median().to_string())

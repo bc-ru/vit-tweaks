@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+if __name__ == "__main__":
+    from aerial_svd.backend_dispatch import dispatch
+    dispatch("inspect")
+
 import argparse
 from collections import defaultdict
 from pathlib import Path
@@ -12,29 +16,7 @@ from aerial_svd.svd import find_linear_targets, dense_params, lowrank_params, ra
 from aerial_svd.utils import count_total_params, get_device, human_bytes, load_yaml, save_json, seed_everything, sizeof_params_bytes
 
 
-def classify_param(name: str) -> str:
-    if "attn.qkv.weight" in name:
-        return "attention_qkv"
-    if "attn.proj.weight" in name:
-        return "attention_proj"
-    if "mlp.fc1.weight" in name:
-        return "ffn_expand"
-    if "mlp.fc2.weight" in name:
-        return "ffn_contract"
-    if "patch_embed.proj.weight" in name:
-        return "patch_embed"
-    if name.endswith("head.weight"):
-        return "classifier"
-    if "norm" in name:
-        return "normalization"
-    if "bias" in name:
-        return "bias"
-    if "pos_embed" in name:
-        return "positional_embedding"
-    if "cls_token" in name:
-        return "class_token"
-    return "other"
-
+from aerial_svd.parameter_groups import classify_param
 
 def parse_args():
     p = argparse.ArgumentParser("Inspect timm model module tree and compressible parameter groups")

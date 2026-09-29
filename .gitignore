@@ -37,3 +37,4 @@ matrix_results/
 *.tar.gz
 .qwen/
 .agents/
+.scratch/

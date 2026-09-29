@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+if __name__ == "__main__":
+    from aerial_svd.backend_dispatch import dispatch
+    dispatch("compress")
+
 import argparse
 from pathlib import Path
 

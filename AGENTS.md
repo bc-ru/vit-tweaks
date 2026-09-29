@@ -85,6 +85,16 @@ docker run --ipc=host --gpus=all -v "$PWD:/workspace" -w /workspace <image> bash
 
 ## Commands
 
+Native JAX workflows: see `JAX_MIGRATION.md`. Existing entry points accept
+`--backend jax` before importing Torch; default Torch commands remain the rollback
+path. `jax_models.py` / `model_spec.py` own the exact three supported architectures;
+`jax_checkpoint.py` owns portable NPZ state; `jax_cli.py` / `jax_engine.py` own native
+execution. Never load NPZ as `.pt` or silently mix backend result directories.
+`Dockerfile.jax` builds CPU or CUDA12 images with the reference JPEG decoder; stock
+Pillow wheels can change pixels. Native tests live in `tests/`; cross-framework
+tests need both runtimes, standalone CLI tests need only the JAX image. Preserve
+the existing split, class order (30 in current artifacts), thresholds, and SVD split.
+
 ```bash
 bash scripts/inspect_models.sh              # 0: parameter inventory + low-rank candidates
 bash scripts/train_vit_small.sh             # 1: ViT-S baseline

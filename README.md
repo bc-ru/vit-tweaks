@@ -1,5 +1,10 @@
 # Aerial ViT SVD Compression Codebase
 
+The complete JAX backend is available with `--backend jax`, including training,
+checkpoint conversion, compression, and matrix analysis. See
+[JAX_MIGRATION.md](JAX_MIGRATION.md) for CPU/CUDA containers, commands, validation,
+and compatibility notes. Existing PyTorch commands remain supported.
+
 Small PyTorch/timm codebase for the thesis subproblem:
 
 > Fine-tune ViT-Small / ViT-Base on aerial imagery, compress selected `Linear` layers by truncated SVD, then measure accuracy, parameter count, checkpoint size, GPU memory, latency, and throughput.
