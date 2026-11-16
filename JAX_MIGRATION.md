@@ -46,6 +46,41 @@ also works; its seed-42 random stream is not Torch's stream.
 
 ## Run the native workflow
 
+### VS Code development
+
+Build `aerial-svd-jax:cuda12` with the small-context command above first. In VS Code,
+run **Dev Containers: Reopen in Container** and select **JAX (CUDA 12)**. If already
+in the Torch container, reopen locally first; use **Dev Containers: Switch Container**
+to select the JAX configuration when needed. The configuration lives at
+`.devcontainer/jax/devcontainer.json`; the existing Torch configuration is retained.
+The development build sends only `.devcontainer/jax` as its context and downloads
+Git, debugpy, Ruff, and ipykernel. It needs Docker's NVIDIA runtime and network access
+for packages and VS Code extensions, but no credential mounts.
+
+Python/Pylance, Ruff, debugpy, and Jupyter are installed in the container by VS Code.
+Select `/usr/local/bin/python` if a previously saved interpreter overrides the default;
+choose that interpreter as the notebook kernel too. `src` is on the runtime and
+analysis paths. Ruff provides diagnostics and explicit **Format Document**; automatic
+formatting is off to avoid unrelated changes to research code. The Test Explorer
+discovers only `test_jax_cli.py`, since other tests require the reference Torch runtime.
+The **JAX: native CLI tests (CPU)** debug launch follows subprocesses and runs bounded
+tests without datasets or GPU use. JIT-compiled operations do not support ordinary
+Python stepping; temporarily set `JAX_DISABLE_JIT=1` when debugging their Python body.
+Check shared GPU availability before running GPU workloads. Container terminals run
+as root, as in the existing workflow; generated bind-mounted files may be root-owned.
+
+Development readiness checked on 2026-09-30: the installed Dev Containers CLI
+0.88.0 resolves this configuration; `aerial-svd-jax:dev` builds successfully;
+`pip check` passes; both native CLI tests pass through debugpy; a Jupyter kernel
+starts and executes JAX on CPU. JAX remains 0.4.38 and JPEG remains 9.0. Ruff
+0.11.13 runs successfully and reports 20 existing diagnostics across `src`/`tests`
+(15 unused imports, one ambiguous variable name, four multiple-statement lines).
+These were not auto-fixed. Local VS Code already has Dev Containers, Python,
+Pylance, debugpy, and Jupyter; Ruff is requested by this new container configuration.
+GUI extension installation/activation, interactive breakpoint attachment, and GPU
+execution were not exercised in this development-tooling check. The host Docker
+build emitted nonfatal expired-credential warnings for unrelated Yandex registries.
+
 Start the GPU container (check the shared GPU is free first):
 
 ```bash
