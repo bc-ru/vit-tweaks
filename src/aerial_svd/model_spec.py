@@ -116,13 +116,14 @@ def validate_state(spec, params, buffers):
 
 
 def is_target(name, mode):
-    if mode not in ("ffn", "attn", "all"):
-        raise ValueError("mode must be ffn, attn, or all")
+    if mode not in ("ffn", "attn", "all", "all_blocks"):
+        raise ValueError("mode must be ffn, attn, all_blocks, or all")
     attn = "attn.qkv" in name or "attn.proj" in name
     ffn = "mlp.fc1" in name or "mlp.fc2" in name
     return (
         (mode == "ffn" and ffn)
         or (mode == "attn" and attn)
+        or (mode == "all_blocks" and name.startswith("blocks.") and (attn or ffn))
         or (mode == "all" and (attn or ffn or name.endswith("head")))
     )
 

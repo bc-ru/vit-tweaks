@@ -38,3 +38,4 @@ matrix_results/
 .qwen/
 .agents/
 .scratch/
+experiments/lowrank_2026/

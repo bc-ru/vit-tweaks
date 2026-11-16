@@ -1,0 +1,1059 @@
+{
+  "description": "Measured CPU checks, not a sweep or final-test result",
+  "source_checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+  "original_torch_sha256": "1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050",
+  "aid_split_sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e",
+  "split_counts": {
+    "train": 7000,
+    "val": 1500,
+    "test": 1500
+  },
+  "classes": [
+    "Airport",
+    "BareLand",
+    "BaseballField",
+    "Beach",
+    "Bridge",
+    "Center",
+    "Church",
+    "Commercial",
+    "DenseResidential",
+    "Desert",
+    "Farmland",
+    "Forest",
+    "Industrial",
+    "Meadow",
+    "MediumResidential",
+    "Mountain",
+    "Park",
+    "Parking",
+    "Playground",
+    "Pond",
+    "Port",
+    "RailwayStation",
+    "Resort",
+    "River",
+    "School",
+    "SparseResidential",
+    "Square",
+    "Stadium",
+    "StorageTanks",
+    "Viaduct"
+  ],
+  "baseline_validation": {
+    "loss": 0.19847448102633158,
+    "top1": 0.9733333333333334,
+    "num_samples": 1500
+  },
+  "baseline_reference_verified": true,
+  "factor_checks": [
+    {
+      "name": "blocks.0.attn.proj",
+      "shape": [
+        384,
+        384
+      ],
+      "requested_rank": 192,
+      "requested_ratio": 0.5,
+      "actual_rank": 192,
+      "control": false,
+      "reference_relative_error": 6.438408750207746e-08,
+      "full_rank_relative_error": null,
+      "frobenius_optimality_error": 1.568019211929328e-08,
+      "original_coefficients": 147456,
+      "factor_coefficients": 147456,
+      "svd_seconds": 0.05630572000518441,
+      "method": "exact_svd"
+    },
+    {
+      "name": "blocks.0.attn.proj",
+      "shape": [
+        384,
+        384
+      ],
+      "requested_rank": 288,
+      "requested_ratio": 0.75,
+      "actual_rank": 288,
+      "control": false,
+      "reference_relative_error": 6.352844831978836e-08,
+      "full_rank_relative_error": null,
+      "frobenius_optimality_error": 1.754661487358436e-08,
+      "original_coefficients": 147456,
+      "factor_coefficients": 221184,
+      "svd_seconds": 0.056607851292937994,
+      "method": "exact_svd"
+    },
+    {
+      "name": "blocks.0.attn.proj",
+      "shape": [
+        384,
+        384
+      ],
+      "requested_rank": 384,
+      "requested_ratio": 1.0,
+      "actual_rank": 384,
+      "control": false,
+      "reference_relative_error": 6.365310324988066e-08,
+      "full_rank_relative_error": 1.2852344033526568e-06,
+      "frobenius_optimality_error": 1.2852344033526568e-06,
+      "original_coefficients": 147456,
+      "factor_coefficients": 294912,
+      "svd_seconds": 0.028954070061445236,
+      "method": "exact_svd"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ],
+      "requested_rank": 192,
+      "requested_ratio": 0.5,
+      "actual_rank": 192,
+      "control": false,
+      "reference_relative_error": 5.858117201939423e-08,
+      "full_rank_relative_error": null,
+      "frobenius_optimality_error": 2.199663801585873e-08,
+      "original_coefficients": 589824,
+      "factor_coefficients": 368640,
+      "svd_seconds": 0.032128353137522936,
+      "method": "exact_svd"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ],
+      "requested_rank": 288,
+      "requested_ratio": 0.75,
+      "actual_rank": 288,
+      "control": false,
+      "reference_relative_error": 5.934595891271008e-08,
+      "full_rank_relative_error": null,
+      "frobenius_optimality_error": 1.2774561991036043e-09,
+      "original_coefficients": 589824,
+      "factor_coefficients": 552960,
+      "svd_seconds": 0.03159158816561103,
+      "method": "exact_svd"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "shape": [
+        1536,
+        384
+      ],
+      "requested_rank": 384,
+      "requested_ratio": 1.0,
+      "actual_rank": 384,
+      "control": false,
+      "reference_relative_error": 5.9290080695924555e-08,
+      "full_rank_relative_error": 1.3943074210292072e-06,
+      "frobenius_optimality_error": 1.3943074210292072e-06,
+      "original_coefficients": 589824,
+      "factor_coefficients": 737280,
+      "svd_seconds": 0.028959800954908133,
+      "method": "exact_svd"
+    }
+  ],
+  "matrix_curves": [
+    {
+      "name": "blocks.0.attn.proj",
+      "m": "384",
+      "n": "384",
+      "requested_rank": "96",
+      "requested_ratio": "0.25",
+      "actual_rank": "96",
+      "relative_frobenius_error": "0.5536791772486283",
+      "relative_spectral_error": "0.2540751415803197",
+      "original_coefficients": "147456",
+      "factor_coefficients": "73728",
+      "coefficient_savings": "73728",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.05672952812165022"
+    },
+    {
+      "name": "blocks.0.attn.proj",
+      "m": "384",
+      "n": "384",
+      "requested_rank": "192",
+      "requested_ratio": "0.5",
+      "actual_rank": "192",
+      "relative_frobenius_error": "0.33391120524745127",
+      "relative_spectral_error": "0.1746863057803147",
+      "original_coefficients": "147456",
+      "factor_coefficients": "147456",
+      "coefficient_savings": "0",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.05672952812165022"
+    },
+    {
+      "name": "blocks.0.attn.proj",
+      "m": "384",
+      "n": "384",
+      "requested_rank": "288",
+      "requested_ratio": "0.75",
+      "actual_rank": "288",
+      "relative_frobenius_error": "0.10138247915211213",
+      "relative_spectral_error": "0.09762175716957718",
+      "original_coefficients": "147456",
+      "factor_coefficients": "221184",
+      "coefficient_savings": "-73728",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.05672952812165022"
+    },
+    {
+      "name": "blocks.0.attn.proj",
+      "m": "384",
+      "n": "384",
+      "requested_rank": "384",
+      "requested_ratio": "1.0",
+      "actual_rank": "384",
+      "relative_frobenius_error": "0.0",
+      "relative_spectral_error": "0.0",
+      "original_coefficients": "147456",
+      "factor_coefficients": "294912",
+      "coefficient_savings": "-147456",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.05672952812165022"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "m": "1536",
+      "n": "384",
+      "requested_rank": "96",
+      "requested_ratio": "0.25",
+      "actual_rank": "96",
+      "relative_frobenius_error": "0.6038427946809539",
+      "relative_spectral_error": "0.33231316392182086",
+      "original_coefficients": "589824",
+      "factor_coefficients": "184320",
+      "coefficient_savings": "405504",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.022786595858633518"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "m": "1536",
+      "n": "384",
+      "requested_rank": "192",
+      "requested_ratio": "0.5",
+      "actual_rank": "192",
+      "relative_frobenius_error": "0.33631067861612673",
+      "relative_spectral_error": "0.25567034394062144",
+      "original_coefficients": "589824",
+      "factor_coefficients": "368640",
+      "coefficient_savings": "221184",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.022786595858633518"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "m": "1536",
+      "n": "384",
+      "requested_rank": "288",
+      "requested_ratio": "0.75",
+      "actual_rank": "288",
+      "relative_frobenius_error": "0.1400558676930095",
+      "relative_spectral_error": "0.11527622845507338",
+      "original_coefficients": "589824",
+      "factor_coefficients": "552960",
+      "coefficient_savings": "36864",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.022786595858633518"
+    },
+    {
+      "name": "blocks.0.mlp.fc1",
+      "m": "1536",
+      "n": "384",
+      "requested_rank": "384",
+      "requested_ratio": "1.0",
+      "actual_rank": "384",
+      "relative_frobenius_error": "0.0",
+      "relative_spectral_error": "0.0",
+      "original_coefficients": "589824",
+      "factor_coefficients": "737280",
+      "coefficient_savings": "-147456",
+      "checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+      "method": "exact_svd",
+      "dtype": "float32",
+      "svd_seconds": "0.022786595858633518"
+    }
+  ],
+  "manifests": {
+    "00_baseline": {
+      "stage": "00_baseline",
+      "backend": "jax",
+      "git_commit": "cb046b53cbe17ab189d088cde9ce7681e389765f",
+      "git_dirty": null,
+      "git_commit_source": "AERIAL_SVD_GIT_COMMIT; working tree state unknown",
+      "source_files_sha256": {
+        "__init__.py": "a5a785f6091518eaa463519823fcfc931eb42307d51c5a9eeef1a1417b1672bc",
+        "analysis_backend.py": "391a8ce9f32cb01ce29556080eac11095311b6b22a30c56d6fd0cb98573edfe5",
+        "analyze_spectra.py": "35f53d22cc25f1a7190c7d597ea41bf0205e7baf0d614d01a8b918344f228d93",
+        "approximation_curves.py": "76d996ecd6d9b48bcd33f5febbd321a47fc77acd7545669df3baf36e8c34a109",
+        "backend_dispatch.py": "c0bc8c455464193a38677307bf35ed267a33e19a92605bdd00e9a576939642cc",
+        "compress.py": "68c263fb85a51aebba442062517692e1b6923b49d0d5413267410e96e1f7f61a",
+        "convert_checkpoint.py": "18dc64fa93db53668cb4e33c82a2e2152685bac7783012947ce066b6b8f643a1",
+        "data.py": "945daa244873b2141bc0e524bfee999ec85a5f2d5ffa303465d123d4c171f7f2",
+        "engine.py": "72afc624d27d527a8f89b7534ee053ef5082b5d20ad0ab23046c2b2cf8b49040",
+        "evaluate.py": "fb7eaa21fb8c0273aeca1e961b73ba3478b95ff2d6dd0b4c4dbfa1054969ecc7",
+        "export_matrices.py": "a722069d872062b5bacc6219bae4292b4bcd8c4ef788a6d2c8eb96ef5760cd26",
+        "finetune_compressed.py": "57f2dab66cd8fc593f1e14571b9f3b7655987aaf115799733bf3d8eecba4fd09",
+        "inspect.py": "fc3436f22074b79f2202497a864d089c09d295906762145db99b078ac02a6f0a",
+        "jax_checkpoint.py": "8a9218ed26b6c8e4865700a5484f4aec18bc950914eb709518b40d6311245d6e",
+        "jax_cli.py": "df78794fde80229174d38ca1d4d36dbe27af13abea1e0029874a12d276790017",
+        "jax_compression.py": "0c78cc9db8758d347c846574ecfab988b6734939990452648d538722b145a3b9",
+        "jax_data.py": "9468b03546108560cf8639a9dc1190c476e199a37e92f34baabe1429e91dc630",
+        "jax_engine.py": "4b273c34ea6e8954d40d9a3ebe2b9af16916f5c54b12ccadab309555bc33f943",
+        "jax_matrix_analysis.py": "84597adb4d0e93ddcc1ad84dfdf1974274225935402d12c1a0addf131ad5a3f7",
+        "jax_models.py": "1498a944353f1d0b70cac9886d27c5a5942fe545ab5566434df812c0bed38d3a",
+        "layer_error_analysis.py": "dcf9ed8369721873dbfc97c19f78f2dd7da02f66f639ff6062a368b4fa4e4fc7",
+        "lowrank_baseline.py": "22d2a0a01c2b8b427b8e5fea5df476679107a91700b7d9ae3a4c758ae74a8bf9",
+        "lowrank_common.py": "ddf72be1096431eb6d9023bffba04657f5760e026faa2784c8b9f4a6511f8a00",
+        "lowrank_factor_checks.py": "3d935c3a10f022c2d409f73cd3e57d275d575792655bd582602489ea1f6908ca",
+        "lowrank_matrix_curves.py": "235331b71b7cf6bb7855c4c10d2d0d79789b221da94e7d713012d798ddcdfcc0",
+        "matrix_analysis.py": "55f067d1b8131ce3dd7ee0177e1992e597f19097dc86da1a85c657086ae6a3bc",
+        "matrix_archive.py": "e89956afd16463392e104d15821e66dd3c10b5067743c15ac827ca224c18bad9",
+        "matrix_records.py": "3c7656976f1080bededb7493c7ee5611ba87d93f03033053ff9fe8d08fb684ba",
+        "model_spec.py": "8a458073fa19ac814a6910b56ac3b341c1cb6517e096f2589b8148b7f653b5f2",
+        "models.py": "aea261f332428f37f7f6e09b601e008fc8eddc4f0279449e34f0679986f4b606",
+        "parameter_groups.py": "119552a7f6642275b51ccb0c07c92c0b2cf41d578258c9f09b13c861c65ef862",
+        "randomized_svd_benchmark.py": "d1b4f7cbb608231a5855a54b72ed666dce5eef07ae6cb365985df2bbf79ee01f",
+        "summarize.py": "603fb1665ccd24ecf92b699b3fcaa056158470a8ddae04dd108f06a7c2ac7f8a",
+        "svd.py": "0061e91ee988f6b0e77106972aaf4de43c7dfb95ed72bf87b90e9b02b8775c35",
+        "train.py": "5a5d7a802fbcffbc5ae504a89e7b7267c34c64de06ca2e041b522e78bd25f0bf",
+        "utils.py": "b8e2dc0b50ea4c17e3c0764c1ee9fcdbe61767f78e96fc70532175a476512329"
+      },
+      "model_spec": {
+        "model": "vit_small_patch16_224",
+        "num_classes": 30,
+        "img_size": 224
+      },
+      "checkpoint": {
+        "path": "/workspace/.scratch/jax-migration/model-vit_small.npz",
+        "sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+        "bytes": 86757346
+      },
+      "config": {
+        "path": "/workspace/configs/aid_vit_small.yaml",
+        "sha256": "59ec82fc225fc270fe513fcd4caaca0c523832e15f59d89c793a159addd9eaaa",
+        "bytes": 355
+      },
+      "source_metadata": {
+        "source_backend": "torch",
+        "torch_version": "2.1.0",
+        "timm_version": "1.0.27",
+        "source_checkpoint": "runs/aid_vit_small/best.pt",
+        "source_sha256": "1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050",
+        "source_metrics": {
+          "epoch": 15,
+          "train_loss": 0.6465610960207948,
+          "train_top1": 0.9998566513761468,
+          "val_loss": 0.727054404258728,
+          "val_top1": 0.9733333333333334
+        },
+        "config": {
+          "seed": 42,
+          "device": "auto",
+          "data_dir": "./data/AID",
+          "output_dir": "./runs/aid_vit_small",
+          "split_file": "./runs/aid_split_seed42.json",
+          "model": "vit_small_patch16_224",
+          "pretrained": true,
+          "img_size": 224,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "batch_size": 64,
+          "eval_batch_size": 128,
+          "num_workers": 4,
+          "epochs": 20,
+          "lr": 0.0003,
+          "weight_decay": 0.05,
+          "label_smoothing": 0.1,
+          "amp": true,
+          "grad_accum_steps": 1,
+          "num_classes": 30,
+          "classes": [
+            "Airport",
+            "BareLand",
+            "BaseballField",
+            "Beach",
+            "Bridge",
+            "Center",
+            "Church",
+            "Commercial",
+            "DenseResidential",
+            "Desert",
+            "Farmland",
+            "Forest",
+            "Industrial",
+            "Meadow",
+            "MediumResidential",
+            "Mountain",
+            "Park",
+            "Parking",
+            "Playground",
+            "Pond",
+            "Port",
+            "RailwayStation",
+            "Resort",
+            "River",
+            "School",
+            "SparseResidential",
+            "Square",
+            "Stadium",
+            "StorageTanks",
+            "Viaduct"
+          ]
+        },
+        "conversion": "weights and buffers only; Torch optimizer state is not translated"
+      },
+      "effective_config": {
+        "seed": 42,
+        "device": "auto",
+        "data_dir": "./data/AID",
+        "output_dir": "./runs/aid_vit_small",
+        "split_file": "./runs/aid_split_seed42.json",
+        "model": "vit_small_patch16_224",
+        "pretrained": true,
+        "img_size": 224,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "batch_size": 64,
+        "eval_batch_size": 128,
+        "num_workers": 12,
+        "epochs": 20,
+        "lr": 0.0003,
+        "weight_decay": 0.05,
+        "label_smoothing": 0.1,
+        "amp": true,
+        "grad_accum_steps": 1
+      },
+      "arguments": {
+        "config": "configs/aid_vit_small.yaml",
+        "checkpoint": ".scratch/jax-migration/model-vit_small.npz",
+        "output_dir": "experiments/lowrank_2026/protocol_v1_cpu_20261117/00_baseline",
+        "device": "cpu",
+        "data_dir": null,
+        "batch_size": 8,
+        "max_val_batches": null,
+        "expected_top1": 0.9733333333333334,
+        "top1_atol": 0.005
+      },
+      "method": "exact_svd",
+      "factorization_policy": "all_selected_v1",
+      "dtype": "float32",
+      "environment": {
+        "jax": "0.4.38",
+        "numpy": "1.26.4",
+        "python": "3.10.21",
+        "device": "TFRT_CPU_0",
+        "platform": "cpu"
+      },
+      "aid_split": {
+        "path": "/workspace/runs/aid_split_seed42.json",
+        "sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e",
+        "bytes": 119592
+      },
+      "dataset_fingerprint": "724a9c3741cfc544bc493eac80fe2d8eb2945530e8212db87d876d1645162b8d",
+      "classes": [
+        "Airport",
+        "BareLand",
+        "BaseballField",
+        "Beach",
+        "Bridge",
+        "Center",
+        "Church",
+        "Commercial",
+        "DenseResidential",
+        "Desert",
+        "Farmland",
+        "Forest",
+        "Industrial",
+        "Meadow",
+        "MediumResidential",
+        "Mountain",
+        "Park",
+        "Parking",
+        "Playground",
+        "Pond",
+        "Port",
+        "RailwayStation",
+        "Resort",
+        "River",
+        "School",
+        "SparseResidential",
+        "Square",
+        "Stadium",
+        "StorageTanks",
+        "Viaduct"
+      ],
+      "class_to_idx": {
+        "Airport": 0,
+        "BareLand": 1,
+        "BaseballField": 2,
+        "Beach": 3,
+        "Bridge": 4,
+        "Center": 5,
+        "Church": 6,
+        "Commercial": 7,
+        "DenseResidential": 8,
+        "Desert": 9,
+        "Farmland": 10,
+        "Forest": 11,
+        "Industrial": 12,
+        "Meadow": 13,
+        "MediumResidential": 14,
+        "Mountain": 15,
+        "Park": 16,
+        "Parking": 17,
+        "Playground": 18,
+        "Pond": 19,
+        "Port": 20,
+        "RailwayStation": 21,
+        "Resort": 22,
+        "River": 23,
+        "School": 24,
+        "SparseResidential": 25,
+        "Square": 26,
+        "Stadium": 27,
+        "StorageTanks": 28,
+        "Viaduct": 29
+      },
+      "image_decoder": {
+        "pillow": "12.3.0",
+        "jpeg": "9.0",
+        "libjpeg_turbo": false
+      },
+      "preprocessing": {
+        "resize": "bicubic_square",
+        "img_size": 224,
+        "mean": [
+          0.485,
+          0.456,
+          0.406
+        ],
+        "std": [
+          0.229,
+          0.224,
+          0.225
+        ]
+      },
+      "split_counts": {
+        "train": 7000,
+        "val": 1500,
+        "test": 1500
+      },
+      "evaluation_split": "val",
+      "original_checkpoint": {
+        "path": "/workspace/runs/aid_vit_small/best.pt",
+        "sha256": "1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050",
+        "bytes": 260283782
+      },
+      "outputs": {
+        "baseline.json": {
+          "path": "/workspace/experiments/lowrank_2026/protocol_v1_cpu_20261117/00_baseline/baseline.json",
+          "sha256": "e678398d55a48427196f4bdac0e818132b8ce566b0e2a02a417823349936476b",
+          "bytes": 9446
+        }
+      },
+      "status": "complete"
+    },
+    "01_factor_checks": {
+      "stage": "01_factor_checks",
+      "backend": "jax",
+      "git_commit": "cb046b53cbe17ab189d088cde9ce7681e389765f",
+      "git_dirty": null,
+      "git_commit_source": "AERIAL_SVD_GIT_COMMIT; working tree state unknown",
+      "source_files_sha256": {
+        "__init__.py": "a5a785f6091518eaa463519823fcfc931eb42307d51c5a9eeef1a1417b1672bc",
+        "analysis_backend.py": "391a8ce9f32cb01ce29556080eac11095311b6b22a30c56d6fd0cb98573edfe5",
+        "analyze_spectra.py": "35f53d22cc25f1a7190c7d597ea41bf0205e7baf0d614d01a8b918344f228d93",
+        "approximation_curves.py": "76d996ecd6d9b48bcd33f5febbd321a47fc77acd7545669df3baf36e8c34a109",
+        "backend_dispatch.py": "c0bc8c455464193a38677307bf35ed267a33e19a92605bdd00e9a576939642cc",
+        "compress.py": "68c263fb85a51aebba442062517692e1b6923b49d0d5413267410e96e1f7f61a",
+        "convert_checkpoint.py": "18dc64fa93db53668cb4e33c82a2e2152685bac7783012947ce066b6b8f643a1",
+        "data.py": "945daa244873b2141bc0e524bfee999ec85a5f2d5ffa303465d123d4c171f7f2",
+        "engine.py": "72afc624d27d527a8f89b7534ee053ef5082b5d20ad0ab23046c2b2cf8b49040",
+        "evaluate.py": "fb7eaa21fb8c0273aeca1e961b73ba3478b95ff2d6dd0b4c4dbfa1054969ecc7",
+        "export_matrices.py": "a722069d872062b5bacc6219bae4292b4bcd8c4ef788a6d2c8eb96ef5760cd26",
+        "finetune_compressed.py": "57f2dab66cd8fc593f1e14571b9f3b7655987aaf115799733bf3d8eecba4fd09",
+        "inspect.py": "fc3436f22074b79f2202497a864d089c09d295906762145db99b078ac02a6f0a",
+        "jax_checkpoint.py": "8a9218ed26b6c8e4865700a5484f4aec18bc950914eb709518b40d6311245d6e",
+        "jax_cli.py": "2a97e490f38504c25d78af1b8fb03ca39d2b5632cfbdad824d81f8592e3c989b",
+        "jax_compression.py": "0c78cc9db8758d347c846574ecfab988b6734939990452648d538722b145a3b9",
+        "jax_data.py": "9468b03546108560cf8639a9dc1190c476e199a37e92f34baabe1429e91dc630",
+        "jax_engine.py": "4b273c34ea6e8954d40d9a3ebe2b9af16916f5c54b12ccadab309555bc33f943",
+        "jax_matrix_analysis.py": "84597adb4d0e93ddcc1ad84dfdf1974274225935402d12c1a0addf131ad5a3f7",
+        "jax_models.py": "1498a944353f1d0b70cac9886d27c5a5942fe545ab5566434df812c0bed38d3a",
+        "layer_error_analysis.py": "dcf9ed8369721873dbfc97c19f78f2dd7da02f66f639ff6062a368b4fa4e4fc7",
+        "lowrank_baseline.py": "22d2a0a01c2b8b427b8e5fea5df476679107a91700b7d9ae3a4c758ae74a8bf9",
+        "lowrank_common.py": "ddf72be1096431eb6d9023bffba04657f5760e026faa2784c8b9f4a6511f8a00",
+        "lowrank_factor_checks.py": "3d935c3a10f022c2d409f73cd3e57d275d575792655bd582602489ea1f6908ca",
+        "lowrank_matrix_curves.py": "235331b71b7cf6bb7855c4c10d2d0d79789b221da94e7d713012d798ddcdfcc0",
+        "matrix_analysis.py": "55f067d1b8131ce3dd7ee0177e1992e597f19097dc86da1a85c657086ae6a3bc",
+        "matrix_archive.py": "e89956afd16463392e104d15821e66dd3c10b5067743c15ac827ca224c18bad9",
+        "matrix_records.py": "3c7656976f1080bededb7493c7ee5611ba87d93f03033053ff9fe8d08fb684ba",
+        "model_spec.py": "8a458073fa19ac814a6910b56ac3b341c1cb6517e096f2589b8148b7f653b5f2",
+        "models.py": "aea261f332428f37f7f6e09b601e008fc8eddc4f0279449e34f0679986f4b606",
+        "parameter_groups.py": "119552a7f6642275b51ccb0c07c92c0b2cf41d578258c9f09b13c861c65ef862",
+        "randomized_svd_benchmark.py": "d1b4f7cbb608231a5855a54b72ed666dce5eef07ae6cb365985df2bbf79ee01f",
+        "summarize.py": "603fb1665ccd24ecf92b699b3fcaa056158470a8ddae04dd108f06a7c2ac7f8a",
+        "svd.py": "0061e91ee988f6b0e77106972aaf4de43c7dfb95ed72bf87b90e9b02b8775c35",
+        "train.py": "5a5d7a802fbcffbc5ae504a89e7b7267c34c64de06ca2e041b522e78bd25f0bf",
+        "utils.py": "b8e2dc0b50ea4c17e3c0764c1ee9fcdbe61767f78e96fc70532175a476512329"
+      },
+      "model_spec": {
+        "model": "vit_small_patch16_224",
+        "num_classes": 30,
+        "img_size": 224
+      },
+      "checkpoint": {
+        "path": "/workspace/checkpoints/jax/vit_small_protocol_v1.npz",
+        "sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+        "bytes": 86757346
+      },
+      "config": {
+        "path": "/workspace/configs/aid_vit_small.yaml",
+        "sha256": "59ec82fc225fc270fe513fcd4caaca0c523832e15f59d89c793a159addd9eaaa",
+        "bytes": 355
+      },
+      "source_metadata": {
+        "source_backend": "torch",
+        "torch_version": "2.1.0",
+        "timm_version": "1.0.27",
+        "source_checkpoint": "runs/aid_vit_small/best.pt",
+        "source_sha256": "1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050",
+        "source_metrics": {
+          "epoch": 15,
+          "train_loss": 0.6465610960207948,
+          "train_top1": 0.9998566513761468,
+          "val_loss": 0.727054404258728,
+          "val_top1": 0.9733333333333334
+        },
+        "config": {
+          "seed": 42,
+          "device": "auto",
+          "data_dir": "./data/AID",
+          "output_dir": "./runs/aid_vit_small",
+          "split_file": "./runs/aid_split_seed42.json",
+          "model": "vit_small_patch16_224",
+          "pretrained": true,
+          "img_size": 224,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "batch_size": 64,
+          "eval_batch_size": 128,
+          "num_workers": 4,
+          "epochs": 20,
+          "lr": 0.0003,
+          "weight_decay": 0.05,
+          "label_smoothing": 0.1,
+          "amp": true,
+          "grad_accum_steps": 1,
+          "num_classes": 30,
+          "classes": [
+            "Airport",
+            "BareLand",
+            "BaseballField",
+            "Beach",
+            "Bridge",
+            "Center",
+            "Church",
+            "Commercial",
+            "DenseResidential",
+            "Desert",
+            "Farmland",
+            "Forest",
+            "Industrial",
+            "Meadow",
+            "MediumResidential",
+            "Mountain",
+            "Park",
+            "Parking",
+            "Playground",
+            "Pond",
+            "Port",
+            "RailwayStation",
+            "Resort",
+            "River",
+            "School",
+            "SparseResidential",
+            "Square",
+            "Stadium",
+            "StorageTanks",
+            "Viaduct"
+          ]
+        },
+        "conversion": "weights and buffers only; Torch optimizer state is not translated"
+      },
+      "effective_config": {
+        "seed": 42,
+        "device": "auto",
+        "data_dir": "./data/AID",
+        "output_dir": "./runs/aid_vit_small",
+        "split_file": "./runs/aid_split_seed42.json",
+        "model": "vit_small_patch16_224",
+        "pretrained": true,
+        "img_size": 224,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "batch_size": 64,
+        "eval_batch_size": 128,
+        "num_workers": 12,
+        "epochs": 20,
+        "lr": 0.0003,
+        "weight_decay": 0.05,
+        "label_smoothing": 0.1,
+        "amp": true,
+        "grad_accum_steps": 1
+      },
+      "arguments": {
+        "config": "configs/aid_vit_small.yaml",
+        "checkpoint": "checkpoints/jax/vit_small_protocol_v1.npz",
+        "output_dir": "experiments/lowrank_2026/protocol_v1_cpu_20261117/01_factor_checks",
+        "device": "cpu",
+        "scope": "all_blocks",
+        "matrices": [
+          "blocks.0.attn.proj",
+          "blocks.0.mlp.fc1"
+        ],
+        "rank_ratios": [
+          0.5,
+          0.75,
+          1.0
+        ],
+        "ranks": null
+      },
+      "method": "exact_svd",
+      "factorization_policy": "all_selected_v1",
+      "dtype": "float32",
+      "environment": {
+        "jax": "0.4.38",
+        "numpy": "1.26.4",
+        "python": "3.10.21",
+        "device": "TFRT_CPU_0",
+        "platform": "cpu"
+      },
+      "aid_split": {
+        "path": "/workspace/runs/aid_split_seed42.json",
+        "sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e",
+        "bytes": 119592
+      },
+      "selected_matrices": [
+        "blocks.0.attn.proj",
+        "blocks.0.mlp.fc1"
+      ],
+      "ranks": {
+        "blocks.0.attn.proj": [
+          {
+            "requested_rank": 192,
+            "requested_ratio": 0.5,
+            "actual_rank": 192
+          },
+          {
+            "requested_rank": 288,
+            "requested_ratio": 0.75,
+            "actual_rank": 288
+          },
+          {
+            "requested_rank": 384,
+            "requested_ratio": 1.0,
+            "actual_rank": 384
+          }
+        ],
+        "blocks.0.mlp.fc1": [
+          {
+            "requested_rank": 192,
+            "requested_ratio": 0.5,
+            "actual_rank": 192
+          },
+          {
+            "requested_rank": 288,
+            "requested_ratio": 0.75,
+            "actual_rank": 288
+          },
+          {
+            "requested_rank": 384,
+            "requested_ratio": 1.0,
+            "actual_rank": 384
+          }
+        ]
+      },
+      "full_rank_control": true,
+      "relative_tolerance": 5e-05,
+      "svd_timing": "compression call including synchronized exact SVD and factors; reference SVD excluded",
+      "outputs": {
+        "checked_factors.npz": {
+          "path": "/workspace/experiments/lowrank_2026/protocol_v1_cpu_20261117/01_factor_checks/checked_factors.npz",
+          "sha256": "12a94a3cad516252e5aff52b8d8ab7c83d8ad4aa39cf8084bf420053ef65e57e",
+          "bytes": 9318334
+        },
+        "factor_checks.json": {
+          "path": "/workspace/experiments/lowrank_2026/protocol_v1_cpu_20261117/01_factor_checks/factor_checks.json",
+          "sha256": "454709ba669d14aa09667bc29df2406b0dbf17aa17ec3ee3cdc5504a2703dd5c",
+          "bytes": 11295
+        }
+      },
+      "status": "complete"
+    },
+    "02_matrix_curves": {
+      "stage": "02_matrix_curves",
+      "backend": "jax",
+      "git_commit": "cb046b53cbe17ab189d088cde9ce7681e389765f",
+      "git_dirty": null,
+      "git_commit_source": "AERIAL_SVD_GIT_COMMIT; working tree state unknown",
+      "source_files_sha256": {
+        "__init__.py": "a5a785f6091518eaa463519823fcfc931eb42307d51c5a9eeef1a1417b1672bc",
+        "analysis_backend.py": "391a8ce9f32cb01ce29556080eac11095311b6b22a30c56d6fd0cb98573edfe5",
+        "analyze_spectra.py": "35f53d22cc25f1a7190c7d597ea41bf0205e7baf0d614d01a8b918344f228d93",
+        "approximation_curves.py": "76d996ecd6d9b48bcd33f5febbd321a47fc77acd7545669df3baf36e8c34a109",
+        "backend_dispatch.py": "c0bc8c455464193a38677307bf35ed267a33e19a92605bdd00e9a576939642cc",
+        "compress.py": "68c263fb85a51aebba442062517692e1b6923b49d0d5413267410e96e1f7f61a",
+        "convert_checkpoint.py": "18dc64fa93db53668cb4e33c82a2e2152685bac7783012947ce066b6b8f643a1",
+        "data.py": "945daa244873b2141bc0e524bfee999ec85a5f2d5ffa303465d123d4c171f7f2",
+        "engine.py": "72afc624d27d527a8f89b7534ee053ef5082b5d20ad0ab23046c2b2cf8b49040",
+        "evaluate.py": "fb7eaa21fb8c0273aeca1e961b73ba3478b95ff2d6dd0b4c4dbfa1054969ecc7",
+        "export_matrices.py": "a722069d872062b5bacc6219bae4292b4bcd8c4ef788a6d2c8eb96ef5760cd26",
+        "finetune_compressed.py": "57f2dab66cd8fc593f1e14571b9f3b7655987aaf115799733bf3d8eecba4fd09",
+        "inspect.py": "fc3436f22074b79f2202497a864d089c09d295906762145db99b078ac02a6f0a",
+        "jax_checkpoint.py": "8a9218ed26b6c8e4865700a5484f4aec18bc950914eb709518b40d6311245d6e",
+        "jax_cli.py": "2a97e490f38504c25d78af1b8fb03ca39d2b5632cfbdad824d81f8592e3c989b",
+        "jax_compression.py": "0c78cc9db8758d347c846574ecfab988b6734939990452648d538722b145a3b9",
+        "jax_data.py": "9468b03546108560cf8639a9dc1190c476e199a37e92f34baabe1429e91dc630",
+        "jax_engine.py": "4b273c34ea6e8954d40d9a3ebe2b9af16916f5c54b12ccadab309555bc33f943",
+        "jax_matrix_analysis.py": "84597adb4d0e93ddcc1ad84dfdf1974274225935402d12c1a0addf131ad5a3f7",
+        "jax_models.py": "1498a944353f1d0b70cac9886d27c5a5942fe545ab5566434df812c0bed38d3a",
+        "layer_error_analysis.py": "dcf9ed8369721873dbfc97c19f78f2dd7da02f66f639ff6062a368b4fa4e4fc7",
+        "lowrank_baseline.py": "22d2a0a01c2b8b427b8e5fea5df476679107a91700b7d9ae3a4c758ae74a8bf9",
+        "lowrank_common.py": "ddf72be1096431eb6d9023bffba04657f5760e026faa2784c8b9f4a6511f8a00",
+        "lowrank_factor_checks.py": "3d935c3a10f022c2d409f73cd3e57d275d575792655bd582602489ea1f6908ca",
+        "lowrank_matrix_curves.py": "235331b71b7cf6bb7855c4c10d2d0d79789b221da94e7d713012d798ddcdfcc0",
+        "matrix_analysis.py": "55f067d1b8131ce3dd7ee0177e1992e597f19097dc86da1a85c657086ae6a3bc",
+        "matrix_archive.py": "e89956afd16463392e104d15821e66dd3c10b5067743c15ac827ca224c18bad9",
+        "matrix_records.py": "3c7656976f1080bededb7493c7ee5611ba87d93f03033053ff9fe8d08fb684ba",
+        "model_spec.py": "8a458073fa19ac814a6910b56ac3b341c1cb6517e096f2589b8148b7f653b5f2",
+        "models.py": "aea261f332428f37f7f6e09b601e008fc8eddc4f0279449e34f0679986f4b606",
+        "parameter_groups.py": "119552a7f6642275b51ccb0c07c92c0b2cf41d578258c9f09b13c861c65ef862",
+        "randomized_svd_benchmark.py": "d1b4f7cbb608231a5855a54b72ed666dce5eef07ae6cb365985df2bbf79ee01f",
+        "summarize.py": "603fb1665ccd24ecf92b699b3fcaa056158470a8ddae04dd108f06a7c2ac7f8a",
+        "svd.py": "0061e91ee988f6b0e77106972aaf4de43c7dfb95ed72bf87b90e9b02b8775c35",
+        "train.py": "5a5d7a802fbcffbc5ae504a89e7b7267c34c64de06ca2e041b522e78bd25f0bf",
+        "utils.py": "b8e2dc0b50ea4c17e3c0764c1ee9fcdbe61767f78e96fc70532175a476512329"
+      },
+      "model_spec": {
+        "model": "vit_small_patch16_224",
+        "num_classes": 30,
+        "img_size": 224
+      },
+      "checkpoint": {
+        "path": "/workspace/checkpoints/jax/vit_small_protocol_v1.npz",
+        "sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+        "bytes": 86757346
+      },
+      "config": {
+        "path": "/workspace/configs/aid_vit_small.yaml",
+        "sha256": "59ec82fc225fc270fe513fcd4caaca0c523832e15f59d89c793a159addd9eaaa",
+        "bytes": 355
+      },
+      "source_metadata": {
+        "source_backend": "torch",
+        "torch_version": "2.1.0",
+        "timm_version": "1.0.27",
+        "source_checkpoint": "runs/aid_vit_small/best.pt",
+        "source_sha256": "1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050",
+        "source_metrics": {
+          "epoch": 15,
+          "train_loss": 0.6465610960207948,
+          "train_top1": 0.9998566513761468,
+          "val_loss": 0.727054404258728,
+          "val_top1": 0.9733333333333334
+        },
+        "config": {
+          "seed": 42,
+          "device": "auto",
+          "data_dir": "./data/AID",
+          "output_dir": "./runs/aid_vit_small",
+          "split_file": "./runs/aid_split_seed42.json",
+          "model": "vit_small_patch16_224",
+          "pretrained": true,
+          "img_size": 224,
+          "train_ratio": 0.7,
+          "val_ratio": 0.15,
+          "batch_size": 64,
+          "eval_batch_size": 128,
+          "num_workers": 4,
+          "epochs": 20,
+          "lr": 0.0003,
+          "weight_decay": 0.05,
+          "label_smoothing": 0.1,
+          "amp": true,
+          "grad_accum_steps": 1,
+          "num_classes": 30,
+          "classes": [
+            "Airport",
+            "BareLand",
+            "BaseballField",
+            "Beach",
+            "Bridge",
+            "Center",
+            "Church",
+            "Commercial",
+            "DenseResidential",
+            "Desert",
+            "Farmland",
+            "Forest",
+            "Industrial",
+            "Meadow",
+            "MediumResidential",
+            "Mountain",
+            "Park",
+            "Parking",
+            "Playground",
+            "Pond",
+            "Port",
+            "RailwayStation",
+            "Resort",
+            "River",
+            "School",
+            "SparseResidential",
+            "Square",
+            "Stadium",
+            "StorageTanks",
+            "Viaduct"
+          ]
+        },
+        "conversion": "weights and buffers only; Torch optimizer state is not translated"
+      },
+      "effective_config": {
+        "seed": 42,
+        "device": "auto",
+        "data_dir": "./data/AID",
+        "output_dir": "./runs/aid_vit_small",
+        "split_file": "./runs/aid_split_seed42.json",
+        "model": "vit_small_patch16_224",
+        "pretrained": true,
+        "img_size": 224,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "batch_size": 64,
+        "eval_batch_size": 128,
+        "num_workers": 12,
+        "epochs": 20,
+        "lr": 0.0003,
+        "weight_decay": 0.05,
+        "label_smoothing": 0.1,
+        "amp": true,
+        "grad_accum_steps": 1
+      },
+      "arguments": {
+        "config": "configs/aid_vit_small.yaml",
+        "checkpoint": "checkpoints/jax/vit_small_protocol_v1.npz",
+        "output_dir": "experiments/lowrank_2026/protocol_v1_cpu_20261117/02_matrix_curves",
+        "device": "cpu",
+        "scope": "all_blocks",
+        "matrices": [
+          "blocks.0.attn.proj",
+          "blocks.0.mlp.fc1"
+        ],
+        "rank_ratios": [
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "ranks": null
+      },
+      "method": "exact_svd",
+      "factorization_policy": "all_selected_v1",
+      "dtype": "float32",
+      "environment": {
+        "jax": "0.4.38",
+        "numpy": "1.26.4",
+        "python": "3.10.21",
+        "device": "TFRT_CPU_0",
+        "platform": "cpu"
+      },
+      "aid_split": {
+        "path": "/workspace/runs/aid_split_seed42.json",
+        "sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e",
+        "bytes": 119592
+      },
+      "selected_matrices": [
+        "blocks.0.attn.proj",
+        "blocks.0.mlp.fc1"
+      ],
+      "ranks": {
+        "blocks.0.attn.proj": [
+          {
+            "requested_rank": 96,
+            "requested_ratio": 0.25,
+            "actual_rank": 96
+          },
+          {
+            "requested_rank": 192,
+            "requested_ratio": 0.5,
+            "actual_rank": 192
+          },
+          {
+            "requested_rank": 288,
+            "requested_ratio": 0.75,
+            "actual_rank": 288
+          },
+          {
+            "requested_rank": 384,
+            "requested_ratio": 1.0,
+            "actual_rank": 384
+          }
+        ],
+        "blocks.0.mlp.fc1": [
+          {
+            "requested_rank": 96,
+            "requested_ratio": 0.25,
+            "actual_rank": 96
+          },
+          {
+            "requested_rank": 192,
+            "requested_ratio": 0.5,
+            "actual_rank": 192
+          },
+          {
+            "requested_rank": 288,
+            "requested_ratio": 0.75,
+            "actual_rank": 288
+          },
+          {
+            "requested_rank": 384,
+            "requested_ratio": 1.0,
+            "actual_rank": 384
+          }
+        ]
+      },
+      "error_definition": "analytic exact-SVD tail; full-rank error is zero in exact arithmetic",
+      "svd_timing": "one synchronized cold spectrum call per matrix, including dispatch/transfer",
+      "outputs": {
+        "matrix_curves.csv": {
+          "path": "/workspace/experiments/lowrank_2026/protocol_v1_cpu_20261117/02_matrix_curves/matrix_curves.csv",
+          "sha256": "18e2a021d9d3f637d8204947575bdacd8f1dd353965d82f43f7eea7a7727c245",
+          "bytes": 2199
+        }
+      },
+      "status": "complete"
+    }
+  }
+}

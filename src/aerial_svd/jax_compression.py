@@ -9,30 +9,44 @@ from aerial_svd.matrix_records import MatrixRecord
 from aerial_svd.model_spec import is_target, linear_names
 
 
-def compress(params, mode, rank_ratio):
-    if not math.isfinite(rank_ratio) or not 0 < rank_ratio <= 1:
+def factorize_weight(weight, rank):
+    """Exact float32 SVD, in stored (out, in) orientation, at any valid rank."""
+    W = jnp.asarray(weight, dtype=jnp.float32)
+    if W.ndim != 2 or type(rank) is not int or not 1 <= rank <= min(W.shape):
+        raise ValueError("Require a matrix and integer rank in [1, min(shape)]")
+    if not np.isfinite(np.asarray(W)).all():
+        raise ValueError("Nonfinite weight")
+    U, S, Vh = jnp.linalg.svd(W, full_matrices=False)
+    root = jnp.sqrt(S[:rank])
+    return root[:, None] * Vh[:rank], U[:, :rank] * root
+
+
+def compress(params, mode, rank_ratio=None, *, ranks=None):
+    if ranks is None and (rank_ratio is None or not math.isfinite(rank_ratio) or not 0 < rank_ratio <= 1):
         raise ValueError("rank ratio must be in (0, 1]")
+    if ranks is not None and (rank_ratio is not None or not ranks):
+        raise ValueError("Provide either a rank ratio or a nonempty explicit rank map")
     is_target("", mode)  # Validate even if the model has no eligible layers.
+    names = linear_names(params)
+    if ranks is not None and any(name not in names or not is_target(name, mode) for name in ranks):
+        raise ValueError("Explicit ranks include unknown or out-of-scope matrices")
     result = dict(params)
     records = []
-    for name in linear_names(params):
-        if not is_target(name, mode):
+    for name in names:
+        if not is_target(name, mode) or (ranks is not None and name not in ranks):
             continue
         if name + ".first.weight" in params:
             raise ValueError(f"Layer already compressed: {name}")
         W = jnp.asarray(params[name + ".weight"], dtype=jnp.float32)
         m, n = W.shape
-        rank = max(1, math.floor(rank_ratio * min(m, n)))
+        rank = ranks[name] if ranks is not None else max(1, math.floor(rank_ratio * min(m, n)))
         bias = params.get(name + ".bias")
         original = m * n + (m if bias is not None else 0)
         compressed = rank * (m + n) + (m if bias is not None else 0)
-        if compressed >= original:
-            continue
-        U, S, Vh = jnp.linalg.svd(W, full_matrices=False)
-        root = jnp.sqrt(S[:rank])
+        first, second = factorize_weight(W, rank)
         result.pop(name + ".weight")
-        result[name + ".first.weight"] = root[:, None] * Vh[:rank]
-        result[name + ".second.weight"] = U[:, :rank] * root
+        result[name + ".first.weight"] = first
+        result[name + ".second.weight"] = second
         if bias is not None:
             result[name + ".second.bias"] = result.pop(name + ".bias")
         records.append(

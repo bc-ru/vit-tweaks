@@ -147,8 +147,11 @@ reference, so preserve the source run while the resumed run depends on it.
   weighting, and discarded incomplete gradient-accumulation groups match the source.
   CPU uses float32; GPU AMP uses float16 operations with dynamic loss scaling and
   float32 normalization/residual paths. ResNet buffers include unbiased running variance.
-- Low-rank layers retain symmetric sqrt(S) factors, bias placement, rank rounding,
-  target selection, and the no-saving skip. Native checkpoints are pickle-free NPZ,
+- Low-rank layers retain symmetric sqrt(S) factors, bias placement and rank rounding.
+  JAX now factorizes every selected matrix, including non-saving/full ranks.
+  `all_blocks` excludes the classifier; legacy `all` still includes it. Historical
+  skip-based checkpoint verification is explicit (`--legacy-skip-non-saving`).
+  Native checkpoints are pickle-free NPZ,
   not `.pt`; schemas/version, source hashes, config, and backend metadata are recorded.
 - Matrix SVD stays float32 and spectral energy reductions stay float64. Analytic
   approximation curves remain analytic. Layer-error mean/max count all vectors;
@@ -189,3 +192,10 @@ were below 2e-6; AMP differences from Torch AMP were at most 0.00390625 on the f
 Five real JPEG tensors and full-state CPU resume were bitwise identical. Six
 layer-error rows passed the original `rtol=3e-5, atol=2e-6` gate (maximum absolute
 difference 1.91e-7). These are migration checks, not accuracy or speed benchmarks.
+
+## Independent low-rank protocol stages
+
+`lowrank_baseline`, `lowrank_factor_checks`, and `lowrank_matrix_curves` implement
+stages 00–02. Exact commands, schemas, immutability, and historical compatibility:
+[docs/lowrank/RUN_STAGES_RU.md](docs/lowrank/RUN_STAGES_RU.md). These stages do not
+launch a sweep, fine-tuning, activation collection, or final-test evaluation.

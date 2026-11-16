@@ -49,8 +49,9 @@ def parser_for(command):
         p.add_argument("--max-val-batches", type=int)
     elif command == "finetune_compressed":
         p.add_argument("--compressed-checkpoint", required=True)
-        p.add_argument("--svd-mode", choices=("ffn", "attn", "all"), required=True)
+        p.add_argument("--svd-mode", choices=("ffn", "attn", "all", "all_blocks"), required=True)
         p.add_argument("--rank-ratio", type=float, required=True)
+        p.add_argument("--legacy-skip-non-saving", action="store_true", help="Read historical checkpoints only")
         p.add_argument("--output-dir", required=True)
         p.add_argument("--epochs", type=int)
         p.add_argument("--lr", type=float, default=1e-5)
@@ -58,15 +59,16 @@ def parser_for(command):
         p.add_argument("--max-val-batches", type=int)
     elif command == "evaluate":
         p.add_argument("--checkpoint", required=True)
-        p.add_argument("--svd-mode", choices=("ffn", "attn", "all"))
+        p.add_argument("--svd-mode", choices=("ffn", "attn", "all", "all_blocks"))
         p.add_argument("--rank-ratio", type=float)
+        p.add_argument("--legacy-skip-non-saving", action="store_true", help="Read historical checkpoints only")
         p.add_argument("--batch-size", type=int)
         p.add_argument("--max-batches", type=int, default=50)
         p.add_argument("--warmup-batches", type=int, default=5)
         p.add_argument("--output", required=True)
     elif command == "compress":
         p.add_argument("--checkpoint", required=True)
-        p.add_argument("--mode", choices=("ffn", "attn", "all"), required=True)
+        p.add_argument("--mode", choices=("ffn", "attn", "all", "all_blocks"), required=True)
         p.add_argument("--rank-ratio", type=float, required=True)
         p.add_argument("--output", required=True)
     elif command == "inspect":
@@ -89,8 +91,10 @@ def parser_for(command):
     return p
 
 
-def verify_compression(spec, params, mode, ratio):
+def verify_compression(spec, params, mode, ratio, *, legacy_skip_non_saving=False):
     if not mode:
+        if legacy_skip_non_saving:
+            raise ValueError("Legacy verification requires --svd-mode and --rank-ratio")
         return
     if ratio is None or not 0 < ratio <= 1:
         raise ValueError("--svd-mode requires a rank ratio in (0, 1]")
@@ -100,7 +104,7 @@ def verify_compression(spec, params, mode, ratio):
         if is_target(name, mode):
             m, n = shapes[name + ".weight"]
             r = max(1, math.floor(ratio * min(m, n)))
-            if r * (m+n) < m*n:
+            if not legacy_skip_non_saving or r * (m+n) < m*n:
                 expected[name] = r
     actual = {k[:-len(".first.weight")]: v.shape[0] for k, v in params.items() if k.endswith(".first.weight")}
     if actual != expected:
@@ -158,15 +162,17 @@ def main(command, argv):
         cfg.update(num_classes=len(dataset.classes), classes=dataset.classes)
     provenance = {"backend": "jax", "jax_version": jax.__version__, "device": str(device), "platform": device.platform,
                   "config": cfg, "source_checkpoint": path, "model_spec": asdict(spec), "arguments": vars(args)}
+    if getattr(args, "legacy_skip_non_saving", False):
+        provenance["factorization_policy"] = "legacy_skip_non_saving"
     if dataset:
         provenance["dataset_fingerprint"] = dataset.fingerprint
         provenance["image_decoder"] = dataset.decoder
     if command in ("train", "finetune_compressed"):
         if command == "finetune_compressed":
-            verify_compression(spec, params, args.svd_mode, args.rank_ratio)
+            verify_compression(spec, params, args.svd_mode, args.rank_ratio, legacy_skip_non_saving=args.legacy_skip_non_saving)
         train(args, cfg, spec, params, buffers, dataset, provenance, metadata, optimizer_leaves, device)
     elif command == "evaluate":
-        verify_compression(spec, params, args.svd_mode, args.rank_ratio)
+        verify_compression(spec, params, args.svd_mode, args.rank_ratio, legacy_skip_non_saving=args.legacy_skip_non_saving)
         bs = args.batch_size or int(cfg.get("eval_batch_size", cfg.get("batch_size", 64)))
         engine = Engine(spec, amp=bool(cfg.get("amp", True)) and device.platform == "gpu")
         acc = engine.evaluate(params, buffers, dataset.batches("test", bs, max_batches=args.max_test_batches), smoothing=0)
@@ -174,6 +180,7 @@ def main(command, argv):
         out = dict(model=spec.model, checkpoint=path, svd_mode=args.svd_mode, rank_ratio=args.rank_ratio,
                    num_classes=spec.num_classes, test_loss=acc["loss"], test_top1=acc["top1"], test_samples=acc["num_samples"],
                    checkpoint_bytes=Path(path).stat().st_size, **counts(params), **bench, **provenance)
+        out["factorization_policy"] = "legacy_skip_non_saving" if args.legacy_skip_non_saving else metadata.get("compression", {}).get("factorization_policy", "unclassified_historical_checkpoint")
         out["memory_measurement"] = "jax_process_peak_gpu_memory_bytes is process-lifetime allocator high-water including setup/evaluation; resettable benchmark-only peak unavailable; parameter bytes exact"
         write_json(args.output, out)
         print(json.dumps(out, indent=2))
@@ -184,12 +191,14 @@ def main(command, argv):
         sidecar = Path(args.output).with_suffix(".compression.json")
         if sidecar.exists():
             raise FileExistsError(sidecar)
-        provenance["compression"] = {"mode": args.mode, "rank_ratio": args.rank_ratio, "records": records}
+        provenance["compression"] = {"mode": args.mode, "rank_ratio": args.rank_ratio, "records": records,
+                                     "factorization_policy": "all_selected_v1", "svd_algorithm": "exact_svd"}
         save_checkpoint(args.output, spec, compressed, buffers, metadata=provenance)
         out = dict(model=spec.model, source_checkpoint=path, compressed_checkpoint=args.output, mode=args.mode,
             rank_ratio=args.rank_ratio, params_before=before["total_params"], params_after=after["total_params"],
             param_ratio=after["total_params"]/before["total_params"], reduction_percent=100*(1-after["total_params"]/before["total_params"]),
             param_memory_before_bytes=before["param_memory_bytes"], param_memory_after_bytes=after["param_memory_bytes"], records=records, backend="jax")
+        out["factorization_policy"] = "all_selected_v1"
         write_json(sidecar, out)
         print(json.dumps(out, indent=2))
     elif command == "inspect":

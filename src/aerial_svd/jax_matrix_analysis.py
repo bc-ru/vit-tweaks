@@ -47,15 +47,17 @@ def spectral_stats(model_name, checkpoint, rec, W, eps=1e-10):
     )
 
 
-def approximation_records(model_name, checkpoint, rec, W, rank_ratios):
-    s = np.asarray(singular_values(W), dtype=np.float64)
+def approximation_records(model_name, checkpoint, rec, W, rank_ratios, *, spectrum=None, ranks=None):
+    s = np.asarray(singular_values(W) if spectrum is None else spectrum, dtype=np.float64)
     energy = s ** 2
     total = float(energy.sum())
     m, n = map(int, W.shape)
     cumulative = np.cumsum(energy)
     records = []
-    for rho in rank_ratios:
-        r = max(1, min(min(m, n), int(math.floor(float(rho) * min(m, n)))))
+    if ranks is not None and (len(ranks) != len(rank_ratios) or any(type(r) is not int or not 1 <= r <= min(m, n) for r in ranks)):
+        raise ValueError("Explicit ranks must match ratios and matrix dimensions")
+    for i, rho in enumerate(rank_ratios):
+        r = ranks[i] if ranks is not None else max(1, min(min(m, n), int(math.floor(float(rho) * min(m, n)))))
         tail = float(energy[r:].sum())
         records.append(ApproximationRecord(
             model_name, checkpoint, rec.name, rec.kind, m, n, r, float(rho),

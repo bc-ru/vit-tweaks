@@ -108,7 +108,7 @@ class CompressionContract(unittest.TestCase):
         self.assertEqual(actual, ["patch_embed.proj", "blocks.0.attn.qkv.first", "blocks.0.attn.qkv.second",
                                   "blocks.2.attn.qkv", "blocks.10.attn.qkv", "head"])
 
-    def test_factors_preserve_symmetric_split_and_skip(self):
+    def test_factors_preserve_symmetric_split_without_skip(self):
         W = np.diag(np.array([8, 4, 2, 1], np.float32))
         params = {"blocks.0.mlp.fc1.weight": jnp.asarray(W), "blocks.0.mlp.fc1.bias": jnp.ones(4)}
         compressed, records = compress(params, "ffn", .25)
@@ -118,8 +118,10 @@ class CompressionContract(unittest.TestCase):
         np.testing.assert_allclose(second @ first, np.diag([8,0,0,0]), atol=2e-6)
         np.testing.assert_array_equal(compressed["blocks.0.mlp.fc1.second.bias"], np.ones(4))
         self.assertEqual(records[0]["rank"], 1)
-        skipped, records = compress(params, "ffn", .75)
-        self.assertEqual(set(skipped), set(params)); self.assertEqual(records, [])
+        expanded, records = compress(params, "ffn", .75)
+        self.assertIn("blocks.0.mlp.fc1.first.weight", expanded)
+        self.assertEqual(records[0]["rank"], 3)
+        self.assertGreater(records[0]["compressed_params"], records[0]["original_params"])
 
     def test_native_roundtrip_and_structure_validation(self):
         spec = ModelSpec("resnet18", 3, 32)

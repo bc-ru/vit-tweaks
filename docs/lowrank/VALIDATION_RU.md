@@ -1,0 +1,105 @@
+# Проверка реализации 00–02
+
+Проверено локально 2026-11-17 в CPU-контейнерах. Машиночитаемые реальные результаты
+и исходные manifests: `CPU_VALIDATION_20261117.json`. Большие веса/архив факторов
+в Git не включены. Команды каждого этапа: `RUN_STAGES_RU.md`.
+
+- 00: validation top-1 `0.9733333333333334`, несглаженная cross-entropy
+  `0.19847448102633158`, все 1500 validation-изображений. Совпадение top-1 с
+  метаданными обученного checkpoint; повтор первой порции логитов побитово одинаков.
+- Исходный `.pt` SHA-256:
+  `1751bfeab58a601fdf4faf8f2121137066040e955c743b1af6aef0e9b9824050`.
+- Native NPZ SHA-256:
+  `e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391`.
+- Split SHA-256: `461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e`.
+  Train/val/test: 7000/1500/1500; 30 классов. Test не оценивался этапами 00–02.
+- 01: две реальные матрицы (`blocks.0.attn.proj`, `blocks.0.mlp.fc1`),
+  по три ранга (192, 288, 384), все 6 факторизаций выполнены. Нормированные ошибки
+  полного восстановления: `1.2852344033526568e-6` и `1.3943074210292072e-6`,
+  допуск `5e-5`. Равное/увеличенное число коэффициентов не вызывает пропуска.
+  Архив факторов и bias перечитан побитово.
+- 02: 8 строк (те же две матрицы × 0.25/0.5/0.75/1.0). Для квадратной матрицы:
+  при rank=192 число коэффициентов 147456→147456, при rank=288 — 147456→221184,
+  при полном ранге — 147456→294912. Все строки сохранены, экономия может быть
+  отрицательной. Полноранговые аналитические ошибки равны нулю.
+- Cold-вызов точного спектра: `0.05672952812165022 s` (384×384),
+  `0.022786595858633518 s` (1536×384), CPU. Для вывода о стоимости всей серии
+  этих двух измерений недостаточно; оснований переключаться на rSVD нет.
+- Все три manifest имеют `status=complete`; SHA-256 каждого выхода дополнительно
+  сверён с manifest на хосте.
+
+Полная проверка 00 запускалась командой из `RUN_STAGES_RU.md`, но без `--user` и
+с исходным `.scratch/jax-migration/model-vit_small.npz`: файл root-owned, mode 0600.
+Для последующих команд сделана **новая** доступная пользователю побитовая копия
+`checkpoints/jax/vit_small_protocol_v1.npz`; старый checkpoint и его права сохранены.
+Идентичность подтверждена SHA-256. Права только новых результатов 00 переданы
+пользователю. Ни веса, ни изображения, ни split не менялись.
+
+## Тесты
+
+9 новых тестов, `Ran 9 tests ... OK` (7.108 s), команда:
+
+```bash
+docker run --rm --user "$(id -u):$(id -g)" --network none \
+  -e AERIAL_SVD_GIT_COMMIT="$(git rev-parse HEAD)" \
+  -e OPENBLAS_NUM_THREADS=1 -e OMP_NUM_THREADS=2 \
+  -v "$PWD:/workspace" -w /workspace aerial-svd-jax:cpu \
+  python -m unittest discover -s tests -p test_lowrank_stages.py -v
+```
+
+Покрытие: все scope и ранги с экономией/без экономии/ростом; точный список факторов;
+float64-референс; полный ранг всех 48 block-проекций ViT и логиты; native roundtrip;
+bias; аналитические ошибки и фактические размеры факторов; validation-only,
+частичная маркировка smoke; запрет dataset/model execution в 02; неверные входы;
+неперезапись; failed manifest; явный legacy-режим проверки и маркировка результата
+старой CLI-оценки на синтетических данных.
+
+17 существующих тестов, `Ran 17 tests ... OK` (8.885 s):
+
+```bash
+docker run --rm --user "$(id -u):$(id -g)" --network none --ipc=host \
+  -e JAX_PLATFORMS=cpu -e OPENBLAS_NUM_THREADS=1 -e OMP_NUM_THREADS=2 \
+  -e PYTHONDONTWRITEBYTECODE=1 -e MPLCONFIGDIR=/tmp/matplotlib -e MPLBACKEND=Agg \
+  -e PYTHONPATH=/workspace/src:/workspace/.scratch/jax-migration/venv/lib/python3.10/site-packages \
+  -v "$PWD:/workspace" -w /workspace \
+  ghcr.io/bc-ru/pytorch-2.1.0-cuda11.8-cudnn8-runtime-timm-models:stable \
+  python -m unittest discover -s tests -p 'test_jax_*.py' -v
+```
+
+Здесь переиспользуется существующая среда JAX из миграции и Torch reference image;
+ничего не устанавливалось. Вне этой машины нужны оба runtime, либо только native
+CPU-образ для `test_jax_cli.py` и новых тестов. Старые CLI-тесты запускают ограниченные
+обучение/оценку на синтетических изображениях: это регрессионная проверка, не новый
+эксперимент на AID. Существующий тест rSVD проверяет прежнюю реализацию, сравнение
+методов в исследование не добавлено.
+
+`py_compile` для всех `src/aerial_svd/*.py tests/*.py` и `git diff --check` пройдены.
+Локальные логи: `.scratch/lowrank-protocol-v1/`.
+
+## Обнаруженные расхождения и ограничения
+
+- Рабочая ветка — `research/lowrank-experiment-protocol-v1`, как разрешил пользователь,
+  хотя постановка ссылается на исходную `jax-migration`.
+- `AGENTS.md`/старый workflow утверждают отсутствие тестов и 10 классов. В исходниках
+  уже есть тесты; артефакты/данные содержат 30 классов. Существующий
+  `docs/agent-workflow.md` доступен, несмотря на оговорку в contract. `.scratch/`
+  уже исключён из Git. AGENTS.md не переписывался.
+- Описанный no-saving skip подтверждён и исправлен в JAX; Torch `svd.py` оставлен
+  историческим путём совместимости, новый протокол его не вызывает.
+- Старый `JAX_MIGRATION.md` ещё обещал сохранение skip; эта фраза обновлена.
+- Исторический smoothed validation loss `0.727054404258728` не является эталоном
+  для новой unsmoothed cross-entropy. Определения не смешивались.
+- GPU недоступен: `NVIDIA-SMI has failed because it couldn't communicate with the
+  NVIDIA driver.` GPU-код не запускался и не объявляется проверенным.
+- Первичная попытка новых тестов в CPU-образе дала
+  `FileNotFoundError: [Errno 2] No such file or directory: 'git'`.
+  Исправлено явной передачей revision и независимыми хэшами исходников.
+- Первый запуск 01 от пользователя на старом scratch-checkpoint дал
+  `PermissionError: [Errno 13] Permission denied: '.scratch/jax-migration/model-vit_small.npz'`.
+  Исправлено новой побитовой копией, без изменения исходника.
+- Manifests измерений содержат commit до текущего коммита реализации и точные хэши
+  файлов выполнявшейся рабочей копии. Это сознательно сохранённая provenance,
+  а не задним числом заменённая история.
+- Этапы 03–09 не реализованы здесь. Старые evaluate/layer_error_analysis остаются
+  test-интерфейсами; их нельзя использовать для выбора ранга. Полный перебор,
+  activation-aware методы, дообучение, performance benchmark и final test не запускались.
