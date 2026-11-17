@@ -11,6 +11,14 @@
 
 ## Outcomes
 
+### 2026-11-17 — Selected skill restoration
+
+Restored the 12 Matt Pocock skills previously installed in this repo; other helpers
+remain archived. Preserved invocation policies and connected Qwen with a relative
+link. Repaired missing workflow/vault references and made WORK_LOG.md the default
+continuity record. All 12 skills pass frontmatter, reference and policy checks;
+no model/runtime changes or new upstream skills.
+
 ### 2026-11-17 — Repository cleanup
 
 One artifact tree, one agent instruction source (`AGENTS.md`, shared by Qwen), and

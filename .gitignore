@@ -20,7 +20,8 @@ __pycache__/
 /experiments
 
 # Local agent settings and secrets
-/.qwen/
+/.qwen/*
+!/.qwen/skills
 /.codex/
 /.aws/
 .env

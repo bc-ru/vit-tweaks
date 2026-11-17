@@ -89,7 +89,11 @@ another workflow, transcript, task packet or report just to record ordinary work
 | GitHub | Repository operations | Read access verified; shell SSH signing is a separate credential path |
 
 MCP settings and credentials are user-level, not part of this repository. No local
-MCP server config is required. Generic repo-local skills and their obsolete
-workflow are archived, not active. Shared user skills and global MCP configuration
-are preserved. Qwen's local permission settings are retained; no secrets are
-mounted or written into container shell startup files.
+MCP server config is required. The 12 previously installed Matt Pocock skills are
+active in `.agents/skills/`, shared with Qwen through a relative `.qwen/skills` link.
+They provide review, grilling, handoff, research, implementation, specification,
+ticket/triage, domain-modeling and setup capabilities when needed. Their invocation
+policies are preserved; continuity defaults to WORK_LOG.md. Caveman duplicates,
+multi-agent machinery and obsolete project-specific helpers remain archived.
+Shared user skills, global MCP configuration and Qwen's local permission settings
+are preserved; no secrets are mounted or written into container shell startup files.

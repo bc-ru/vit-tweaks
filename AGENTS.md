@@ -58,6 +58,11 @@ files or skills unless they solve an explicitly requested problem.
 
 ## Tools and permissions
 
+Selected Matt Pocock skills live in `.agents/skills/`; Qwen uses the relative
+`.qwen/skills` link to the same tree. Use the relevant skill when it fits the task,
+preserving its invocation policy. Skills are optional capabilities, not a mandatory
+pipeline. AGENTS.md owns repo rules; WORK_LOG.md remains the default work record.
+
 CodeGraph: use the existing index for code navigation; use direct reads for docs
 and configs. Context7: current platform/library docs. GitHub: remote repository
 operations. MCP credentials/settings are user-level configuration; never copy them
