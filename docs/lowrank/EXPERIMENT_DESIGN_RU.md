@@ -1,6 +1,6 @@
 # Эксперименты по малоранговой аппроксимации ViT
 
-Статус: согласованная **постановка**; этапы 00–08 реализованы. Измерения: [обычный SVD](results/aid_svd_20261117/REPORT_RU.md), [активации и индивидуальные ранги](results/aid_activation_20261117/REPORT_RU.md). Проверки 00–02 — в `VALIDATION_RU.md`; test (09) не запускался.
+Статус: исходный план завершён, включая окончательный test (09) для 20 заранее зафиксированных моделей. [Единый итоговый отчёт](results/aid_final_20261118/REPORT_RU.md), [команды завершения](FINAL_STAGES.md). Предыдущие измерения: [обычный SVD](results/aid_svd_20261117/REPORT_RU.md), [активации и индивидуальные ранги](results/aid_activation_20261117/REPORT_RU.md). Проверки 00–02 — в `VALIDATION_RU.md`. После test новые эксперименты не запускались.
 Рабочая реализация: [`bc-ru/vit-tweaks`](https://github.com/bc-ru/vit-tweaks), ветка `research/lowrank-experiment-protocol-v1` на основе `jax-migration`, backend JAX.
 
 ## 1. Исследовательская задача

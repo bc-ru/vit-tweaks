@@ -2,21 +2,45 @@
 
 ## Current state
 
-- Current protocol: JAX ViT-Small, exact SVD, frozen AID seed-42 split (30 classes).
-  Stages **00–02 and exact-SVD 04–08 are complete**: 168 validation configurations,
-  9 factorized fine-tunes + dense control (5 epochs each), RTX 4070 benchmarks.
-- Measured report/CSV/plots: `docs/lowrank/results/aid_svd_20261117/REPORT_RU.md`.
-  Full checkpoints, logits and manifests: `artifacts/experiments/aid_svd_20261117/`.
-  Source weights, split and historical compatibility links are unchanged.
-- Activation-aware 03–08 complete: 168 paired configurations, 6 exactly
-  budget-matched allocated models, 2 five-epoch fine-tunes. Report/CSV/plots:
-  `docs/lowrank/results/aid_activation_20261117/REPORT_RU.md`.
-- Held-out final-test 09 remains unexecuted. No test evaluation; inference GPU
-  allocator peak is not measured (parameter bytes are exact).
-- GPU and non-root Docker work. GitHub App is reachable; publishing the current
-  WORK_LOG update is blocked by automatic approval review. No remote ref changed.
+- Original research plan **complete through final test**: JAX ViT-Small/AID,
+  frozen seed-42 split, 30 classes; 168 SVD + 168 activation-SVD configurations,
+  6 allocated models, 12 fine-tunes including dense control. No new methods.
+- Unified report/tables/plots: `docs/lowrank/results/aid_final_20261118/REPORT_RU.md`.
+  Commands: `docs/lowrank/FINAL_STAGES.md`. New local evidence:
+  `artifacts/experiments/aid_final_20261118/`; earlier series remain unchanged.
+- GPU: all 48 global configurations, 6 allocated, 12 fine-tunes and dense;
+  134 isolated model/batch measurements (1/16). Exact parameter/NPZ bytes,
+  XLA memory plans and lifetime allocator counters are separate. Inference-only
+  actual GPU peak remains unavailable, explicitly null.
+- Final test: 20 models fixed before first access, each on all 1500 examples;
+  frozen selection/checkpoint/config/split identities and paired pixels/order pass.
+  No further experiments after test; presentation unchanged.
 
 ## Outcomes
+
+### 2026-11-18 — Full resource comparison and final held-out evaluation
+
+Extended existing benchmark with input hashes, separate compilation time, XLA
+memory plan and lifetime allocator counters; independent catalog/freeze/test/report
+stages preserve the working pipeline. Completed 134 GPU measurements and 20 final
+test evaluations, selected before test as requested plus dense training control.
+Published snapshot contains all 355 models, exact rank maps, matrix/local errors,
+FT, resource/test CSVs and four plots in the unified report linked above.
+
+Test top-1/CE: dense 96.800%/.20257; all_blocks .5 after FT ordinary
+95.600%/.24499 vs activation 96.133%/.22594; FFN .5 after FT 96.067%/.23475
+vs 96.400%/.22011. Allocated .5 remains a negative result: ordinary 12.133%,
+activation 88.733%. Dense vs all_blocks .5 latency batch 1/16: 1.790/13.329 ms,
+ordinary 1.820/11.627, activation 1.798/11.726. Fewer parameters do not ensure
+batch-1 speedup. Actual isolated inference GPU peak is not claimed.
+
+Proof: `scripts/check.sh` passed 26 tests; final focused regressions passed 3 tests,
+including complete ordered synthetic test, checkpoint/config/selection tampering,
+pixel mismatch, frozen reselection refusal and benchmark protocol rejection.
+Read-only final audit: 883 complete stages, 8970 identity references / 2763 unique
+files; original checkpoint/split/previous results and frozen list hashes match.
+Audit: `artifacts/experiments/aid_final_20261118/11_audit/audit.json`.
+No additional training or experimental measurements after final test.
 
 ### 2026-11-18 — Activation criterion and individual rank budgets
 

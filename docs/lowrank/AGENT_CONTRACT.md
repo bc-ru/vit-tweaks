@@ -1,6 +1,6 @@
 # ViT low-rank experiments — agent implementation contract
 
-Status: stages **00–08 implemented**; measured [ordinary SVD](results/aid_svd_20261117/REPORT_RU.md) and [activation-aware/rank-allocation results](results/aid_activation_20261117/REPORT_RU.md). Stage 09 remains unexecuted. Activation commands/formats: `ACTIVATION_STAGES.md`; human-readable protocol: `EXPERIMENT_DESIGN_RU.md`.
+Status: stages **00–09 complete**, including 134 GPU measurements and 20 frozen final-test models. [Unified final report](results/aid_final_20261118/REPORT_RU.md), [final-stage commands](FINAL_STAGES.md). Earlier measurements: [ordinary SVD](results/aid_svd_20261117/REPORT_RU.md) and [activation-aware/rank-allocation results](results/aid_activation_20261117/REPORT_RU.md). No further experiments after final test. Activation commands/formats: `ACTIVATION_STAGES.md`; human-readable protocol: `EXPERIMENT_DESIGN_RU.md`.
 
 ## 0. Repository and boundaries
 

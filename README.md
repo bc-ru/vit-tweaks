@@ -5,6 +5,10 @@ uses **JAX, ViT-Small, 30 classes**, and the frozen seed-42 train/validation/tes
 split. Matrix error, local operator error and classification quality are separate
 measurements. The older Torch compression benchmark remains a compatibility path.
 
+Completed study, full GPU grid and frozen final test (20 models):
+[unified Russian report, tables and plots](docs/lowrank/results/aid_final_20261118/REPORT_RU.md).
+Independent final-stage commands: [FINAL_STAGES.md](docs/lowrank/FINAL_STAGES.md).
+
 Measured 168-configuration series, fine-tuning and RTX 4070 benchmarks:
 [Russian report, CSV and plots](docs/lowrank/results/aid_svd_20261117/REPORT_RU.md).
 

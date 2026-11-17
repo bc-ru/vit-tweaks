@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "complete_stages_by_root": {
+    "artifacts/experiments/aid_svd_20261117": 364,
+    "artifacts/experiments/aid_activation_20261117": 362,
+    "artifacts/experiments/aid_final_20261118": 157
+  },
+  "verified_identity_references": 8970,
+  "unique_files_hashed": 2763,
+  "source_checkpoint": {
+    "path": "artifacts/checkpoints/jax/vit_small_protocol_v1.npz",
+    "sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+    "bytes": 86757346
+  },
+  "frozen_split": {
+    "path": "artifacts/runs/aid_split_seed42.json",
+    "sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e",
+    "bytes": 119592
+  },
+  "selection_sha256": "e6a1e7aa80256fc30785eb68e2ec03fa74ae0ce571dc65e48301171ef50cec01",
+  "models": 355,
+  "test_models": 20,
+  "note": "Read-only audit after final test. No model execution. All recorded identities match; original evidence unchanged."
+}

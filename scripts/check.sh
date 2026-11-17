@@ -9,4 +9,5 @@ scripts/run.sh cpu python -m unittest discover -s tests -p test_lowrank_stages.p
 scripts/run.sh cpu python -m unittest discover -s tests -p test_jax_cli.py -v
 scripts/run.sh cpu python -m unittest discover -s tests -p test_lowrank_experiments.py -v
 scripts/run.sh cpu python -m unittest discover -s tests -p test_activation_svd.py -v
+scripts/run.sh cpu python -m unittest discover -s tests -p test_lowrank_final.py -v
 git diff --check
