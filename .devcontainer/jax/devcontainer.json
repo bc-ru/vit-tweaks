@@ -1,9 +1,15 @@
 {
   "name": "JAX (CUDA 12)",
-  "build": {"dockerfile": "Dockerfile", "context": "."},
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
   "workspaceFolder": "/workspace",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-  "runArgs": ["--ipc=host", "--gpus=all"],
+  "runArgs": [
+    "--ipc=host",
+    "--gpus=all"
+  ],
   "containerEnv": {
     "PYTHONPATH": "/workspace/src",
     "XLA_PYTHON_CLIENT_PREALLOCATE": "false"
@@ -19,10 +25,18 @@
       ],
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.analysis.extraPaths": ["/workspace/src"],
+        "python.analysis.extraPaths": [
+          "/workspace/src"
+        ],
         "python.testing.pytestEnabled": false,
         "python.testing.unittestEnabled": true,
-        "python.testing.unittestArgs": ["-v", "-s", "tests", "-p", "test_jax_cli.py"],
+        "python.testing.unittestArgs": [
+          "-v",
+          "-s",
+          "tests",
+          "-p",
+          "test_jax_cli.py"
+        ],
         "python.testing.cwd": "/workspace",
         "ruff.importStrategy": "fromEnvironment",
         "[python]": {
@@ -31,5 +45,7 @@
         }
       }
     }
-  }
+  },
+  "remoteUser": "research",
+  "updateRemoteUserUID": true
 }

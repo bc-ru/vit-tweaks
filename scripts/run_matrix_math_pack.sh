@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Historical Torch workflow; current JAX stage commands are in README.md.
 set -euo pipefail
 
 bash scripts/analyze_spectra.sh

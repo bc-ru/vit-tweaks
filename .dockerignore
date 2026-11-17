@@ -1,0 +1,6 @@
+# Runtime image builds need dependencies only; never send data, weights or secrets.
+**
+!Dockerfile
+!Dockerfile.jax
+!requirements.txt
+!requirements-jax.txt

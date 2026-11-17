@@ -1,11 +1,11 @@
 # ViT low-rank experiments — agent implementation contract
 
-Status: **SPECIFICATION ONLY**. No experiment is claimed complete. Human-readable research protocol: `EXPERIMENT_DESIGN_RU.md` (same directory).
+Status: stages **00–02 implemented and verified** (see `VALIDATION_RU.md`); stages 03–09 remain specification only. Human-readable research protocol: `EXPERIMENT_DESIGN_RU.md` (same directory).
 
 ## 0. Repository and boundaries
 
-- Target repository: `bc-ru/vit-tweaks`, JAX backend, branch `jax-migration` (verify current branch before work).
-- Read the repository's `AGENTS.md` in full before changes. The referenced `docs/agent-workflow.md` was not available through the inspected GitHub tree; report this if still missing. Never invent its contents.
+- Target repository: `bc-ru/vit-tweaks`, JAX backend, branch `research/lowrank-experiment-protocol-v1` (based on `jax-migration`; verify before work).
+- Read `AGENTS.md` and `WORK_LOG.md` before changes. Ordinary work is single-agent; no separate task/agent workflow is required.
 - Treat the existing AID dataset, `runs/aid_split_seed42.json`, checkpoint, class order, and preprocessing as authoritative. **Verify actual files and paths**; references in this document are not proof that local assets exist.
 - If the original AID split contains only train/test, create and persist a **single fixed (ideally stratified) validation subdivision from train only**. Preserve the original test set without modification and record subdivision indices/hash.
 - Main model: pretrained/finetuned ViT-Small `vit_small_patch16_224` on AID. ViT-Base is available but **not part of the first matrix × rank sweep**.
@@ -39,7 +39,7 @@ Re-inspect code before editing; the findings above describe the inspected revisi
 
 ## 3. Stage contract — independent entry points
 
-Use a run directory unique per configuration, e.g. `experiments/lowrank_2026/<experiment_id>/`. Each stage writes its own immutable artifacts atomically (temporary file then rename), a `manifest.json` with input identities/hashes and a `status=complete` only on success. Consume paths, **not in-memory state**.
+Use a run directory unique per configuration, e.g. `artifacts/experiments/<experiment_id>/`. Each stage writes its own immutable artifacts atomically (temporary file then rename), a `manifest.json` with input identities/hashes and a `status=complete` only on success. Consume paths, **not in-memory state**.
 
 | Stage | Inputs | Outputs | Exit/acceptance criteria |
 |---|---|---|---|
