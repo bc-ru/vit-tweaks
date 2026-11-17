@@ -75,11 +75,19 @@ class ImageFolder:
         manifest = [(str(path.relative_to(self.root)), label) for path, label in self.samples]
         self.fingerprint = hashlib.sha256(json.dumps({"samples": manifest, "split": split}, sort_keys=True).encode()).hexdigest()
 
-    def batches(self, split, batch_size, epoch=0, max_batches=None):
+    def batches(self, split, batch_size, epoch=0, max_batches=None, *, calibration_indices=None):
         if batch_size < 1 or (max_batches is not None and max_batches < 1):
             raise ValueError("Batch size and batch cap must be positive")
         indices = np.asarray(self.indices[split], dtype=np.int64)
         train = split == "train"
+        if calibration_indices is not None:
+            requested = list(calibration_indices)
+            allowed = set(indices.tolist())
+            if (split != 'train' or not requested or len(set(requested)) != len(requested)
+                    or any(type(i) is not int or i not in allowed for i in requested)):
+                raise ValueError('Calibration must be a nonempty unique subset of train')
+            indices = np.asarray(requested, dtype=np.int64)
+            train = False  # Fixed evaluation transform, no shuffle/drop/augmentation.
         if train:
             indices = np.random.default_rng(np.random.SeedSequence([self.seed, epoch])).permutation(indices)
             indices = indices[:len(indices) // batch_size * batch_size]

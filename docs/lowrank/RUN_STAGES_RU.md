@@ -93,7 +93,8 @@ Manifest идентифицирует код, checkpoint/config/split, пара�
 трёх матриц и не может использоваться как checkpoint. Форматы не смешиваются.
 Историческая политика skip читается явно через `--legacy-skip-non-saving` старых
 JAX evaluate/finetune, с отдельной маркировкой. Они, как и layer_error_analysis,
-пока используют test; для выбора параметров не подходят. Новые exact-SVD этапы 04–08 описаны ниже; 03 и 09 не реализованы.
+используют test; для выбора параметров не подходят. Exact-SVD этапы 04–08 описаны ниже;
+этап 03 и activation-aware расширения — в [командах для агентов](ACTIVATION_STAGES.md). Этап 09 не запускался.
 
 ## Exact-SVD серия: этапы 04–08
 
@@ -178,4 +179,6 @@ python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series b
 Запуски последовательны; один root защищён lock. При ошибке результаты сохраняются,
 повтор использует `.retry-NNN`, проверенные complete стадии переиспользуются.
 На начало каждой GPU-стадии launcher проверяет отсутствие чужих compute jobs.
-Activation-aware методы и этапы 03/09 не исполняются.
+Эта exact-SVD серия не запускает activation-aware методы или test. Отдельные
+activation-aware команды и измерения: [руководство](ACTIVATION_STAGES.md),
+[результаты](results/aid_activation_20261117/REPORT_RU.md).

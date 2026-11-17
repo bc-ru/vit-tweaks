@@ -21,6 +21,16 @@ def verified_stage(directory):
     return manifest
 
 
+def compatible_stage(directory, provenance, stage):
+    manifest = verified_stage(directory)
+    if manifest['stage'] != stage:
+        raise ValueError(f'Expected {stage}')
+    for key in ('checkpoint', 'config', 'aid_split'):
+        if manifest[key]['sha256'] != provenance[key]['sha256']:
+            raise ValueError(f'Activation input mismatch: {key}')
+    return manifest
+
+
 def dataset_for(cfg, spec, metadata, provenance):
     dataset = ImageFolder(cfg)
     if not dataset.indices['val'] or len(dataset.classes) != spec.num_classes:

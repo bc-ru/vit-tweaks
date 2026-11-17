@@ -8,11 +8,43 @@
 - Measured report/CSV/plots: `docs/lowrank/results/aid_svd_20261117/REPORT_RU.md`.
   Full checkpoints, logits and manifests: `artifacts/experiments/aid_svd_20261117/`.
   Source weights, split and historical compatibility links are unchanged.
-- Activation-aware 03 and held-out final-test 09 remain separate. No test evaluation;
-  inference GPU allocator peak is not measured (parameter bytes are exact).
-- GPU and non-root Docker work. GitHub App publication works; shell SSH has no key.
+- Activation-aware 03–08 complete: 168 paired configurations, 6 exactly
+  budget-matched allocated models, 2 five-epoch fine-tunes. Report/CSV/plots:
+  `docs/lowrank/results/aid_activation_20261117/REPORT_RU.md`.
+- Held-out final-test 09 remains unexecuted. No test evaluation; inference GPU
+  allocator peak is not measured (parameter bytes are exact).
+- GPU and non-root Docker work. GitHub App is reachable; publishing the current
+  WORK_LOG update is blocked by automatic approval review. No remote ref changed.
 
 ## Outcomes
+
+### 2026-11-18 — Activation criterion and individual rank budgets
+
+Extended the existing JAX stages with streaming train/validation moments, stable
+regularized weighted SVD, reusable factor banks and exact grid-budget allocation.
+Calibration: 300 train images, seed 42; ridge = 1e-4 * trace(C)/in_features.
+Completed 168 paired validations + 6 allocated models on the same 1500 validation
+images, and 2 unchanged five-epoch fine-tunes (70000 train images, 8750 updates,
+none skipped). Test never evaluated; original SVD measurements were reused.
+
+Results: `all_blocks` rank .5 gives 96.067% vs SVD 65.000% before training,
+96.667% vs 95.800% after; `ffn` .5 gives 97.133% vs 96.867% after training.
+All 336 nonfull matrix/rank pairs improve calibration and independent validation
+local errors. Minimizing their unnormalized sum worsens network accuracy in all
+6 equal-budget comparisons: a useful negative result, not a global optimum.
+
+Proof and limitations: 21 full-rank logit controls pass (maximum relative error
+3.89e-7, absolute 6.44e-6); all 48 ordinary bank factors match the existing rank-192
+checkpoint bit for bit. Full report/tables/plots and input identities are linked
+above. `scripts/check.sh`: 24 tests pass. Artifact audit: 717 complete stages,
+4256 matching identities across 1576 unique files; old weights/split/results intact.
+Commands/schemas: `docs/lowrank/ACTIVATION_STAGES.md`. Test stays held out;
+one checkpoint/seed/validation and fixed ridge limit generalization.
+Public metadata omits per-example indices/pixel digests; complete identities
+and internal manifests remain in local stages for reproducibility and audit.
+Remote publication remains pending: automatic GitHub approval rejects the full
+WORK_LOG payload because of internal artifact references, including unchanged
+references already present upstream. The complete change is committed locally.
 
 ### 2026-11-17 — Exact-SVD research series complete
 

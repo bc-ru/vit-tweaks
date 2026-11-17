@@ -54,7 +54,8 @@ measured validation are in `docs/lowrank/VALIDATION_RU.md`.
   analytic zero error is different from measured factor reconstruction rounding.
 - Old `evaluate` and `layer_error_analysis` use test. Do not use them for selection;
   stages 00 and 05 use validation. Exact-SVD stages 04–08 are described in the stage guide;
-  activation-aware 03 and final-test 09 remain separate.
+  activation-aware 03–08 reuse these interfaces (see [commands](lowrank/ACTIVATION_STAGES.md));
+  final-test 09 remains separate and unexecuted.
 - Process-lifetime JAX allocator peaks are not inference-only memory measurements.
   No resource speedup follows from counting parameters.
 

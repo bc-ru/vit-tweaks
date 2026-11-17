@@ -8,6 +8,10 @@ measurements. The older Torch compression benchmark remains a compatibility path
 Measured 168-configuration series, fine-tuning and RTX 4070 benchmarks:
 [Russian report, CSV and plots](docs/lowrank/results/aid_svd_20261117/REPORT_RU.md).
 
+Activation-aware approximation and individual ranks at equal storage budgets:
+[Russian experiment report](docs/lowrank/results/aid_activation_20261117/REPORT_RU.md),
+[independent stage commands](docs/lowrank/ACTIVATION_STAGES.md).
+
 ## Where things live
 
 | Path | Purpose |
@@ -65,7 +69,8 @@ Use `gpu` plus the stage's `--device gpu` for GPU work. The launcher first check
 for compute jobs and refuses a busy/inaccessible GPU. In agent sandboxes that hide
 NVIDIA devices, run with the necessary host access; that is not a driver repair.
 The optional `scripts/lowrank_series.py` enumerates explicitly requested SVD series;
-independent 04–08 commands are in the stage guide. Activation-aware experiments remain separate.
+independent 04–08 commands are in the stage guide. Activation-aware stages reuse
+the same candidate, validation, fine-tuning and aggregation interfaces.
 
 ## Check and maintain
 

@@ -1,6 +1,6 @@
 # ViT low-rank experiments — agent implementation contract
 
-Status: stages **00–02 implemented and verified** (see `VALIDATION_RU.md`); stages 03–09 remain specification only. Human-readable research protocol: `EXPERIMENT_DESIGN_RU.md` (same directory).
+Status: stages **00–08 implemented**; measured [ordinary SVD](results/aid_svd_20261117/REPORT_RU.md) and [activation-aware/rank-allocation results](results/aid_activation_20261117/REPORT_RU.md). Stage 09 remains unexecuted. Activation commands/formats: `ACTIVATION_STAGES.md`; human-readable protocol: `EXPERIMENT_DESIGN_RU.md`.
 
 ## 0. Repository and boundaries
 
@@ -28,11 +28,11 @@ Status: stages **00–02 implemented and verified** (see `VALIDATION_RU.md`); st
 
 | Code | Known issue / required change |
 |---|---|
-| `src/aerial_svd/jax_compression.py::compress` | `compressed >= original` currently skips factorization. Remove this as a condition for experimentation; expose realized factor list. |
-| `src/aerial_svd/jax_cli.py::verify_compression` | Existing verification assumes only parameter-saving cases factorize; update together with compression. |
-| `src/aerial_svd/model_spec.py::is_target` | `all` currently includes classifier `head`; provide `all_blocks` (all transformer block projections, no head), preserving previous mode for compatibility. |
-| `src/aerial_svd/jax_cli.py::layer_errors` | Currently obtains activations from test. Add train-calibration/validation selection and provenance. |
-| `src/aerial_svd/jax_cli.py::evaluate` | Currently evaluates test. Provide separate validation evaluation without changing final-test semantics silently. |
+| `src/aerial_svd/jax_compression.py::compress` | All selected valid ranks factorize, including expanding/full ranks; optional validated factors reuse this structural path. |
+| `src/aerial_svd/jax_cli.py::verify_compression` | Corrected no-skip policy; historical saving-only behavior remains opt-in. |
+| `src/aerial_svd/model_spec.py::is_target` | `all_blocks` excludes `head`; legacy `all` includes it. |
+| `src/aerial_svd/lowrank_activation_stats.py` | Fixed train-only calibration or separate validation moments; legacy `layer_errors` still uses test. |
+| `src/aerial_svd/lowrank_validate.py` | Paired validation; legacy `evaluate` keeps its final-test semantics. |
 | `src/aerial_svd/jax_engine.py` benchmarking | Synchronized warm timing exists; distinguish compile/warm-up from measured inference; do not pass lifetime process peak off as inference-specific GPU memory. |
 
 Re-inspect code before editing; the findings above describe the inspected revision, not a guarantee about future commits.

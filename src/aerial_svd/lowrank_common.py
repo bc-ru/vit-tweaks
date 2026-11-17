@@ -1,8 +1,10 @@
 """Input identity and immutable outputs shared by the independent research stages."""
 import argparse
+import csv
 from contextlib import contextmanager
 from dataclasses import asdict
 import hashlib
+import io
 import json
 import math
 import os
@@ -49,6 +51,16 @@ def publish_text(path, content, *, replace_owned=False):
 
 def publish_json(path, value, **kwargs):
     publish_text(path, json.dumps(value, indent=2, allow_nan=False) + "\n", **kwargs)
+
+
+def write_csv(out, name, rows):
+    if not rows:
+        return
+    stream = io.StringIO()
+    writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+    writer.writeheader()
+    writer.writerows(rows)
+    publish_text(out / name, stream.getvalue())
 
 
 @contextmanager
@@ -99,16 +111,18 @@ def load_inputs(args, stage, *, require_dense=True):
     if spec.model != cfg["model"] or spec.img_size != int(cfg.get("img_size", 224)):
         raise ValueError("Checkpoint architecture disagrees with config")
     if require_dense and any(key.endswith(".first.weight") for key in params):
-        raise ValueError("Research stages 00–02 require dense source weights")
+            raise ValueError("This research stage requires dense source weights")
     if not require_dense:
         actual = {key[:-len(".first.weight")]: value.shape[0]
                   for key, value in params.items() if key.endswith(".first.weight")}
         candidate = metadata.get("candidate")
         if actual and (not candidate or candidate.get("ranks") != actual
-                       or candidate.get("method") != "exact_svd"
+                       or candidate.get("method") not in ("exact_svd", "activation_svd")
                        or candidate.get("factorization_policy") != "all_selected_v1"
                        or "dense_source" not in metadata):
-            raise ValueError("Factorized checkpoint lacks matching exact-SVD candidate provenance")
+            raise ValueError("Factorized checkpoint lacks matching SVD candidate provenance")
+        if actual and candidate.get('method') == 'activation_svd' and not candidate.get('activation_bank'):
+            raise ValueError('Activation candidate lacks statistics/factor provenance')
         if not actual and candidate:
             raise ValueError("Candidate metadata disagrees with dense structure")
     saved = metadata.get("config", {})
@@ -133,7 +147,8 @@ def load_inputs(args, stage, *, require_dense=True):
                       source_files_sha256=source_hashes, model_spec=asdict(spec),
                       checkpoint=file_identity(args.checkpoint), config=file_identity(args.config),
                       source_metadata=metadata, effective_config=cfg, arguments=vars(args),
-                      method="exact_svd", factorization_policy="all_selected_v1", dtype="float32",
+                      method=metadata.get('candidate', {}).get('method', 'exact_svd'),
+                      factorization_policy="all_selected_v1", dtype="float32",
                       environment=dict(jax=jax.__version__, numpy=np.__version__, python=platform.python_version(),
                                        device=str(device), platform=device.platform))
     # Matrix stages record split identity, but never load images or require the dataset.

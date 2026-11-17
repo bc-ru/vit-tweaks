@@ -1,7 +1,5 @@
 """08_aggregate: read measured files only; no checkpoint load or model execution."""
 import argparse
-import csv
-import io
 import json
 import os
 from pathlib import Path
@@ -12,25 +10,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from aerial_svd.lowrank_common import file_identity, publish_json, publish_text, stage_output
+from aerial_svd.lowrank_common import file_identity, publish_json, publish_text, stage_output, write_csv
 from aerial_svd.lowrank_quality import verified_stage
-
-
-def write_csv(out, name, rows):
-    if not rows:
-        return
-    stream = io.StringIO()
-    writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
-    writer.writeheader()
-    writer.writerows(rows)
-    publish_text(out / name, stream.getvalue())
 
 
 def main(argv=None):
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument('--root', required=True)
     cli.add_argument('--output-dir', required=True)
+    cli.add_argument('--baseline-root', help='Existing SVD experiment for activation comparison')
+    cli.add_argument('--activation-bank', help='Completed activation factor/error bank')
     args = cli.parse_args(argv)
+    if args.activation_bank or args.baseline_root:
+        if not args.activation_bank or not args.baseline_root:
+            cli.error('Activation comparison requires both --activation-bank and --baseline-root')
+        from aerial_svd.lowrank_activation_report import aggregate
+        return aggregate(args)
     root = Path(args.root)
     manifests = []
     for path in sorted(root.rglob('manifest.json')):

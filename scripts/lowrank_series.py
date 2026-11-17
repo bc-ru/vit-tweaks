@@ -50,6 +50,19 @@ def checked(directory, checkpoint, config, extra):
     for name, identity in manifest['outputs'].items():
         if sha(directory / name) != identity['sha256']:
             raise ValueError(f'Changed output: {directory / name}')
+    for option, key in [('activation_bank', 'activation_bank'), ('allocation_dir', 'allocation'),
+                        ('reference_dir', 'reference')]:
+        dependency = manifest['arguments'].get(option)
+        if dependency:
+            dep = Path(dependency)
+            if sha(dep / 'manifest.json') != manifest[key]['sha256']:
+                raise ValueError(f'Changed prerequisite: {dep}')
+            dm = json.loads((dep / 'manifest.json').read_text())
+            if dm['status'] != 'complete':
+                raise ValueError(f'Incomplete prerequisite: {dep}')
+            for name, identity in dm['outputs'].items():
+                if sha(dep / name) != identity['sha256']:
+                    raise ValueError(f'Changed prerequisite output: {dep / name}')
     # Check explicit requested options too, not just the existence of a result.
     i = 0
     while i < len(extra):
@@ -68,9 +81,12 @@ def checked(directory, checkpoint, config, extra):
 def main():
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument('--root', required=True)
-    cli.add_argument('--series', required=True, choices=['setup', 'global', 'regions', 'single', 'finetune', 'benchmark'])
+    cli.add_argument('--series', required=True, choices=['setup', 'global', 'regions', 'single', 'allocation', 'finetune', 'benchmark'])
     cli.add_argument('--config', default='configs/aid_vit_small.yaml')
     cli.add_argument('--checkpoint', default='artifacts/checkpoints/jax/vit_small_protocol_v1.npz')
+    cli.add_argument('--activation-bank')
+    cli.add_argument('--reference-dir', help='Reuse a completed dense validation stage')
+    cli.add_argument('--finetune-configurations', nargs='+', help='Explicit selected configurations; default keeps SVD protocol')
     args = cli.parse_args()
     root = Path(args.root)
     root.mkdir(parents=True, exist_ok=True)
@@ -122,19 +138,35 @@ def main():
             extra=['--scope', 'all_blocks', '--rank-ratios', *map(str, RATIOS)])
         run('lowrank_validate', '05_dense', extra=['--batch-size', '8'])
     elif args.series in ('global', 'regions', 'single'):
-        reference = completed('05_dense')
+        reference = Path(args.reference_dir) if args.reference_dir else completed('05_dense')
         for name, scope, rho, matrices in configurations(args.series):
             extra = ['--scope', scope, '--rank-ratios', str(rho)]
             if matrices:
                 extra += ['--matrices', *matrices]
+            if args.activation_bank:
+                extra += ['--activation-bank', args.activation_bank]
             candidate = run('lowrank_make_candidate', name + '/04_candidate', extra=extra, profile='cpu')
             run('lowrank_validate', name + '/05_validation', checkpoint=candidate / 'candidate.npz',
                 extra=['--reference-dir', str(reference), '--batch-size', '8'])
+    elif args.series == 'allocation':
+        if not args.activation_bank or not args.reference_dir:
+            cli.error('Allocation requires --activation-bank and --reference-dir')
+        for method in ('activation_svd', 'exact_svd'):
+            for rho in (.25, .5, .75):
+                name = f'allocated_{method}_all_blocks_r{int(rho*1000):04d}'
+                extra = ['--scope', 'all_blocks', '--rank-ratios', str(rho), '--activation-bank', args.activation_bank]
+                allocation = run('lowrank_allocate', name + '/04_allocation', profile='cpu', extra=extra + ['--method', method])
+                candidate = run('lowrank_make_candidate', name + '/04_candidate', profile='cpu',
+                                extra=extra + ['--allocation-dir', str(allocation)])
+                run('lowrank_validate', name + '/05_validation', checkpoint=candidate / 'candidate.npz',
+                    extra=['--reference-dir', args.reference_dir, '--batch-size', '8'])
     elif args.series == 'finetune':
-        reference = completed('05_dense')
+        reference = Path(args.reference_dir) if args.reference_dir else completed('05_dense')
         names = [f'global_{scope}_r{rank:04d}' for scope in ('ffn', 'attn', 'all_blocks') for rank in (250, 500)]
         names += [f'{region}_ffn_r0500' for region in ('early', 'middle', 'late')]
         names += ['dense_control']
+        if args.finetune_configurations:
+            names = args.finetune_configurations
         for name in names:
             checkpoint = args.checkpoint if name == 'dense_control' else completed(name + '/04_candidate') / 'candidate.npz'
             extra = ['--reference-dir', str(reference), '--epochs', '5', '--batch-size', '8', '--eval-batch-size', '8', '--lr', '1e-05']

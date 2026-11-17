@@ -38,6 +38,34 @@ class CandidateValidation(unittest.TestCase):
             self.assertEqual(len(names), 1)
             self.assertIn(int(names[0].split('.')[1]), (0, 5, 11))
 
+    def test_series_reuse_checks_prerequisite_outputs(self):
+        path = Path(__file__).resolve().parents[1] / 'scripts' / 'lowrank_series.py'
+        spec = importlib.util.spec_from_file_location('series', path)
+        series = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(series)
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            checkpoint, config, split = [root/n for n in ('checkpoint', 'config', 'split')]
+            for f in (checkpoint, config, split):
+                f.write_text('fixed input')
+            dependency = root/'bank'
+            dependency.mkdir()
+            data = dependency/'factors'
+            data.write_text('fixed factors')
+            dm = dependency/'manifest.json'
+            dm.write_text(json.dumps(dict(status='complete', outputs={'factors': {'sha256': series.sha(data)}})))
+            out = root/'stage'
+            out.mkdir()
+            manifest = dict(status='complete', checkpoint={'sha256': series.sha(checkpoint)},
+                config={'sha256': series.sha(config)}, aid_split={'sha256': series.sha(split)},
+                effective_config={'split_file': str(split)}, outputs={},
+                arguments={'activation_bank': str(dependency)}, activation_bank={'sha256': series.sha(dm)})
+            (out/'manifest.json').write_text(json.dumps(manifest))
+            self.assertTrue(series.checked(out, checkpoint, config, ['--activation-bank', str(dependency)]))
+            data.write_text('changed factors')
+            with self.assertRaisesRegex(ValueError, 'Changed prerequisite output'):
+                series.checked(out, checkpoint, config, ['--activation-bank', str(dependency)])
+
     def test_metrics_hand_calculation(self):
         logits = np.array([[0., 0.], [0., np.log(3.)]])
         result = paired_metrics(logits, np.array([0, 1]), np.zeros_like(logits))

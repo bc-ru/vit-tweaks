@@ -21,7 +21,7 @@ def factorize_weight(weight, rank):
     return root[:, None] * Vh[:rank], U[:, :rank] * root
 
 
-def compress(params, mode, rank_ratio=None, *, ranks=None):
+def compress(params, mode, rank_ratio=None, *, ranks=None, factors=None):
     if ranks is None and (rank_ratio is None or not math.isfinite(rank_ratio) or not 0 < rank_ratio <= 1):
         raise ValueError("rank ratio must be in (0, 1]")
     if ranks is not None and (rank_ratio is not None or not ranks):
@@ -43,7 +43,15 @@ def compress(params, mode, rank_ratio=None, *, ranks=None):
         bias = params.get(name + ".bias")
         original = m * n + (m if bias is not None else 0)
         compressed = rank * (m + n) + (m if bias is not None else 0)
-        first, second = factorize_weight(W, rank)
+        if factors is None:
+            first, second = factorize_weight(W, rank)
+        else:
+            if type(rank) is not int or not 1 <= rank <= min(m, n):
+                raise ValueError('Invalid factor rank')
+            first, second = (np.asarray(a, dtype=np.float32) for a in factors[name])
+            if (first.shape != (rank, n) or second.shape != (m, rank)
+                    or not np.isfinite(first).all() or not np.isfinite(second).all()):
+                raise ValueError(f'Invalid factors for {name}')
         result.pop(name + ".weight")
         result[name + ".first.weight"] = first
         result[name + ".second.weight"] = second
