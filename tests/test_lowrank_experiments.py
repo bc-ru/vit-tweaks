@@ -107,6 +107,11 @@ class CandidateValidation(unittest.TestCase):
                 np.testing.assert_array_equal(ep[k], er[k])
             for a, b in zip(opt, resumed_opt):
                 np.testing.assert_array_equal(a, b)
+            rs, rp, rb, rm, invalid_opt = load_checkpoint(root / 'ft' / 'epoch-0001.npz')
+            next(x for x in invalid_opt if x.dtype.kind == 'f').flat[0] = np.nan
+            save_checkpoint(root / 'invalid_optimizer.npz', rs, rp, rb, metadata=rm, optimizer_leaves=invalid_opt)
+            with self.assertRaisesRegex(ValueError, 'Nonfinite resume optimizer'):
+                finetune(args(path, 'invalid_resume') + ft_args + ['--resume', str(root / 'invalid_optimizer.npz')])
             self.assertFalse(np.array_equal(fp['blocks.5.attn.proj.first.weight'], restored['blocks.5.attn.proj.first.weight']))
             benchmark(args(path, 'bench') + ['--batch-sizes', '1', '--warmup', '1', '--repeats', '2'])
             bench = json.loads((root / 'bench' / 'benchmark.json').read_text())

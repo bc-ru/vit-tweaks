@@ -99,7 +99,7 @@ def main(argv=None):
         else:
             v = json.loads((directory / 'benchmark.json').read_text())
             for measure in v['measurements']:
-                bench_rows.append(dict(configuration=directory.parent.name, total_params=v['total_params'],
+                bench_rows.append(dict(configuration='dense' if directory.parent.name == 'dense_control' else directory.parent.name, total_params=v['total_params'],
                                        param_memory_bytes=v['param_memory_bytes'], checkpoint_bytes=v['checkpoint_bytes'],
                                        **{k: value for k, value in measure.items() if k != 'trials_seconds'},
                                        inference_gpu_peak_bytes=v['inference_gpu_peak_bytes']))
@@ -170,11 +170,51 @@ def main(argv=None):
         report.append('## Глобальные конфигурации\n\n|Набор|Ранг|Параметры|Accuracy|CE|Logit L2 mean|\n|---|---:|---:|---:|---:|---:|')
         for r in global_df.sort_values(['scope', 'rank_ratio']).itertuples():
             report.append(f'|{r.scope}|{r.rank_ratio:g}|{r.total_params}|{r.top1:.6f}|{r.cross_entropy:.6f}|{r.logit_l2_mean:.5f}|')
+        regional = df[(df.series == 'region') & (df.rank_ratio == .5)]
+        if len(regional):
+            report.append('\n## Положение матриц при ранге 0.5\n\n|Область|Набор|Параметры|Accuracy|CE|\n|---|---|---:|---:|---:|')
+            for r in regional.sort_values(['scope', 'region']).itertuples():
+                report.append(f'|{r.region}|{r.scope}|{r.total_params}|{r.top1:.6f}|{r.cross_entropy:.6f}|')
+        single_low = df[(df.series == 'single') & (df.rank_ratio == .125)]
+        if len(single_low):
+            report.append('\nОдиночные замены при ранге 0.125 (остальная модель плотная):\n\n|Замена|Accuracy|CE|\n|---|---:|---:|')
+            for r in single_low.sort_values('configuration').itertuples():
+                report.append(f'|{r.configuration}|{r.top1:.6f}|{r.cross_entropy:.6f}|')
         if ft_rows:
             report.append('\n## Дообучение\n\nОбучались все параметры, включая факторы; фиксированные ранги. 5 эпох, AdamW (b1=.9, b2=.999, eps=1e-8), LR 1e-5 с cosine по эпохам, weight decay .05, label smoothing .1 только для train, batch 8, float32. Выбор максимальной validation accuracy, ранняя эпоха при равенстве. CE в таблицах несглаженная.\n\n|Модель|Accuracy до|После|CE до|После|Лучшая эпоха|\n|---|---:|---:|---:|---:|---:|')
             for r in ft_rows:
                 report.append(f'|{r["configuration"]}|{r["accuracy_before"]:.6f}|{r["accuracy_after"]:.6f}|{r["ce_before"]:.6f}|{r["ce_after"]:.6f}|{r["best_epoch"]}|')
+        if bench_rows:
+            report.append('\n## Инференс и память параметров\n\n|Модель|Batch|Параметры|Байты параметров|Байты NPZ|Median ms|P05–P95 ms|Изображений/s|\n|---|---:|---:|---:|---:|---:|---|---:|')
+            for r in bench_rows:
+                report.append(f'|{r["configuration"]}|{r["batch_size"]}|{r["total_params"]}|{r["param_memory_bytes"]}|{r["checkpoint_bytes"]}|{r["median_batch_ms"]:.3f}|{r["p05_batch_ms"]:.3f}–{r["p95_batch_ms"]:.3f}|{r["throughput_images_s"]:.1f}|')
+        report.append('\n## Наблюдения по измерениям\n')
+        for scope, group in global_df.groupby('scope'):
+            saving = group[group.total_params < baseline.total_params]
+            if len(saving):
+                best_saving = saving.sort_values(['top1', 'rank_ratio'], ascending=[False, True]).iloc[0]
+                report.append(f'- `{scope}`: наибольшая измеренная accuracy среди точек с меньшим числом параметров — {100*best_saving.top1:.3f}% при ранге {best_saving.rank_ratio:g}, {int(best_saving.total_params)} параметров ({100*(1-best_saving.total_params/baseline.total_params):.2f}% меньше исходной модели).')
+        for scope, group in regional.groupby('scope'):
+            ordered = group.sort_values('top1')
+            if len(ordered) == 3:
+                report.append(f'- `{scope}`, ранг 0.5: accuracy от {100*ordered.iloc[0].top1:.3f}% ({ordered.iloc[0].region}) до {100*ordered.iloc[-1].top1:.3f}% ({ordered.iloc[-1].region}) при одинаковом числе замен и параметров.')
+        if ft_rows:
+            deltas = [r['accuracy_after']-r['accuracy_before'] for r in ft_rows if r['configuration'] != 'dense_control']
+            if deltas:
+                report.append(f'- Дообучение SVD-моделей: изменение accuracy от {100*min(deltas):+.3f} до {100*max(deltas):+.3f} процентных пункта. Все сравнения до/после сделаны на одной validation; dense control показан отдельно.')
+            for r in ft_rows:
+                if r['ce_after'] > r['ce_before']:
+                    report.append(f'- `{r["configuration"]}`: CE ухудшилась {r["ce_before"]:.6f} → {r["ce_after"]:.6f} при выборе по accuracy; восстановление качества нельзя считать однозначным по всем метрикам.')
+                if r['configuration'] == 'dense_control':
+                    report.append(f'- Плотный контроль с теми же 5 эпохами: accuracy {100*r["accuracy_before"]:.3f}% → {100*r["accuracy_after"]:.3f}%, CE {r["ce_before"]:.6f} → {r["ce_after"]:.6f}. Сам эффект дополнительного обучения следует учитывать при сравнении с SVD + дообучение.')
+        dense_times = {r['batch_size']: r['median_batch_ms'] for r in bench_rows if r['configuration'] == 'dense'}
+        for r in bench_rows:
+            if r['configuration'] == 'global_all_blocks_r0500' and r['batch_size'] in dense_times:
+                report.append(f'- `all_blocks`, ранг 0.5, batch {r["batch_size"]}: {r["median_batch_ms"]:.3f} ms против {dense_times[r["batch_size"]]:.3f} ms у dense; отношение скорости dense/SVD = {dense_times[r["batch_size"]]/r["median_batch_ms"]:.3f}. Уменьшение параметров не обеспечивает ускорение для каждого batch.')
         report.append('\n## Допустимые выводы и ограничения\n\nИзменение accuracy измеряется для одного checkpoint, seed и validation split: статистической гарантии для других обучений нет. Малая ошибка матриц сама по себе не доказывает малую ошибку модели. Выбор по validation может завышать оценку выбранного варианта; финальный test остаётся отдельным этапом. Дообучение оценивается по факту, без предположения восстановления.\n\nBenchmark: RTX 4070, float32, batches 1/16, 5 прогревов и 50 синхронизированных повторов. Компиляция, подготовка изображений и переносы исключены. Байты параметров и размер NPZ — разные измерения; inference GPU peak не измерен и не заменяется пиком процесса. Скорость нельзя выводить из числа параметров.\n\nВсе численные данные: `configurations.csv`, `matrix_curves.csv`, `matrix_errors.csv`, `finetuning.csv`, `benchmarks.csv`; исходные manifests перечислены в manifest данного отчёта. Незавершённые стадии не включены.\n')
+        report.append('\nCheckpoints дообучения выбирались среди эпох 1–5; исходная точка сохранена отдельно. Benchmark относится к плотному источнику и исходным SVD-checkpoint до дообучения. Различия в несколько изображений на validation не доказывают статистически значимого преимущества.\n')
+        report.append('Графики: [ошибки матриц](matrix_errors_rank.png), [accuracy от ранга](accuracy_rank.png), [начало/середина/конец](accuracy_regions.png), [одиночные замены](accuracy_single.png), [accuracy от параметров](accuracy_parameters.png), [до/после обучения](finetuning.png).\n')
+        report.append(f'Полные checkpoint, логиты и manifests стадий сохранены в `{root}`; исходные веса и split не изменялись.\n')
         publish_text(out / 'REPORT_RU.md', '\n'.join(report))
         publish_json(out / 'summary.json', dict(configurations=len(df)-1, by_series=counts, finetuned=len(ft_rows), benchmark_rows=len(bench_rows), full_rank_controls=len(full)))
         print(dict(configurations=len(df)-1, finetuned=len(ft_rows), benchmark_rows=len(bench_rows)), flush=True)

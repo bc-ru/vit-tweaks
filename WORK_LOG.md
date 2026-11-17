@@ -3,30 +3,36 @@
 ## Current state
 
 - Current protocol: JAX ViT-Small, exact SVD, frozen AID seed-42 split (30 classes).
-  Stages **00–02 and exact-SVD 04–08 work**; the 168-candidate validation series
-  is running in `artifacts/experiments/aid_svd_20261117/`. Activation-aware 03
-  and final-test 09 remain separate; test has not been evaluated.
-- Start at `README.md`; scientific requirements/commands are in `docs/lowrank/`.
-  Results and source weights are under `artifacts/`; legacy root paths still work.
-- GPU and non-root Docker access work. Container ownership repair works without
-  host sudo. Remote publication remains dependent on SSH-agent signing access.
+  Stages **00–02 and exact-SVD 04–08 are complete**: 168 validation configurations,
+  9 factorized fine-tunes + dense control (5 epochs each), RTX 4070 benchmarks.
+- Measured report/CSV/plots: `docs/lowrank/results/aid_svd_20261117/REPORT_RU.md`.
+  Full checkpoints, logits and manifests: `artifacts/experiments/aid_svd_20261117/`.
+  Source weights, split and historical compatibility links are unchanged.
+- Activation-aware 03 and held-out final-test 09 remain separate. No test evaluation;
+  inference GPU allocator peak is not measured (parameter bytes are exact).
+- GPU and non-root Docker work. GitHub App publication works; shell SSH has no key.
 
 ## Outcomes
 
-### 2026-11-17 — Exact-SVD candidates and validation series
+### 2026-11-17 — Exact-SVD research series complete
 
-Implemented independent candidate/validation/fine-tuning/benchmark/aggregation
-stages, reusing native checkpoint, compression and Engine. Per-stage immutable
-outputs, paired pixel/index hashes, full-rank output controls and epoch optimizer
-recovery. Existing 00–02 verified all 48 matrices and 384 spectral-tail points;
-GPU dense validation reproduces 0.9733333333 accuracy / 0.1984744517 CE.
+Implemented independent 04–08 stages using native checkpoints, compression and
+Engine. Completed 24 global + 48 regional + 96 single replacements on the same
+1500 validation images, 9 factorized five-epoch fine-tunes plus dense control,
+and 8 models × batches 1/16 × 50 synchronized inference trials. Full-rank controls
+all pass (21 cases; maximum relative logit error 1.71e-6). Test never evaluated.
 
-Proof: `scripts/check.sh` passes 19 tests, including real factor training and
-continuous/resumed checkpoint equality. All 24 global configurations are complete; full-rank controls restore accuracy
-and have relative logit error at most 1.71e-6. The 48/96 series is in progress under
-`artifacts/experiments/aid_svd_20261117/`; pending completion, 9 fine-tunes + dense
-control, resource measurements and the measured report. Commands/schemas:
-`docs/lowrank/RUN_STAGES_RU.md`. No test images or historical results touched.
+Proof: `scripts/check.sh` passes 19 tests, including real factor training, exact
+optimizer recovery and nonfinite-state rejection. Main-series audit: 340 complete
+stages / 1698 matching input-output hashes. Training audit: 50 epochs / 350000
+images / 43750 updates, none skipped. Snapshot: 169 model rows, 384 curve points,
+1248 matrix-error rows, 10 fine-tunes, 16 benchmark rows, 6 plots.
+
+Results and limits: `docs/lowrank/results/aid_svd_20261117/REPORT_RU.md`; raw evidence
+in `artifacts/experiments/aid_svd_20261117/`. Recovery is partial for strong global
+compression; middle-FFN CE worsens despite a small accuracy increase. Fewer
+parameters do not ensure lower batch-1 latency. Held-out test and inference-only
+GPU peak remain unmeasured. Commands: `docs/lowrank/RUN_STAGES_RU.md`.
 
 ### 2026-11-17 — Selected skill restoration
 

@@ -52,6 +52,8 @@ def main(argv=None):
         expected = jax.tree.leaves(state)
         if len(expected) != len(leaves) or any(a.shape != b.shape or a.dtype != b.dtype for a, b in zip(expected, leaves)):
             raise ValueError('Resume optimizer schema mismatch')
+        if any(not np.isfinite(x).all() for x in leaves):
+            raise ValueError('Nonfinite resume optimizer state')
         params, buffers = jax.tree.map(jnp.asarray, (rp, rb))
         state = jax.tree.unflatten(tree, [jnp.asarray(x) for x in leaves])
         history, best, best_path = recovery['history'], recovery['best_top1'], Path(recovery['best_path'])
