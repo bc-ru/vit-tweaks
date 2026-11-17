@@ -1,0 +1,1028 @@
+{
+  "stage": "08_aggregate",
+  "inputs": [
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/02_matrix_curves/manifest.json",
+      "sha256": "6a7cd6903693a7d1e610975a063ac65698c30e1cb54ebcf57cb8d9eec23516f1",
+      "bytes": 52319
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/05_dense/manifest.json",
+      "sha256": "d5bd19fd1d35823dd294da140570bbc4b472a4a247302b82d0cd74def8d622d0",
+      "bytes": 9623
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/dense_control/06_finetune/manifest.json",
+      "sha256": "09e76e5f8c249c2e7091b6ec7421a8b20af80b79a175c01ed599ff4b97a437a2",
+      "bytes": 21664
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/dense_control/07_benchmark/manifest.json",
+      "sha256": "444d34b1ed2658b70dea91e4d42f6763bf24f9673fad32a518c8d99507d7aa0c",
+      "bytes": 9726
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0125/05_validation/manifest.json",
+      "sha256": "98e6532099e8c071b1b7a2d363a8d818ebe134e031b24f233519bee7f66414a5",
+      "bytes": 12306
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0250/05_validation/manifest.json",
+      "sha256": "9bd3fbe2f86dc69fa580b30dae90c52866563d65e7fdb9d2ff30fa735a611ec1",
+      "bytes": 12298
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0375/05_validation/manifest.json",
+      "sha256": "19ab682f0bcaa02efa309b26b4ab091fcd588104e1afe003392ac98133177ccf",
+      "bytes": 12330
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0500/05_validation/manifest.json",
+      "sha256": "b25c7c5ccf8ce72b62fea0948816da4774c6a25871d3de78cc735d8df3b0d99b",
+      "bytes": 12314
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0625/05_validation/manifest.json",
+      "sha256": "da133b5cc0a5e06db26c4d59ff5e34d3e1f9297737a5752c5abc394346a6c736",
+      "bytes": 12330
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0750/05_validation/manifest.json",
+      "sha256": "e813f185dde3761889c2d6bf73d04b4fccd53967d3cf8801236707c970498577",
+      "bytes": 12322
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r0875/05_validation/manifest.json",
+      "sha256": "028e7f1534e8c42427bedb5d6511c24cb0078161380ef3b9c8031fce65d0bc8e",
+      "bytes": 12330
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_attn_r1000/05_validation/manifest.json",
+      "sha256": "a886cafa7fb6bd6939edac9bebe230bc145d7c1969f52642b69f2a9ab7cb96b0",
+      "bytes": 12313
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0125/05_validation/manifest.json",
+      "sha256": "0c9d3d1b6d4f947f2741dd4cdc57b98a84240b41dd168972c3f39947bb146277",
+      "bytes": 12276
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0250/05_validation/manifest.json",
+      "sha256": "0d7def1b6549aba33a30047049e3bf89b76d4d03864793b4861c49bdb041dc01",
+      "bytes": 12268
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0375/05_validation/manifest.json",
+      "sha256": "d36e8dccda76ecab7671cb373d1741618b93ed3eeba03060f7a3f3e280ef161c",
+      "bytes": 12300
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0500/05_validation/manifest.json",
+      "sha256": "d4f5ed96d1e3ed9c20056003f8294b0fc3bee295afcbd1cb9df84e599b476749",
+      "bytes": 12284
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0500/06_finetune/manifest.json",
+      "sha256": "8bc64b281ee299bc57d324bfd6ba66a37927c98e30a1628e3dd27ba84f48c88d",
+      "bytes": 24431
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0625/05_validation/manifest.json",
+      "sha256": "1cee835d685ecd764dd9f0e4a45f34b4275399ba6c59f6e47e13f061d52f9301",
+      "bytes": 12300
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0750/05_validation/manifest.json",
+      "sha256": "951465116d9405a58b90da7f31272e57851d62db55c0e8977cc30e6f16729039",
+      "bytes": 12292
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r0875/05_validation/manifest.json",
+      "sha256": "86b9195a15c1692b1a0535829c23edcafe868da26444d3d8ad496329401fbf41",
+      "bytes": 12300
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/early_ffn_r1000/05_validation/manifest.json",
+      "sha256": "9759e066b90af0a9f0fbed0d55206f74b5437adb8d6dc8d94f5cd3365406fec5",
+      "bytes": 12283
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0125/05_validation/manifest.json",
+      "sha256": "624063693e17fb09295ebe10d3f6151ac432029d7b32fa97118c82bc88379ed5",
+      "bytes": 20214
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0250/05_validation/manifest.json",
+      "sha256": "7060409bd86428eb1b274d7b2901b17e545e214c18535da9cbebc7c35f904781",
+      "bytes": 20323
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0250/06_finetune/manifest.json",
+      "sha256": "873ed1f906c13409432dfcf582232adf7d9aa720f96f7c9d9b45e760a84f04a2",
+      "bytes": 35749
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0250/07_benchmark/manifest.json",
+      "sha256": "5cf01220c41a8f255cfc747f1f427ae704eb67ec4c8120500f9777690b65e0c7",
+      "bytes": 19850
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0375/05_validation/manifest.json",
+      "sha256": "5bbd16343fd6dcd482cd153d50c29707dffe459366e5271b1396708a7e47d979",
+      "bytes": 20515
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0500/05_validation/manifest.json",
+      "sha256": "4c4326621f58276f0d61550626f097ca09e57b1e625d8366fb82ec1e895014a3",
+      "bytes": 20419
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0500/06_finetune/manifest.json",
+      "sha256": "abb97a00660f74a9554f05dcbe9b6407ebd3ac1f0564706dbe1a14616332e09f",
+      "bytes": 35946
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0500/07_benchmark/manifest.json",
+      "sha256": "113d3186f08224df5062f930a4624e88d0044a0063d8aefa97b94bb12d8cf2b5",
+      "bytes": 19946
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0625/05_validation/manifest.json",
+      "sha256": "4d641072bf697829b9855fc69332bff6508a132cdcc4c11d80bc0d9d47b3adc7",
+      "bytes": 20515
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0750/05_validation/manifest.json",
+      "sha256": "cb319c74477e9bf17f3d4fe67be887b16260ae6a3d5134a8eeefb8cefe471ff0",
+      "bytes": 20467
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r0875/05_validation/manifest.json",
+      "sha256": "befc34ba83dc0209144f9a4b8f735534422f1b27d8945289f787e179f8b634c2",
+      "bytes": 20516
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r1000/05_validation/manifest.json",
+      "sha256": "6c6cb69e16a5cc84859dc638f1192e4edaa4d2357a4eb47bb591373599c8c128",
+      "bytes": 20419
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_all_blocks_r1000/07_benchmark/manifest.json",
+      "sha256": "ac22c3bf4fab70fdec238b3ecd9dc03c81b5d4e96aadb0681176efe13e15894e",
+      "bytes": 19946
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0125/05_validation/manifest.json",
+      "sha256": "aa5852486c0309c126f292a902e7d0ac2c89cc98337ff5e27f4f00e73d01c4b9",
+      "bytes": 15394
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0250/05_validation/manifest.json",
+      "sha256": "de2ae85375f0a7dc664d5dd222c396685241df05bc0b7691d76307c55d8c9e03",
+      "bytes": 15370
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0250/06_finetune/manifest.json",
+      "sha256": "b4b924684387c9ffd0a998b4a88803e3106a3aa872bd9961f33ea57b0e7566f5",
+      "bytes": 28986
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0250/07_benchmark/manifest.json",
+      "sha256": "f0d6dc7fd0991398dcc425e091b970a1f2cdb7d3ecdbe19d6e0f494653acd647",
+      "bytes": 15060
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0375/05_validation/manifest.json",
+      "sha256": "795c9eeac68466c3dbff726196493195579bb642754010e6b75ec5cc07deec10",
+      "bytes": 15466
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0500/05_validation/manifest.json",
+      "sha256": "15700cedc17120f2a2ad6c4145cb6b4ce92ca4e1f672a5ef7270ca55700dc3e7",
+      "bytes": 15418
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0500/06_finetune/manifest.json",
+      "sha256": "76fbf3e1ef54702f903c6bcb7e3b17fe8947fde8ee1a14727985e8f1d67cea21",
+      "bytes": 29082
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0500/07_benchmark/manifest.json",
+      "sha256": "47a1ada40bbe20fbf6e87e3c25cb774dc76e205134d2a3d44d04b1d8d48c5764",
+      "bytes": 15108
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0625/05_validation/manifest.json",
+      "sha256": "bd9402426694e53451fb3a898d932630ab99d84544cb12477d3dc17022edce57",
+      "bytes": 15466
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0750/05_validation/manifest.json",
+      "sha256": "39343b8bccd6bc39976661e622c1ea01ce51cbde32c80e98730834aef4f23110",
+      "bytes": 15442
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r0875/05_validation/manifest.json",
+      "sha256": "be266cc360dffd5c2855f9878d3796af9315c639af374f69d509baa6707bcb77",
+      "bytes": 15466
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_attn_r1000/05_validation/manifest.json",
+      "sha256": "e888b48c685cfd2cf18dac25a81941701f54a3eb2b7ead10c03694686a7263f0",
+      "bytes": 15418
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0125/05_validation/manifest.json",
+      "sha256": "c5df508ecf789300487d329e2c6ae57fa21955c0b1a33cb283a06a848fa21ea9",
+      "bytes": 15316
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0250/05_validation/manifest.json",
+      "sha256": "a523ea00da3eebf3cb4ed239ae2081c473b0148c5e52c50397b37204045b7aeb",
+      "bytes": 15292
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0250/06_finetune/manifest.json",
+      "sha256": "3f6576aef966a6492ac7afb35cf1a5dfe1b9111fc4b57d7b0c14763195b54c89",
+      "bytes": 28861
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0250/07_benchmark/manifest.json",
+      "sha256": "340f3b7c8aa0aee0b6c3e73df5292d1acf6d498f4e67329407042e97c1517c6b",
+      "bytes": 14983
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0375/05_validation/manifest.json",
+      "sha256": "6d380dc3153b630158cdf211b9cf8c86d3f48f5b4f1d79086a2f555fd8d25957",
+      "bytes": 15388
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0500/05_validation/manifest.json",
+      "sha256": "14c630534e9132f009c284458f7989d6153c82975ff5d1a2695d355657cabcbd",
+      "bytes": 15340
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0500/06_finetune/manifest.json",
+      "sha256": "e0a62f6c526e46bb21161b98fb4dd99b25380e862df772616c79f33e8e682684",
+      "bytes": 28956
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0500/07_benchmark/manifest.json",
+      "sha256": "45db360b7e31787b74276827febbdab3fab216cbc0e3bf0097a05b5ea5254b54",
+      "bytes": 15031
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0625/05_validation/manifest.json",
+      "sha256": "10d81cb76c31d6572bb59c5a6d16f381f8aa96d53cc7dfbb135d652bf8a8dc1c",
+      "bytes": 15388
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0750/05_validation/manifest.json",
+      "sha256": "cfd003af75af834f6321d95cf2ef81d0264de6e058d81da09f68ced58f7ce2cc",
+      "bytes": 15364
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r0875/05_validation/manifest.json",
+      "sha256": "5aab12c26542ed17cca7f8ad48aaa132f5072b68860d3fa2ab82a97d1c756752",
+      "bytes": 15388
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/global_ffn_r1000/05_validation/manifest.json",
+      "sha256": "ee404c526322268915d3e151ff5ee89628b5a05aabbfdee82ea3fb92fa1b4e33",
+      "bytes": 15340
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0125/05_validation/manifest.json",
+      "sha256": "3b1c54439651134ad4d421def431e5cf43c1ff55b92ae0f55e0b05f88375dd82",
+      "bytes": 12309
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0250/05_validation/manifest.json",
+      "sha256": "ec563aef877b6f1f2357dbd331d6457237e17e40ed92f237143b2d0d8243aedc",
+      "bytes": 12301
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0375/05_validation/manifest.json",
+      "sha256": "b1b87cd092e7ba4d319e050cb46a1d07a5dd045f5a4deba58c1aa8f1b1fe9135",
+      "bytes": 12333
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0500/05_validation/manifest.json",
+      "sha256": "06f4ef4461e02efb7524439830b71daa92013d85a03ef677e3919b7a923940af",
+      "bytes": 12317
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0625/05_validation/manifest.json",
+      "sha256": "8f36ffb99ea3ef0edee5dd1ffd32831cc537ab207e6be548bf9acc8879da29da",
+      "bytes": 12333
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0750/05_validation/manifest.json",
+      "sha256": "bc69f64eff3f77ccd742de49952c6778622f4032135cd96ef0eb5275918b8c1f",
+      "bytes": 12325
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r0875/05_validation/manifest.json",
+      "sha256": "db4c23ae1bf98febf2a72b5eb23e04549b16bd3f80ffc46f55012de37261b365",
+      "bytes": 12333
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_attn_r1000/05_validation/manifest.json",
+      "sha256": "620b748acc6f6d8331b5e2f5638760fd6b696f8508fc3ba80177beba5d3b25d8",
+      "bytes": 12316
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0125/05_validation/manifest.json",
+      "sha256": "ea121922c05720137eed48dd122a1ab315d4927b1f5aa7fac01f95341ff033dc",
+      "bytes": 12279
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0250/05_validation/manifest.json",
+      "sha256": "b37c3da13e0449ef066ebb27db6485b3b624c828b2a0f9d0a190de65ac1f7aae",
+      "bytes": 12271
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0375/05_validation/manifest.json",
+      "sha256": "52122e6e1979327835d58835ae8b4d30940f5d70570f0a5ff2ff67a7d120d44c",
+      "bytes": 12303
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0500/05_validation/manifest.json",
+      "sha256": "010c48a83a8a5949093bd4786310909d82a23c1a1859c8ffeab3e96103bd3d32",
+      "bytes": 12287
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0500/06_finetune/manifest.json",
+      "sha256": "13384a04f79c29bfa0046a7c875e13e176584520a1e0e4f3c613b2fafdc02a00",
+      "bytes": 24426
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0625/05_validation/manifest.json",
+      "sha256": "c88cad6283897794b4d9f60e75a2c1cd71335dec887d2ef5190bb69c7e70e5c5",
+      "bytes": 12303
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0750/05_validation/manifest.json",
+      "sha256": "14d7c390631fefb4380beab4a82bd2ed159c453b64280d744ba54492e8d0eb16",
+      "bytes": 12295
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r0875/05_validation/manifest.json",
+      "sha256": "2f46a0e928326c6124f55995b3a0b669d215d5a914f79e8bca276a1e8190e2b8",
+      "bytes": 12303
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/late_ffn_r1000/05_validation/manifest.json",
+      "sha256": "c1c842c655219febe638c728d1fc77649e8b2c0976d394cf779f87364eb77ee5",
+      "bytes": 12286
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0125/05_validation/manifest.json",
+      "sha256": "42f7f95020a6d6281df27258c424080ed7823c0a91e2fcb825396316f47f7c41",
+      "bytes": 12311
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0250/05_validation/manifest.json",
+      "sha256": "c139c2b42943d53884a76488539a0e6289510ece54d8406328cc5fac7914d82e",
+      "bytes": 12303
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0375/05_validation/manifest.json",
+      "sha256": "2a3da7edbde33dc98a597e32d6271483cebbe17bf1b3f26ea3841c6235e23189",
+      "bytes": 12335
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0500/05_validation/manifest.json",
+      "sha256": "832410824f43daacc664dc07b63d9b45ca110a6db593ecb4778282fa5ff2c2e7",
+      "bytes": 12319
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0625/05_validation/manifest.json",
+      "sha256": "cf0e5b7cbd6b04119f38e95b40de6fe0726f6d6d721e4222d5a06eefbcaf7f23",
+      "bytes": 12335
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0750/05_validation/manifest.json",
+      "sha256": "07df663494d95918e6792571cb5f9c62deb96ef94155561044015ff9ee1e2c59",
+      "bytes": 12327
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r0875/05_validation/manifest.json",
+      "sha256": "6ca5f649c56cbb8c5e6d0d4c8bdc990be8cb5655c2248fbe3df779ddaaca990e",
+      "bytes": 12335
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_attn_r1000/05_validation/manifest.json",
+      "sha256": "47d5966ef91b62aaf919cfbc552980a38da05a3d6079c136088e79af9a9d6468",
+      "bytes": 12318
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0125/05_validation/manifest.json",
+      "sha256": "04f4df8c3d2dc9490370bb473428b4e35462b3c200b5f3249fbf77bb9a869f04",
+      "bytes": 12281
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0250/05_validation/manifest.json",
+      "sha256": "47fec50d3fc2aa9352751a65ca0176d78cc3cb8177e4869cf560e123ca3da1a0",
+      "bytes": 12273
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0375/05_validation/manifest.json",
+      "sha256": "a488e2bb93884776f13dc0ef88f8e0a5e37f325d2a01cba83ee1d1c041c2e4e6",
+      "bytes": 12305
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0500/05_validation/manifest.json",
+      "sha256": "f3fc541453cfb77a0caca472a8a1ff8d7719a2a77c6ba4f33c308801ce8c7cce",
+      "bytes": 12289
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0500/06_finetune/manifest.json",
+      "sha256": "7c45939a0c635a79712aa15984dc2449202948e39b4f56ebe9ea141671e46a94",
+      "bytes": 24448
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0625/05_validation/manifest.json",
+      "sha256": "6abd89facbf8fa0f444ed0b70a4479362f78ccdac6d462c3102e2108f86a3c4c",
+      "bytes": 12305
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0750/05_validation/manifest.json",
+      "sha256": "e6fd43ed5356033600194809def8389c75aece9b55796f3e8c48e76b11ac8f05",
+      "bytes": 12297
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r0875/05_validation/manifest.json",
+      "sha256": "5ca9391f548aa65e04abf34b038d03b0a1b5ab4e1b20948ddcfd7a931bbf3da7",
+      "bytes": 12305
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/middle_ffn_r1000/05_validation/manifest.json",
+      "sha256": "9c950f6ecb103de3b6fd5d4b2a37c05b410007b0b5a61e71ed3460c608b93ecb",
+      "bytes": 12288
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0125/05_validation/manifest.json",
+      "sha256": "3d444863e54581e0ade0340869ac21fa051558a3a22d3e0abc25efa6c8de39c6",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0250/05_validation/manifest.json",
+      "sha256": "467a8d31e8a4e9fb174286d70213cd4ae03c2308b3aa6161799aeefd642d2418",
+      "bytes": 10936
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0375/05_validation/manifest.json",
+      "sha256": "619d98309e2c3136d74b3eb8735c19b3d7dae552a672116aaadd4dadc339835b",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0500/05_validation/manifest.json",
+      "sha256": "472c9147c4f5c745c3a8372400bcb777eccfcea8dc8c2efb6f6db228026918b5",
+      "bytes": 10938
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0625/05_validation/manifest.json",
+      "sha256": "4f6988b18f0d3aa0189b257fc733a5a2dda935c952c9b1f4f953ee791d7b45e5",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0750/05_validation/manifest.json",
+      "sha256": "40cd38ff4a6be401bf66cf43932a41db93e682732d7afc3c1fa81d6cec6631ae",
+      "bytes": 10939
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r0875/05_validation/manifest.json",
+      "sha256": "8b2a88c3be4662241a733e6830bb22d042702fc1e54f5112b9ee4465fff7e5c0",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.proj_r1000/05_validation/manifest.json",
+      "sha256": "a6d45cd95679c73e0a4486a1c42ce1cfff27d58441c2376e7b9eedbafb7c8403",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0125/05_validation/manifest.json",
+      "sha256": "b4fd6e424d375f2ecb4e1fb9d5fd288ebba3867ca7703b6b5ac2150698d38013",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0250/05_validation/manifest.json",
+      "sha256": "b8969f63f3cd1d3e54477ee0beb0422f8dfc1dd25d177fcf33253679833d0a00",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0375/05_validation/manifest.json",
+      "sha256": "85bd30565041f492f1eb7dfc4c47cae4eda2340c7952aace5f370709c4ab84b1",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0500/05_validation/manifest.json",
+      "sha256": "51204a02f93f2a5303111635a0bd82b3e49af2b8c4f57daccfdefef7a058889a",
+      "bytes": 10931
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0625/05_validation/manifest.json",
+      "sha256": "f9f0dc937630f0af650a5b0aaa442efe43196c7e09dae8276eefd734d329db43",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0750/05_validation/manifest.json",
+      "sha256": "77e1c80f8b2671e1d97aae1ba7a171327eba0e72c052d1f09aa9851bb6e41ca4",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r0875/05_validation/manifest.json",
+      "sha256": "00ea7229ddde57d679bb77f3ee005b6be1db016844130924325eb2ed183844d5",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_attn.qkv_r1000/05_validation/manifest.json",
+      "sha256": "86718eea1badb813be51227e14295b58137a37a6049aa64ab976d4fc8ce4ff0c",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0125/05_validation/manifest.json",
+      "sha256": "33f48d125adae4c6c6d79673858e251805b604b5db587872fd5689bf0154efe8",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0250/05_validation/manifest.json",
+      "sha256": "2bc9ef0e0780d3525958ff65ff3f79333ae7114122e42bf4b68b95aa0466298f",
+      "bytes": 10921
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0375/05_validation/manifest.json",
+      "sha256": "2a41112ecedaf04829f39a4e05176b911c1fe458435b7cbdab4bb18008110ef6",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0500/05_validation/manifest.json",
+      "sha256": "c5e9d5afafdf6f68ded3a7315ddf2a70e715741c0130cfa5bdef3cb43e1b1475",
+      "bytes": 10923
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0625/05_validation/manifest.json",
+      "sha256": "b85a0cca94d4fe61c522cd5688f65d7b133e46e8dad0888d3485d9da5a96050b",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0750/05_validation/manifest.json",
+      "sha256": "fe54f1b38df62fbfea5c5a5976107d0d4f0b1073cc343cea00df0ccabad9f8f0",
+      "bytes": 10924
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r0875/05_validation/manifest.json",
+      "sha256": "44792b87a4dcc048fa8421111818d55e7174624b4944a761e78da2058a892e33",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc1_r1000/05_validation/manifest.json",
+      "sha256": "7cdd3a7ce0de1ec46e99d5b5be907137481f33940c36e5f044dab60d47edd906",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0125/05_validation/manifest.json",
+      "sha256": "9280d801b74520a646c002be42194cbca0f81fbe287ebfe6dcdec3794d5f0baf",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0250/05_validation/manifest.json",
+      "sha256": "569a11d1d84253fbf8fcb4eaab7e716e2f72515664b12f4aac4bce7ae581571c",
+      "bytes": 10921
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0375/05_validation/manifest.json",
+      "sha256": "569466e895b9f92f777091e848ca924dd7a8a5811cd8907242fd745400a7c5f6",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0500/05_validation/manifest.json",
+      "sha256": "89065653b93a352e22a29c73e116dc0bcad7c5750049225f5d52977cfc00895f",
+      "bytes": 10923
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0625/05_validation/manifest.json",
+      "sha256": "43249c005148c41f3122c507fc2560cf5f7bf21660cd1e2a59c640951cf5ea64",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0750/05_validation/manifest.json",
+      "sha256": "b92fe4a25e05f3a26c174f532119ac161b093c3c573e33073cc70e5feaba4b77",
+      "bytes": 10924
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r0875/05_validation/manifest.json",
+      "sha256": "48b979ee6a087fc3622444558a8cfb96c972f88b00d063a8e07e515013fb46fc",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b0_mlp.fc2_r1000/05_validation/manifest.json",
+      "sha256": "1acd2e92c979960beea818138c969f5c4a92d00ef1fb52cb33c86a318ebbc449",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0125/05_validation/manifest.json",
+      "sha256": "331b77b199865b7e9fc9f0e7937e6f5c7ef74ca83d48eadf2694db816e6d5f0c",
+      "bytes": 10944
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0250/05_validation/manifest.json",
+      "sha256": "5eba68002c4e07bed9f4ad8e2c2fb95da5cf4cea1d464bb5e4c0195afeebcbc3",
+      "bytes": 10943
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0375/05_validation/manifest.json",
+      "sha256": "b7cabb07baad2fc38ad41cffa63c617753c8f9b71576e7242a1ff90e10f134d1",
+      "bytes": 10947
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0500/05_validation/manifest.json",
+      "sha256": "bd5158eff338f2a2cc1837fec535a22b7b416a7a6d9cbd58defd7ee44c93e79c",
+      "bytes": 10945
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0625/05_validation/manifest.json",
+      "sha256": "a9c22940a10db226e34b6737c488394706d77ffddc8b89a4de809773fa092fb9",
+      "bytes": 10947
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0750/05_validation/manifest.json",
+      "sha256": "c36036a51db8b723eff3b474c12c9dbaa0895ae7d01e19792277f8e39cb49574",
+      "bytes": 10946
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r0875/05_validation/manifest.json",
+      "sha256": "80eef29ce652a22c080154bd0528f563bfb711b0a995ac2b825c98322681728b",
+      "bytes": 10947
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.proj_r1000/05_validation/manifest.json",
+      "sha256": "93e4565f58cee79b9031a19ab3d073854378b4c0122e0d4820104fc41edc9fad",
+      "bytes": 10944
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0125/05_validation/manifest.json",
+      "sha256": "9f66dba58385113aaa2eaee3426e3effe8b9aea7a2c2c5a85403efa1711680d4",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0250/05_validation/manifest.json",
+      "sha256": "9edba0fe33e275e8fd6511d972c04c79cc8ebde3e0b225f921f8f55d77180668",
+      "bytes": 10936
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0375/05_validation/manifest.json",
+      "sha256": "7e798b910e6d72bedf25445350205aeb8969194180672d5a20984c97571908f8",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0500/05_validation/manifest.json",
+      "sha256": "3c3536263ffa2426caaf030e1b309d5918cc6b28615de95c3d66dc3b3667d1e8",
+      "bytes": 10938
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0625/05_validation/manifest.json",
+      "sha256": "a5d74ba0af2d8e3ce94fe8048afcb5246769caf3c2da34878b67612353a63538",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0750/05_validation/manifest.json",
+      "sha256": "5a61dccd4c8af46aa6e24ed5992e1dd62547b06d99e1962f081b579066467152",
+      "bytes": 10939
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r0875/05_validation/manifest.json",
+      "sha256": "424a26a09339d118c308554b6255f0af82a8dcc2ff646913a416f7235b4636ba",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_attn.qkv_r1000/05_validation/manifest.json",
+      "sha256": "1889579c9274eefb70a45a37d1d18a37eca54d79a52f878f5e73d6b586f7a5fd",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0125/05_validation/manifest.json",
+      "sha256": "a286221ee62690b92c29d0e818e06ce6f164fd7d13651ee4cbb2c8af3d8003fa",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0250/05_validation/manifest.json",
+      "sha256": "04b2794bca0707f2c267981e69ac5ebcb0bd1861913e13cf19eafd2c513188bc",
+      "bytes": 10928
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0375/05_validation/manifest.json",
+      "sha256": "a1fdd3df345ac22d131bed8fbd3653c303d1ba128883aedaa58cd4e773efb6e1",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0500/05_validation/manifest.json",
+      "sha256": "c1aedb9681a65da7ad5e8cd089417653f5e9a259d8b8436412479a8621c88d7d",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0625/05_validation/manifest.json",
+      "sha256": "4f55160db4161741f0ccf118ce2ab3797bdabaf144b75e94fcd82d1245bffc8c",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0750/05_validation/manifest.json",
+      "sha256": "cda9e04a31f91bf58ca741b3df7055e31ea865f9cee9f06f054476ecb8f6a535",
+      "bytes": 10931
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r0875/05_validation/manifest.json",
+      "sha256": "219b91394e4d908dfe1057b68ec5826c1629eef51be66dd5d05a4e9fcf8dfb3d",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc1_r1000/05_validation/manifest.json",
+      "sha256": "e9db5d50e5766aa421cedd558fd19ef2272b8f1a974ac5c9f15b36bc8ba27e02",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0125/05_validation/manifest.json",
+      "sha256": "25345e2e6b19600a4947936d3c2d588ea435cfe11feae662a007ae0757ec0830",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0250/05_validation/manifest.json",
+      "sha256": "f6bc1778aefb5b31eeb8b1af7b2feb7611d5e6d58a51fa968072bb427b3572bf",
+      "bytes": 10928
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0375/05_validation/manifest.json",
+      "sha256": "4af515a4dae7942bce4b21644b6e04f6e1fe1999b8b0c1c6b6b28988a3608c99",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0500/05_validation/manifest.json",
+      "sha256": "a7a28612bb09fad6707ead243f164cf01ff03a33104fd58eb2b9d4c84719f31c",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0625/05_validation/manifest.json",
+      "sha256": "62f8afd474b73b8f074a2a8fae0db8a5e2795b6de5efd157632bbf162a1734b7",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0750/05_validation/manifest.json",
+      "sha256": "b83657d4e279eb753e5bc964bd5f4192b6bcd37ecfb918168813d951f848fbf7",
+      "bytes": 10931
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r0875/05_validation/manifest.json",
+      "sha256": "ef8e288e188c9e8529d3c649a0987ff700c69e2634b12039af0897e590ceb594",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b11_mlp.fc2_r1000/05_validation/manifest.json",
+      "sha256": "5c1142a325e64443041429cf1a33be619d4442b43ffeef8b88545b99c8cccb0b",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0125/05_validation/manifest.json",
+      "sha256": "f3994fa9e3678f5b79edb3736bf5b660efaf1947ff4743822bfc28455c4ef542",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0250/05_validation/manifest.json",
+      "sha256": "cf405536a4de3b291a76f8b4ba7bed91a9a35a8dfec5ba5a5c66ec12ff15f674",
+      "bytes": 10936
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0375/05_validation/manifest.json",
+      "sha256": "92d7e55be051aba6d95e868a7267938ea91132d886b593a575f164ef27800109",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0500/05_validation/manifest.json",
+      "sha256": "69a3be0e9f8c2cd7cf3d6f7dc439731bcab909af64b6d29abbfd50a134311ffc",
+      "bytes": 10938
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0625/05_validation/manifest.json",
+      "sha256": "c652bafa1c28971e98bc5a0a9023fb23d751a41ca4a48e50c871fc11d6dbe34c",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0750/05_validation/manifest.json",
+      "sha256": "e59ccbe8ac39459e1cab9fd3008e8b5c2844e4a59f1a93910dfe0c66935eeb1f",
+      "bytes": 10939
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r0875/05_validation/manifest.json",
+      "sha256": "424abd584967dd89d7d7098a5b82d8b22c36d579dfde8bc83842c70af291123b",
+      "bytes": 10940
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.proj_r1000/05_validation/manifest.json",
+      "sha256": "f27faa82c83f9def8f1abfd1ec0fe88ddc93147f823fc1d2cfb685d61c73d7a3",
+      "bytes": 10937
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0125/05_validation/manifest.json",
+      "sha256": "a3726e2ff1755a689a07a29fe16dbaa63f9cc56fe44362fa9c6be38b5be12d6f",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0250/05_validation/manifest.json",
+      "sha256": "50f8621e59c91082931824d67a26c2710d93ff8dc8495c93183446a828487fdc",
+      "bytes": 10929
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0375/05_validation/manifest.json",
+      "sha256": "077245b248648661077b946363dfff37e4786c38723c16a287fc24a99988ce8e",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0500/05_validation/manifest.json",
+      "sha256": "9376bb03f355fe3f96c6212e72a4471e3b18fa90805597db8b64e0ba9cea69a0",
+      "bytes": 10931
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0625/05_validation/manifest.json",
+      "sha256": "8482ad3ccb4d8d00571ea3a6a8e746af891651f563cf894d478a9ad221cff9d4",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0750/05_validation/manifest.json",
+      "sha256": "8923316b4023005fac501f535018c103fd56dce27eb47584e02b68887e41a05b",
+      "bytes": 10932
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r0875/05_validation/manifest.json",
+      "sha256": "765c434b9a5d6470163d83a2caa838bf68860e98cdf670b92a401484ca8278e2",
+      "bytes": 10933
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_attn.qkv_r1000/05_validation/manifest.json",
+      "sha256": "3ae66cddf775b899247528d4c0bae44ca911e713d453e91c05d88aad2b3f6b29",
+      "bytes": 10930
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0125/05_validation/manifest.json",
+      "sha256": "957724d2c3ed69eda0563c53a0c908138a4244693e1586b3840e09f0e80690c9",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0250/05_validation/manifest.json",
+      "sha256": "f187da869d0bd53279ba4a9fc2f30f3a6fda9430b8df93abecfb55b65c851244",
+      "bytes": 10921
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0375/05_validation/manifest.json",
+      "sha256": "c0998d795a3171953c980e07db1d0c17cada830a45c7e8ccb24525d82cc44411",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0500/05_validation/manifest.json",
+      "sha256": "5eaf69b480881af7639f9912638f5c1be3c7f0347ed016ce5fc7c80427bf2bfc",
+      "bytes": 10923
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0625/05_validation/manifest.json",
+      "sha256": "cd9eb6668b191c48794b645033ebe6b8b37ce0c6fe4107d9025d315442da6565",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0750/05_validation/manifest.json",
+      "sha256": "901cd6f6e6a2ec5e42441a4526057c27e1681526a95d0d03a2efe2fda340a4b2",
+      "bytes": 10924
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r0875/05_validation/manifest.json",
+      "sha256": "bc326b95e99d222cadbdf8d9871c655961d031069f6dbc53922f38743451ee28",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc1_r1000/05_validation/manifest.json",
+      "sha256": "2ca776f99eeb5d719d258b995679783f91a925ee8eef093af8733d070babdd83",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0125/05_validation/manifest.json",
+      "sha256": "3fa300f211fb1593dc9b59596a95435cbee03d8d9e22e62a140e05c7ad9f0fe3",
+      "bytes": 10922
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0250/05_validation/manifest.json",
+      "sha256": "f4d0658f100006a808b64991355b0bb52be44d0a217428e9476613a46867d319",
+      "bytes": 10921
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0375/05_validation/manifest.json",
+      "sha256": "9b7fee2bf2c98ef0e4464a4117874c64ae33d16d7b713274285ea76e56595ea3",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0500/05_validation/manifest.json",
+      "sha256": "cc5a7ebc442ae757a463ef5e43a1087c0b36bb739a224822f75036193fb2f793",
+      "bytes": 10923
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0625/05_validation/manifest.json",
+      "sha256": "a6740b52d377b81b768c154bb809c8467fe0240b21c897cfed5480f234882daf",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0750/05_validation/manifest.json",
+      "sha256": "d878240a51b663a8a25ee2ae4f6469cda8ffc556e59f5fb19e5260d50e5f7574",
+      "bytes": 10924
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r0875/05_validation/manifest.json",
+      "sha256": "8e77274a8d8b1017f8633f7a633d88b1d07a4781bc59a6b762c1e18976ec5c0c",
+      "bytes": 10925
+    },
+    {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/single_b5_mlp.fc2_r1000/05_validation/manifest.json",
+      "sha256": "50b126d713fe4cfbad47b93fbc810d48ca04c6246e20a89d63d221a37895686f",
+      "bytes": 10922
+    }
+  ],
+  "source_checkpoint_sha256": "e5d9e02734f1a7233dcb35c67e8fb0491c26bbf14f2a23d7f38d8d13e5ba9391",
+  "git_commit": "eaf9cb1fdd795d01d4fe4e1693ebfe8654a5f6d4",
+  "source_files_sha256": {
+    "lowrank_validate.py": "db6bbc2bb4972bf05bdaf4077bea21a6de613ebd12bd94d6a8466ac2441ea4f6",
+    "lowrank_benchmark.py": "e32baba5f2e88e77550e0f621bce5e4663cd7203dc69decc95e7bd8f30c69a0e",
+    "lowrank_common.py": "62c0484772489e378d0de28a433b0e0ef341420d78bb2b9d98b177347363fc0c",
+    "lowrank_make_candidate.py": "13b076126aee911cb00abd6d08f2f76dcae3abef1a15c1861a4279b17c9e7347",
+    "lowrank_baseline.py": "22d2a0a01c2b8b427b8e5fea5df476679107a91700b7d9ae3a4c758ae74a8bf9",
+    "lowrank_finetune.py": "dca9c909ab3e73483d1e634b09791d24e50aacd61aae0d3881399bc7a9eca700",
+    "lowrank_factor_checks.py": "3d935c3a10f022c2d409f73cd3e57d275d575792655bd582602489ea1f6908ca",
+    "lowrank_quality.py": "ecdf81e3aff92f765be58944fb2939d694c2934acdada35d648cb1d35e5abe2e",
+    "lowrank_aggregate.py": "4b57d625fa8570790ed040771cdb9dab038d5ad98b540e9c0df021ed4dfc6743",
+    "lowrank_matrix_curves.py": "235331b71b7cf6bb7855c4c10d2d0d79789b221da94e7d713012d798ddcdfcc0"
+  },
+  "note": "Existing measured JSON/CSV only; validation; exact SVD",
+  "outputs": {
+    "REPORT_RU.md": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/REPORT_RU.md",
+      "sha256": "cc5d1554e0113f2f88d8ede1f8ce9e4b856c8d19647fb1dcd3d2bfcf087ab166",
+      "bytes": 11470
+    },
+    "accuracy_parameters.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/accuracy_parameters.png",
+      "sha256": "df2c4f602f0723b84e8ee3c83c6efd264b6a3a8f6a4458661423582aa484c117",
+      "bytes": 55102
+    },
+    "accuracy_rank.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/accuracy_rank.png",
+      "sha256": "d17a5128383e8f60af1e7be145488d5d1a18c4aed73aadfb447aca842a265156",
+      "bytes": 57535
+    },
+    "accuracy_regions.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/accuracy_regions.png",
+      "sha256": "22899c725f237a57d21930d63e415df6ec583f8708fd25c6dc091b41b794563b",
+      "bytes": 56427
+    },
+    "accuracy_single.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/accuracy_single.png",
+      "sha256": "e0a50442da7a054bd6d32f8430aee2f32bd0a491c9d4ffd7d6d20c1558a2a340",
+      "bytes": 164108
+    },
+    "benchmarks.csv": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/benchmarks.csv",
+      "sha256": "c6983cdc1ddc4e8c785beb7a38df86a7f980a30c40d3b54c7078a7d1ab1ae9d6",
+      "bytes": 2154
+    },
+    "configurations.csv": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/configurations.csv",
+      "sha256": "4d9f072fe938834702df5ee89c7bf385989e441b7d247e75f05e452cf7233845",
+      "bytes": 87125
+    },
+    "finetuning.csv": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/finetuning.csv",
+      "sha256": "1d0ae6bdc433967243f42beade250db9576b154810ba90c5b2e29037cf097399",
+      "bytes": 1902
+    },
+    "finetuning.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/finetuning.png",
+      "sha256": "7bb3ef5974286e29ffd20ad9b0d65b70996e4a686378c806d4458c4ffdf23b5d",
+      "bytes": 130217
+    },
+    "matrix_curves.csv": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/matrix_curves.csv",
+      "sha256": "da8083b686ac8976b7d0e080cf106b875de204d55fab3a5fde88fb1a5910b700",
+      "bytes": 99638
+    },
+    "matrix_errors.csv": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/matrix_errors.csv",
+      "sha256": "bfb23d38356e0b036a83f335f01388dabde285287582741de3fe91114733fe08",
+      "bytes": 349297
+    },
+    "matrix_errors_rank.png": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/matrix_errors_rank.png",
+      "sha256": "da94380bd07da6c7a540cbdd644fa3fdb7c5134d98e72dde2953ddba799e2645",
+      "bytes": 123743
+    },
+    "summary.json": {
+      "path": "/workspace/artifacts/experiments/aid_svd_20261117/08_final/summary.json",
+      "sha256": "39bed62357258f944184139abc6d4d1e5d9042153ee91011380b320ce04f49e9",
+      "bytes": 190
+    }
+  },
+  "status": "complete"
+}

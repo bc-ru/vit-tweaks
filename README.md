@@ -5,6 +5,9 @@ uses **JAX, ViT-Small, 30 classes**, and the frozen seed-42 train/validation/tes
 split. Matrix error, local operator error and classification quality are separate
 measurements. The older Torch compression benchmark remains a compatibility path.
 
+Measured 168-configuration series, fine-tuning and RTX 4070 benchmarks:
+[Russian report, CSV and plots](docs/lowrank/results/aid_svd_20261117/REPORT_RU.md).
+
 ## Where things live
 
 | Path | Purpose |

@@ -69,7 +69,7 @@ def stage_output(path, provenance):
 def parser(stage, *, matrices=False):
     result = argparse.ArgumentParser(description=f"JAX low-rank stage {stage}")
     result.add_argument("--config", required=True)
-    result.add_argument("--checkpoint", required=True, help="Dense native JAX NPZ, never a .pt file")
+    result.add_argument("--checkpoint", required=True, help="Native JAX NPZ; matrix stages require dense weights, never .pt")
     result.add_argument("--output-dir", required=True, help="New stage directory; existing paths are refused")
     result.add_argument("--device", choices=("cpu", "gpu"), default="cpu")
     if matrices:
