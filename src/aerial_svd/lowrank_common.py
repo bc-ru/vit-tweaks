@@ -81,7 +81,7 @@ def parser(stage, *, matrices=False):
     return result
 
 
-def load_inputs(args, stage):
+def load_inputs(args, stage, *, require_dense=True):
     # CPU is the safe default. Explicit GPU requests still require a free card.
     if args.device == "gpu":
         check = subprocess.run(["nvidia-smi", "--query-compute-apps=pid", "--format=csv,noheader"],
@@ -98,8 +98,19 @@ def load_inputs(args, stage):
     spec, params, buffers, metadata, _ = load_checkpoint(args.checkpoint)
     if spec.model != cfg["model"] or spec.img_size != int(cfg.get("img_size", 224)):
         raise ValueError("Checkpoint architecture disagrees with config")
-    if any(key.endswith(".first.weight") for key in params):
+    if require_dense and any(key.endswith(".first.weight") for key in params):
         raise ValueError("Research stages 00–02 require dense source weights")
+    if not require_dense:
+        actual = {key[:-len(".first.weight")]: value.shape[0]
+                  for key, value in params.items() if key.endswith(".first.weight")}
+        candidate = metadata.get("candidate")
+        if actual and (not candidate or candidate.get("ranks") != actual
+                       or candidate.get("method") != "exact_svd"
+                       or candidate.get("factorization_policy") != "all_selected_v1"
+                       or "dense_source" not in metadata):
+            raise ValueError("Factorized checkpoint lacks matching exact-SVD candidate provenance")
+        if not actual and candidate:
+            raise ValueError("Candidate metadata disagrees with dense structure")
     saved = metadata.get("config", {})
     for key in ("model", "img_size", "seed", "classes", "num_classes"):
         if key in cfg and key in saved and cfg[key] != saved[key]:
@@ -127,6 +138,9 @@ def load_inputs(args, stage):
                                        device=str(device), platform=device.platform))
     # Matrix stages record split identity, but never load images or require the dataset.
     provenance["aid_split"] = file_identity(cfg["split_file"])
+    if device.platform == "gpu":
+        provenance["environment"]["nvidia_smi"] = subprocess.check_output(
+            ["nvidia-smi", "--query-gpu=name,uuid,driver_version,memory.total", "--format=csv"], text=True).strip()
     return cfg, spec, params, buffers, metadata, provenance
 
 

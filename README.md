@@ -61,7 +61,8 @@ interfaces and schemas: [stage guide](docs/lowrank/RUN_STAGES_RU.md).
 Use `gpu` plus the stage's `--device gpu` for GPU work. The launcher first checks
 for compute jobs and refuses a busy/inaccessible GPU. In agent sandboxes that hide
 NVIDIA devices, run with the necessary host access; that is not a driver repair.
-No sweep, fine-tuning or activation-aware experiments run automatically.
+The optional `scripts/lowrank_series.py` enumerates explicitly requested SVD series;
+independent 04–08 commands are in the stage guide. Activation-aware experiments remain separate.
 
 ## Check and maintain
 

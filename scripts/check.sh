@@ -7,4 +7,5 @@ PYTHONPYCACHEPREFIX=/tmp/aerial-svd-pycache python3 -m py_compile src/aerial_svd
 python3 -m unittest discover -s tests -p 'test_workspace.py' -v
 scripts/run.sh cpu python -m unittest discover -s tests -p test_lowrank_stages.py -v
 scripts/run.sh cpu python -m unittest discover -s tests -p test_jax_cli.py -v
+scripts/run.sh cpu python -m unittest discover -s tests -p test_lowrank_experiments.py -v
 git diff --check
