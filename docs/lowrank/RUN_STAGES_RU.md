@@ -93,4 +93,89 @@ Manifest идентифицирует код, checkpoint/config/split, пара�
 трёх матриц и не может использоваться как checkpoint. Форматы не смешиваются.
 Историческая политика skip читается явно через `--legacy-skip-non-saving` старых
 JAX evaluate/finetune, с отдельной маркировкой. Они, как и layer_error_analysis,
-пока используют test; для выбора параметров не подходят. Этапы 03–09 здесь не реализованы.
+пока используют test; для выбора параметров не подходят. Новые exact-SVD этапы 04–08 описаны ниже; 03 и 09 не реализованы.
+
+## Exact-SVD серия: этапы 04–08
+
+Независимые команды (каждому этапу новый каталог, без test):
+
+```bash
+scripts/run.sh cpu python -m aerial_svd.lowrank_make_candidate \
+  --config configs/aid_vit_small.yaml \
+  --checkpoint artifacts/checkpoints/jax/vit_small_protocol_v1.npz \
+  --scope ffn --rank-ratios 0.5 \
+  --output-dir artifacts/experiments/my_run/ffn050/04_candidate
+
+# Выполнить один раз: плотная reference на всех 1500 validation-изображениях.
+scripts/run.sh gpu python -m aerial_svd.lowrank_validate --device gpu \
+  --config configs/aid_vit_small.yaml \
+  --checkpoint artifacts/checkpoints/jax/vit_small_protocol_v1.npz \
+  --batch-size 8 --output-dir artifacts/experiments/my_run/05_dense
+
+scripts/run.sh gpu python -m aerial_svd.lowrank_validate --device gpu \
+  --config configs/aid_vit_small.yaml \
+  --checkpoint artifacts/experiments/my_run/ffn050/04_candidate/candidate.npz \
+  --reference-dir artifacts/experiments/my_run/05_dense --batch-size 8 \
+  --output-dir artifacts/experiments/my_run/ffn050/05_validation
+
+scripts/run.sh gpu python -m aerial_svd.lowrank_finetune --device gpu \
+  --config configs/aid_vit_small.yaml \
+  --checkpoint artifacts/experiments/my_run/ffn050/04_candidate/candidate.npz \
+  --reference-dir artifacts/experiments/my_run/05_dense \
+  --epochs 5 --lr 1e-5 --batch-size 8 --eval-batch-size 8 \
+  --output-dir artifacts/experiments/my_run/ffn050/06_finetune
+
+scripts/run.sh gpu python -m aerial_svd.lowrank_benchmark --device gpu \
+  --config configs/aid_vit_small.yaml \
+  --checkpoint artifacts/experiments/my_run/ffn050/04_candidate/candidate.npz \
+  --batch-sizes 1 16 --warmup 5 --repeats 50 \
+  --output-dir artifacts/experiments/my_run/ffn050/07_benchmark
+
+scripts/run.sh cpu python -m aerial_svd.lowrank_aggregate \
+  --root artifacts/experiments/my_run \
+  --output-dir artifacts/experiments/my_run/08_summary
+```
+
+04 принимает ровно один `--rank-ratios` либо `--ranks`; `--matrices` ограничивает
+scope точным списком имён. Сохраняет `candidate.npz`, `candidate.json` (матрицы,
+целочисленные ранги, размеры, число параметров, identity плотного источника).
+Факторы перечитываются побитово. 05 сохраняет `validation.json` и `logits.npz`
+(логиты, labels, indices, SHA-256 предобработанных пикселей). Reference manifest и
+все его выходы проверяются; изображения, split, decoder, классы и плотный источник
+обязаны совпадать. CE несглаженная; L2 mean/P95 — по изображениям, P95 линейный.
+Full rank: относительная Frobenius логитов ≤5e-5 и максимальная разность ≤1e-3.
+
+06 обучает **все параметры**, включая факторы, без изменения форм и рангов.
+AdamW, weight decay .05, smoothing .1 только для train, float32, cosine LR по эпохам,
+без накопления. Выбор — максимальная validation accuracy, ранняя эпоха при равенстве.
+Выходы: `before.json`, `epoch-NNNN.npz` с оптимизатором, `epoch-NNNN.json`,
+`best.npz` без оптимизатора, `history.json`, `finetune.json` (before/after).
+Прерванный запуск продолжается через `--resume PATH/epoch-NNNN.npz` в **новом**
+`--output-dir` с теми же checkpoint/config/reference и гиперпараметрами. Состояние
+AdamW восстанавливается; завершённые эпохи повторно не обучаются.
+
+07 сохраняет точные байты параметров, размер NPZ и все 50 таймингов плюс
+median/P05/P95/throughput в `benchmark.json`. Фиксированный validation-batch уже на
+GPU; compilation, preprocessing и transfer не входят. GPU peak инференса не
+измеряется. 08 читает только измеренные JSON/CSV, проверяет manifests и совместимость
+источников; создаёт CSV, PNG и краткий `REPORT_RU.md`. Никакого нового инференса.
+
+Перечислитель запускается **на хосте**, вызывает эти же независимые команды и
+проверяет hashes/config/split/options перед пропуском завершённой стадии:
+
+```bash
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series setup
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series global
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series regions
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series single
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series finetune
+python3 scripts/lowrank_series.py --root artifacts/experiments/my_run --series benchmark
+```
+
+`setup` использует существующие 00–02 и создаёт dense reference 05. `global` — 24,
+`regions` — 48, `single` — 96 конфигураций. `finetune` — заданные 9 моделей + плотный
+контроль по 5 эпох. `benchmark` — dense и 7 представительных SVD-моделей.
+Запуски последовательны; один root защищён lock. При ошибке результаты сохраняются,
+повтор использует `.retry-NNN`, проверенные complete стадии переиспользуются.
+На начало каждой GPU-стадии launcher проверяет отсутствие чужих compute jobs.
+Activation-aware методы и этапы 03/09 не исполняются.

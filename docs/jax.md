@@ -53,7 +53,8 @@ measured validation are in `docs/lowrank/VALIDATION_RU.md`.
 - Analytic matrix curves use float32 spectra and float64 energy sums. Full-rank
   analytic zero error is different from measured factor reconstruction rounding.
 - Old `evaluate` and `layer_error_analysis` use test. Do not use them for selection;
-  stage 00 uses validation. Stages 03–09 remain outside current implementation.
+  stages 00 and 05 use validation. Exact-SVD stages 04–08 are described in the stage guide;
+  activation-aware 03 and final-test 09 remain separate.
 - Process-lifetime JAX allocator peaks are not inference-only memory measurements.
   No resource speedup follows from counting parameters.
 

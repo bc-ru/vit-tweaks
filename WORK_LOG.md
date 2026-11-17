@@ -3,13 +3,30 @@
 ## Current state
 
 - Current protocol: JAX ViT-Small, exact SVD, frozen AID seed-42 split (30 classes).
-  Stages **00–02 work**; stages 03–09 remain planned. No full sweep or final test.
+  Stages **00–02 and exact-SVD 04–08 work**; the 168-candidate validation series
+  is running in `artifacts/experiments/aid_svd_20261117/`. Activation-aware 03
+  and final-test 09 remain separate; test has not been evaluated.
 - Start at `README.md`; scientific requirements/commands are in `docs/lowrank/`.
   Results and source weights are under `artifacts/`; legacy root paths still work.
 - GPU and non-root Docker access work. Container ownership repair works without
   host sudo. Remote publication remains dependent on SSH-agent signing access.
 
 ## Outcomes
+
+### 2026-11-17 — Exact-SVD candidates and validation series
+
+Implemented independent candidate/validation/fine-tuning/benchmark/aggregation
+stages, reusing native checkpoint, compression and Engine. Per-stage immutable
+outputs, paired pixel/index hashes, full-rank output controls and epoch optimizer
+recovery. Existing 00–02 verified all 48 matrices and 384 spectral-tail points;
+GPU dense validation reproduces 0.9733333333 accuracy / 0.1984744517 CE.
+
+Proof: `scripts/check.sh` passes 19 tests, including real factor training and
+continuous/resumed checkpoint equality. All 24 global configurations are complete; full-rank controls restore accuracy
+and have relative logit error at most 1.71e-6. The 48/96 series is in progress under
+`artifacts/experiments/aid_svd_20261117/`; pending completion, 9 fine-tunes + dense
+control, resource measurements and the measured report. Commands/schemas:
+`docs/lowrank/RUN_STAGES_RU.md`. No test images or historical results touched.
 
 ### 2026-11-17 — Selected skill restoration
 
