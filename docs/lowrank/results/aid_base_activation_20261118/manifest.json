@@ -1,0 +1,80 @@
+{
+  "stage": "08_activation_comparison",
+  "status": "complete",
+  "model": "vit_base_patch16_224",
+  "source_manifest_sha256": "e75edadf1c3c09439bf94f4e428162c46974356ade3da1c6e73c084d89317cca",
+  "outputs": {
+    "REPORT_RU.md": {
+      "sha256": "ebc928a8c4bea5e1d8dfcfab29d2cfce119473bcd633396e80a7d2510b5c221a",
+      "bytes": 12756
+    },
+    "accuracy_parameters.png": {
+      "sha256": "6594dfd9346d2d282af7085f18f5b3be672b75dedb3efc6e6ae844948954781a",
+      "bytes": 81256
+    },
+    "accuracy_rank.png": {
+      "sha256": "8f048bf7955bc80e3431988841e9af3c912755b811377a2058b3d89b39c69591",
+      "bytes": 78125
+    },
+    "budget_comparison.csv": {
+      "sha256": "696d6b0eb7df263d4a8d7759b2b1be9bdb1526689f03b89bca5860c6308fac6d",
+      "bytes": 3616
+    },
+    "calibration.json": {
+      "sha256": "30976b3905eda9dbdbae4cca431cb719df590bbfeec173fa7beb6c323fc7d4f4",
+      "bytes": 4389
+    },
+    "configurations.csv": {
+      "sha256": "b0f47b0ed7a3afff0f10a66e58ad1f15982f67b90adbe5df14fa7c115f443424",
+      "bytes": 91245
+    },
+    "diagnostics.json": {
+      "sha256": "b96a58aada807e99b5b07f80c7c58ebc6fb16d7f63f64ece96b6c161fda3f947",
+      "bytes": 13340
+    },
+    "finetuning.csv": {
+      "sha256": "bd2fd0d0f13cc84e2ea5c6d0518bf12265ee2dbaaa63abe1ff42d09744629b46",
+      "bytes": 1833
+    },
+    "finetuning.png": {
+      "sha256": "217878c219d1e9be9c0c2196e2965ef62998af6bd2a1e8adf86cb25b16038dd3",
+      "bytes": 56804
+    },
+    "local_error_rank.png": {
+      "sha256": "8d5d3551f6db498bd44c9fe137d5fefd771ba12c125f5bdd43fffd85fc816b0d",
+      "bytes": 162645
+    },
+    "local_errors.csv": {
+      "sha256": "e0670d39ed6b73e7b150b4f78370b164f16b9702f7f374b4065c038ab8c97ed8",
+      "bytes": 172399
+    },
+    "matrix_errors.csv": {
+      "sha256": "6e3471ae500ee00e203f2e6affc56ea4550fea4a0db025fc25b5c59d735f2528",
+      "bytes": 685081
+    },
+    "paired_comparison.csv": {
+      "sha256": "51b45f6ef1d24b05d562dc987e5f86c756ca5e664421ba07f3d8b0e04328880c",
+      "bytes": 34470
+    },
+    "rank_allocation.png": {
+      "sha256": "0357e56e066ba2a3080cb85a80792235c7549f7d0337afe7d3de2cb6626948ba",
+      "bytes": 112200
+    },
+    "region_positions.png": {
+      "sha256": "34cd8d7a9c962066380bf30e0fc45aa752b41dd5ce99625cfc7a5508e0c16a06",
+      "bytes": 82357
+    },
+    "single_positions.png": {
+      "sha256": "cf64427d281da6f417b979ca88cdc1924c740fc31a3206e931c0654e83a66d10",
+      "bytes": 190954
+    },
+    "summary.json": {
+      "sha256": "b6ed51c016d0c44b1a6ff590393e4fcf3564016837d7a7cfd3bc14ca5efb115e",
+      "bytes": 903
+    },
+    "validation_statistics.json": {
+      "sha256": "36b9335700ccebc0069a129dc3b23b64229b8724cb896d98c83ecc1621d11edd",
+      "bytes": 4436
+    }
+  }
+}

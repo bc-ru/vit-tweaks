@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "frozen_selection_sha256": "dc3b84a0bcd0f259aabbcc968aa0f31422742a89fc54fadf854ec253edb2fd1b",
+  "prefreeze": {
+    "stage_counts": {
+      "00_baseline": 1,
+      "01_factor_checks": 1,
+      "02_matrix_curves": 1,
+      "05_validate": 343,
+      "08_aggregate": 1,
+      "06_finetune": 12,
+      "07_benchmark": 143,
+      "04_make_candidate": 342,
+      "03_activation_stats": 2,
+      "04_activation_curves": 1,
+      "08_activation_comparison": 1,
+      "04_allocate": 6,
+      "resource_train_smoke": 1,
+      "08_catalog": 1
+    },
+    "checked_references": 6464,
+    "unique_files": 2108,
+    "models": 355,
+    "benchmarks": 134,
+    "prespecified_models": 20,
+    "paired_validation_inputs": true,
+    "ordinary_bank_matrices_verified": 48,
+    "test_started": false
+  },
+  "test_models": 20,
+  "images_per_model": 1500,
+  "ordered_labels_pixels_match_small": true,
+  "test_metrics_recomputed_from_saved_logits": true,
+  "source_checkpoints_and_split_intact": true,
+  "small_complete_manifests": 884,
+  "small_declared_outputs": 1877,
+  "small_public_files": 49
+}

@@ -1,0 +1,81 @@
+{
+  "stage": "10_final_report",
+  "status": "complete",
+  "model": "vit_base_patch16_224",
+  "source_manifest_sha256": "deb26f91656c579090b83dcbc73417405f6873d2401c25aeb1d4771c5d2e1b51",
+  "outputs": {
+    "REPORT_RU.md": {
+      "sha256": "6d5f930f680c1498b8c8c4511ef9f5d44d121f42c91633f1dbcaf5a83e70eb19",
+      "bytes": 17265
+    },
+    "accuracy_latency_b1.png": {
+      "sha256": "31bc8bf3eff720a8218aecfc2cfacc1b40bfec316c81cca835f23713b92be69b",
+      "bytes": 55954
+    },
+    "accuracy_latency_b16.png": {
+      "sha256": "333ecc0ea6b8c11af2866aa52716472c7ea4f5b50345b72a1b2ceb99b7652ffd",
+      "bytes": 57861
+    },
+    "accuracy_parameters.png": {
+      "sha256": "526ec1c01ebcd23a5dc555946ffce29beb2dd49966932772ee6fbe0945bd23db",
+      "bytes": 58337
+    },
+    "accuracy_weights.png": {
+      "sha256": "cad811b0c837a8c02bdb9a9301542b3e761f214bb985862305e3bcd38c0663e2",
+      "bytes": 61238
+    },
+    "benchmarks.csv": {
+      "sha256": "c7709691568fa5ac848146d0d600a5428ece07c2760c993a557bd4e7d7461143",
+      "bytes": 25779
+    },
+    "budget_comparison.csv": {
+      "sha256": "696d6b0eb7df263d4a8d7759b2b1be9bdb1526689f03b89bca5860c6308fac6d",
+      "bytes": 3616
+    },
+    "finetuning.csv": {
+      "sha256": "bd2fd0d0f13cc84e2ea5c6d0518bf12265ee2dbaaa63abe1ff42d09744629b46",
+      "bytes": 1833
+    },
+    "local_errors.csv": {
+      "sha256": "e0670d39ed6b73e7b150b4f78370b164f16b9702f7f374b4065c038ab8c97ed8",
+      "bytes": 172399
+    },
+    "matrix_errors.csv": {
+      "sha256": "6e3471ae500ee00e203f2e6affc56ea4550fea4a0db025fc25b5c59d735f2528",
+      "bytes": 685081
+    },
+    "models.csv": {
+      "sha256": "7112dd1f5d7b125e915eacdabbd4c02cb7ef84cfbc2831682be22f3099663408",
+      "bytes": 223962
+    },
+    "paired_comparison.csv": {
+      "sha256": "51b45f6ef1d24b05d562dc987e5f86c756ca5e664421ba07f3d8b0e04328880c",
+      "bytes": 34470
+    },
+    "selected_models.json": {
+      "sha256": "1ba18ad1b44880779e4ef886995228fa7333afb404193f2ab75b4db6ec8b4588",
+      "bytes": 29446
+    },
+    "summary.json": {
+      "sha256": "504e07a3daabb51703b5fa5ca8b7c3498d31b23d1eb00dd98751c3765c9116d7",
+      "bytes": 493
+    },
+    "svd_matrix_curves.csv": {
+      "sha256": "cb97ea3cd8fa9413e9343cea304ccf93bf40d36ac0b16fba45bfed2884244642",
+      "bytes": 91278
+    },
+    "svd_matrix_errors.csv": {
+      "sha256": "a15cddc2ff1e285936388929b3c76983475df25b98d4b1a930d1306a75be015f",
+      "bytes": 320882
+    },
+    "test.csv": {
+      "sha256": "d0754267d5a19a20cbe6a84188eea035f5d92f860a3510551378c33fa889a5dc",
+      "bytes": 5888
+    },
+    "audit.json": {
+      "sha256": "30bcd700a03738002335d5101aad93a58dd7bb781b0f8a8531865d65ffb63aa6",
+      "bytes": 1098
+    }
+  },
+  "note": "Public checkpoint paths are repository relative. Complete runtime identities are recorded in the local stage."
+}

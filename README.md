@@ -1,11 +1,17 @@
 # ViT low-rank experiments
 
 Truncated-SVD approximation of trained ViT weights on AID. The current protocol
-uses **JAX, ViT-Small, 30 classes**, and the frozen seed-42 train/validation/test
+uses **JAX, ViT-Small and ViT-Base, 30 classes**, and the frozen seed-42 train/validation/test
 split. Matrix error, local operator error and classification quality are separate
 measurements. The older Torch compression benchmark remains a compatibility path.
 
-Completed study, full GPU grid and frozen final test (20 models):
+Completed ViT-Base replication (355 models, 134 GPU measurements, 20 final test models):
+[Base report](docs/lowrank/results/aid_base_final_20261118/REPORT_RU.md),
+[Small vs Base](docs/lowrank/results/aid_base_final_20261118/small_vs_base/REPORT_RU.md),
+[ordinary SVD](docs/lowrank/results/aid_base_svd_20261118_ntfs/REPORT_RU.md),
+[activation-SVD and allocation](docs/lowrank/results/aid_base_activation_20261118/REPORT_RU.md).
+
+Completed ViT-Small study, full GPU grid and frozen final test (20 models):
 [unified Russian report, tables and plots](docs/lowrank/results/aid_final_20261118/REPORT_RU.md).
 Independent final-stage commands: [FINAL_STAGES.md](docs/lowrank/FINAL_STAGES.md).
 

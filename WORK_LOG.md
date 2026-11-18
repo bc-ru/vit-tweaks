@@ -2,7 +2,7 @@
 
 ## Current state
 
-- ViT-Base replication is blocked before GPU smoke and stage 00. The SSD needs 205.43 GiB free including reserves, against 4.29 GiB available initially. [Capacity, verified weights, and resume command](docs/lowrank/results/aid_base_svd_20261118/PREFLIGHT_RU.md).
+- ViT-Base replication is complete through frozen test and audit. [Final Base results](docs/lowrank/results/aid_base_final_20261118/REPORT_RU.md) and [matched comparison](docs/lowrank/results/aid_base_final_20261118/small_vs_base/REPORT_RU.md). All new local weights and stage outputs are under its single **ViT-Base-AID** directory. [Storage layout and resume guide](docs/lowrank/BASE_STAGES_RU.md). The ordinary series uses `aid_base_svd_20261118_ntfs` because the original name holds the [initial preflight](docs/lowrank/results/aid_base_svd_20261118/PREFLIGHT_RU.md).
 
 - Original research plan **complete through final test**: JAX ViT-Small/AID,
   frozen seed-42 split, 30 classes; 168 SVD + 168 activation-SVD configurations,
@@ -19,6 +19,28 @@
   No further experiments after test; presentation unchanged.
 
 ## Outcomes
+
+### 2026-11-19 — ViT-Base final test and paired architecture comparison
+
+Verified 168 + 168 validation configurations, 6 exact allocations, 12 fine-tunes
+(60 epochs, 52,500 updates, zero skipped), 134 benchmark rows and 20 frozen test
+models. Dense Base validation/test top-1 was 97.133% / 97.667%. At all-blocks
+rank .5 ordinary/activation test top-1 was 95.000% / 97.867% before training
+and 97.133% / 97.067% after training. The local budget objective fell while
+validation top-1 declined in all six equal-budget pairs. The final
+[audit](docs/lowrank/results/aid_base_final_20261118/audit.json) verified test
+metrics from logits, matched Small inputs and preserved 1877 Small outputs.
+All 28 native/workspace checks and 15 cross-framework tests passed.
+
+### 2026-11-18 — ViT-Base replication on the Windows volume
+
+The dedicated NTFS output directory had 525,895,241,728 bytes free. Native NPZ
+atomic publication, locking and overwrite refusal passed through the non-root
+container. The launcher checks space on the output volume and the system disk.
+On all 1,500 validation images, dense Base scored 97.133% with CE 0.197622.
+Inference passed at batch 1/16 and an all-blocks rank-384 training smoke completed
+one finite FP32 AdamW update at batch 8. The paired validation grids are in
+progress. No final Base test has started.
 
 ### 2026-11-18 — ViT-Base resource and input verification
 

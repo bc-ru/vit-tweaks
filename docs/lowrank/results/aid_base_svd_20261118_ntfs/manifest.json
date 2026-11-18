@@ -1,0 +1,61 @@
+{
+  "stage": "08_aggregate",
+  "status": "complete",
+  "model": "vit_base_patch16_224",
+  "source_manifest_sha256": "705cb74c486863ab7312c773c2aedd389033ae08a871efb4cd3f7b3c5c5c9347",
+  "outputs": {
+    "REPORT_RU.md": {
+      "sha256": "1b56a186660af0b868836e4e5172f5a63424d8e8eaa055697530a857518f0fa1",
+      "bytes": 12217
+    },
+    "accuracy_parameters.png": {
+      "sha256": "b66d2a9fcca911f5ae8562685ffdc30a07cb877e7167e1926c86ccc50b605fd8",
+      "bytes": 57485
+    },
+    "accuracy_rank.png": {
+      "sha256": "5c3692f564168433c540b812b634213987510dc835734f65fe93f85649a783f1",
+      "bytes": 57597
+    },
+    "accuracy_regions.png": {
+      "sha256": "f9467032122db16146f105f3160d28927c8c84576876674689fd602079f0bc22",
+      "bytes": 58661
+    },
+    "accuracy_single.png": {
+      "sha256": "cc719b5c5b72700a1a16cca18ee6afbb775cf0fd8a9f30f7612159adf1a69c32",
+      "bytes": 168790
+    },
+    "benchmarks.csv": {
+      "sha256": "a588638ea95a4030383c8b28e79ccadade85fbd3b8c50f358380822c82f88be0",
+      "bytes": 10389
+    },
+    "configurations.csv": {
+      "sha256": "6ef7d0a4665e44c58060131218f8841f738e4d6cdb3a515ab08581e01ef8fd09",
+      "bytes": 72317
+    },
+    "finetuning.csv": {
+      "sha256": "9e01f3d9485557f53410a66cf4f2a6e7b4176842c670d25e7f8d9f8541f299e9",
+      "bytes": 1948
+    },
+    "finetuning.png": {
+      "sha256": "dc13b908137ba7cb93430da8caa265355557ba44906f1c4f3ed1b2488fc01cab",
+      "bytes": 133648
+    },
+    "matrix_curves.csv": {
+      "sha256": "cb97ea3cd8fa9413e9343cea304ccf93bf40d36ac0b16fba45bfed2884244642",
+      "bytes": 91278
+    },
+    "matrix_errors.csv": {
+      "sha256": "a15cddc2ff1e285936388929b3c76983475df25b98d4b1a930d1306a75be015f",
+      "bytes": 320882
+    },
+    "matrix_errors_rank.png": {
+      "sha256": "f00ce9a547e65aac605fff27578f77e430635b7759e5cf7eec55a64e5336cb73",
+      "bytes": 127752
+    },
+    "summary.json": {
+      "sha256": "39bed62357258f944184139abc6d4d1e5d9042153ee91011380b320ce04f49e9",
+      "bytes": 190
+    }
+  },
+  "note": "Public checkpoint paths are repository relative. Complete runtime identities are recorded in the local stage."
+}

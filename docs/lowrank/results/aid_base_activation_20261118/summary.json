@@ -1,0 +1,28 @@
+{
+  "paired_configurations": 168,
+  "new_validation_configurations": 174,
+  "activation_full_rank_controls": 21,
+  "full_rank_max_relative_logit": 6.056128095535442e-07,
+  "full_rank_max_absolute_logit": 2.6702880859375e-05,
+  "baseline": {
+    "top1": 0.9713333333333334,
+    "loss": 0.19762194379763962,
+    "num_samples": 1500,
+    "logit_l2_mean": 0.0,
+    "logit_l2_p95": 0.0,
+    "logit_relative_frobenius": 0.0,
+    "logit_max_abs": 0.0,
+    "total_params": 85821726,
+    "param_memory_bytes": 343286904,
+    "checkpoint_bytes": 343335370,
+    "full_rank_control": false,
+    "evaluation_split": "val",
+    "candidate": null,
+    "source_checkpoint_sha256": "a93c5cf00c34b25212a81fcee07432024731a9932f071cf6ccf9dba1ec7c30e4"
+  },
+  "activation_finetunes": 2,
+  "activation_training_epochs": 10,
+  "activation_training_images": 70000,
+  "activation_training_updates": 8750,
+  "test_used": false
+}

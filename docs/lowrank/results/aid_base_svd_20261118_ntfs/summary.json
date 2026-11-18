@@ -1,0 +1,12 @@
+{
+  "configurations": 168,
+  "by_series": {
+    "single": 96,
+    "region": 48,
+    "global": 24,
+    "dense": 1
+  },
+  "finetuned": 10,
+  "benchmark_rows": 16,
+  "full_rank_controls": 21
+}

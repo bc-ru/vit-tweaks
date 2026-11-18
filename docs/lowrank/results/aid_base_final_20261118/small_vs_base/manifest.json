@@ -1,0 +1,27 @@
+{
+  "stage": "architecture_comparison",
+  "status": "complete",
+  "model": [
+    "vit_small_patch16_224",
+    "vit_base_patch16_224"
+  ],
+  "source_manifest_sha256": "eae3365d72963f87b1df0e71d90bc1b3c8a87188d0c96cb74f559e599a055cd2",
+  "outputs": {
+    "REPORT_RU.md": {
+      "sha256": "ca75754c9c8514a529aa2a54b2948e35c0ce2a95adf24e2539677e4277729a88",
+      "bytes": 7800
+    },
+    "allocated_vs_uniform.csv": {
+      "sha256": "9969b4b05a48a631b05a8d602639c8bed04e830d196e3593e9808d4a77c29f62",
+      "bytes": 973
+    },
+    "architectures.csv": {
+      "sha256": "d5a16b1d836687e7c82d81cbabf404dd7be4a02fb5547666dd37780e4b0fdc4e",
+      "bytes": 319861
+    },
+    "rank_accuracy_change.png": {
+      "sha256": "7359d02298499c17c3ffad02663ff7c2cd95c814d7080b2517e6db5a4103a9ce",
+      "bytes": 106066
+    }
+  }
+}

@@ -54,6 +54,12 @@ class Workspace(unittest.TestCase):
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIsNone(args)
 
+    def test_external_mount_rejects_root_filesystem(self):
+        with patch.dict(os.environ, AERIAL_SVD_EXTERNAL_RUNS="/"):
+            result, args = self.run_profile("cpu")
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIsNone(args)
+
     def test_gpu_profile_and_explicit_reference_runtime(self):
         result, args = self.run_profile("gpu")
         self.assertEqual(result.returncode, 0, result.stderr)

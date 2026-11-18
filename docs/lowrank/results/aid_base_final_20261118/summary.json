@@ -1,0 +1,16 @@
+{
+  "models": 355,
+  "benchmark_models": 67,
+  "benchmark_rows": 134,
+  "final_test_models": 20,
+  "selection_sha256": "dc3b84a0bcd0f259aabbcc968aa0f31422742a89fc54fadf854ec253edb2fd1b",
+  "gpu": {
+    "jax": "0.4.38",
+    "numpy": "1.26.4",
+    "python": "3.10.21",
+    "device": "cuda:0",
+    "platform": "gpu",
+    "nvidia_smi": "name, uuid, driver_version, memory.total [MiB]\nNVIDIA GeForce RTX 4070, [device UUID omitted], 555.42.02, 12282 MiB"
+  },
+  "inference_gpu_peak_bytes": null
+}

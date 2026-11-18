@@ -1,0 +1,251 @@
+{
+  "split": "train",
+  "images": 300,
+  "rows_per_matrix": {
+    "blocks.0.attn.qkv": 59100,
+    "blocks.0.attn.proj": 59100,
+    "blocks.0.mlp.fc1": 59100,
+    "blocks.0.mlp.fc2": 59100,
+    "blocks.1.attn.qkv": 59100,
+    "blocks.1.attn.proj": 59100,
+    "blocks.1.mlp.fc1": 59100,
+    "blocks.1.mlp.fc2": 59100,
+    "blocks.2.attn.qkv": 59100,
+    "blocks.2.attn.proj": 59100,
+    "blocks.2.mlp.fc1": 59100,
+    "blocks.2.mlp.fc2": 59100,
+    "blocks.3.attn.qkv": 59100,
+    "blocks.3.attn.proj": 59100,
+    "blocks.3.mlp.fc1": 59100,
+    "blocks.3.mlp.fc2": 59100,
+    "blocks.4.attn.qkv": 59100,
+    "blocks.4.attn.proj": 59100,
+    "blocks.4.mlp.fc1": 59100,
+    "blocks.4.mlp.fc2": 59100,
+    "blocks.5.attn.qkv": 59100,
+    "blocks.5.attn.proj": 59100,
+    "blocks.5.mlp.fc1": 59100,
+    "blocks.5.mlp.fc2": 59100,
+    "blocks.6.attn.qkv": 59100,
+    "blocks.6.attn.proj": 59100,
+    "blocks.6.mlp.fc1": 59100,
+    "blocks.6.mlp.fc2": 59100,
+    "blocks.7.attn.qkv": 59100,
+    "blocks.7.attn.proj": 59100,
+    "blocks.7.mlp.fc1": 59100,
+    "blocks.7.mlp.fc2": 59100,
+    "blocks.8.attn.qkv": 59100,
+    "blocks.8.attn.proj": 59100,
+    "blocks.8.mlp.fc1": 59100,
+    "blocks.8.mlp.fc2": 59100,
+    "blocks.9.attn.qkv": 59100,
+    "blocks.9.attn.proj": 59100,
+    "blocks.9.mlp.fc1": 59100,
+    "blocks.9.mlp.fc2": 59100,
+    "blocks.10.attn.qkv": 59100,
+    "blocks.10.attn.proj": 59100,
+    "blocks.10.mlp.fc1": 59100,
+    "blocks.10.mlp.fc2": 59100,
+    "blocks.11.attn.qkv": 59100,
+    "blocks.11.attn.proj": 59100,
+    "blocks.11.mlp.fc1": 59100,
+    "blocks.11.mlp.fc2": 59100
+  },
+  "shapes": {
+    "blocks.0.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.0.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.0.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.0.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.1.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.1.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.1.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.1.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.2.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.2.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.2.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.2.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.3.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.3.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.3.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.3.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.4.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.4.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.4.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.4.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.5.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.5.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.5.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.5.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.6.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.6.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.6.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.6.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.7.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.7.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.7.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.7.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.8.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.8.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.8.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.8.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.9.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.9.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.9.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.9.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.10.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.10.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.10.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.10.mlp.fc2": [
+      3072,
+      3072
+    ],
+    "blocks.11.attn.qkv": [
+      768,
+      768
+    ],
+    "blocks.11.attn.proj": [
+      768,
+      768
+    ],
+    "blocks.11.mlp.fc1": [
+      768,
+      768
+    ],
+    "blocks.11.mlp.fc2": [
+      3072,
+      3072
+    ]
+  },
+  "centered": false,
+  "token_policy": "all patch tokens plus CLS, equal row weights",
+  "augmentation": false
+}

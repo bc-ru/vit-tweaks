@@ -12,9 +12,28 @@ case "$profile" in
   torch|torch-gpu) image=ghcr.io/bc-ru/pytorch-2.1.0-cuda11.8-cudnn8-runtime-timm-models:stable ;;
   *) usage; exit 2 ;;
 esac
-# Optional per-stage floor for long series sharing the system SSD.
+# Mount only the dedicated output directory, so repo symlinks work on both
+# sides and the available-space check uses the actual output filesystem.
+storage="$repo_root/artifacts"
+external_mount=()
+if [[ -n "${AERIAL_SVD_EXTERNAL_RUNS:-}" ]]; then
+  storage=$(realpath -e -- "$AERIAL_SVD_EXTERNAL_RUNS")
+  mount_root=$(findmnt -n -o TARGET -T "$storage")
+  if [[ ! -d "$storage" || "$mount_root" == "/" || "$storage" == "$mount_root" || "$storage" != "$mount_root/"* ]]; then
+    echo "External runs require a dedicated subdirectory of a mounted volume" >&2
+    exit 2
+  fi
+  # The local Docker overlay and the bind-mounted checkout share the system
+  # partition on this workstation. Allow space for transient container files.
+  system_available=$(df -B1 --output=avail "$repo_root" | tail -1)
+  if (( system_available < 2147483648 )); then
+    echo "Less than 2 GiB available on the checkout filesystem" >&2
+    exit 1
+  fi
+  external_mount=(--mount "type=bind,source=$storage,target=$storage")
+fi
 if [[ -n "${AERIAL_SVD_MIN_FREE_BYTES:-}" ]]; then
-  available=$(df -B1 --output=avail "$repo_root/artifacts" | tail -1)
+  available=$(df -B1 --output=avail "$storage" | tail -1)
   if ! [[ "$AERIAL_SVD_MIN_FREE_BYTES" =~ ^[0-9]{1,18}$ ]]; then
     echo "AERIAL_SVD_MIN_FREE_BYTES must be a nonnegative byte count" >&2
     exit 2
@@ -26,7 +45,7 @@ if [[ -n "${AERIAL_SVD_MIN_FREE_BYTES:-}" ]]; then
 fi
 mkdir -p "$repo_root/artifacts"/{runs,checkpoints,results,matrix_results,plots,reports,logs,experiments}
 docker_args=(run --rm --pull never --init --network none --ipc=host --user "$(id -u):$(id -g)"
-  --volume "$repo_root:/workspace" --workdir /workspace
+  --volume "$repo_root:/workspace" --workdir /workspace "${external_mount[@]}"
   --env PYTHONPATH=/workspace/src --env PYTHONDONTWRITEBYTECODE=1
   --env "AERIAL_SVD_GIT_COMMIT=$(git -C "$repo_root" rev-parse HEAD)"
   --env OPENBLAS_NUM_THREADS=1 --env OMP_NUM_THREADS=2
