@@ -83,11 +83,17 @@ def main():
     cli.add_argument('--root', required=True)
     cli.add_argument('--series', required=True, choices=['setup', 'global', 'regions', 'single', 'allocation', 'finetune', 'benchmark'])
     cli.add_argument('--config', default='configs/aid_vit_small.yaml')
-    cli.add_argument('--checkpoint', default='artifacts/checkpoints/jax/vit_small_protocol_v1.npz')
+    small_checkpoint = 'artifacts/checkpoints/jax/vit_small_protocol_v1.npz'
+    cli.add_argument('--checkpoint', default=small_checkpoint)
+    cli.add_argument('--expected-top1', type=float, help='Reference validation top-1 for setup')
     cli.add_argument('--activation-bank')
     cli.add_argument('--reference-dir', help='Reuse a completed dense validation stage')
     cli.add_argument('--finetune-configurations', nargs='+', help='Explicit selected configurations; default keeps SVD protocol')
     args = cli.parse_args()
+    if args.series == 'setup' and args.expected_top1 is None:
+        if Path(args.checkpoint).resolve() != Path(small_checkpoint).resolve():
+            cli.error('Setup with another checkpoint requires its own --expected-top1')
+        args.expected_top1 = .9733333333333334
     root = Path(args.root)
     root.mkdir(parents=True, exist_ok=True)
     lock = (root / '.series.lock').open('a')
@@ -131,7 +137,7 @@ def main():
         raise ValueError(f'Complete prerequisite required: {base}')
 
     if args.series == 'setup':
-        run('lowrank_baseline', '00_baseline', extra=['--batch-size', '8', '--expected-top1', str(.9733333333333334), '--top1-atol', '0.005'])
+        run('lowrank_baseline', '00_baseline', extra=['--batch-size', '8', '--expected-top1', str(args.expected_top1), '--top1-atol', '0.005'])
         run('lowrank_factor_checks', '01_factor_checks', profile='cpu',
             extra=['--scope', 'all_blocks', '--rank-ratios', '0.5', '1.0'])
         run('lowrank_matrix_curves', '02_matrix_curves', profile='cpu',

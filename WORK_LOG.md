@@ -2,6 +2,8 @@
 
 ## Current state
 
+- ViT-Base replication is blocked before GPU smoke and stage 00. The SSD needs 205.43 GiB free including reserves, against 4.29 GiB available initially. [Capacity, verified weights, and resume command](docs/lowrank/results/aid_base_svd_20261118/PREFLIGHT_RU.md).
+
 - Original research plan **complete through final test**: JAX ViT-Small/AID,
   frozen seed-42 split, 30 classes; 168 SVD + 168 activation-SVD configurations,
   6 allocated models, 12 fine-tunes including dense control. No new methods.
@@ -17,6 +19,15 @@
   No further experiments after test; presentation unchanged.
 
 ## Outcomes
+
+### 2026-11-18 — ViT-Base resource and input verification
+
+All 152 FP32 tensors match the existing AID Torch best checkpoint bit for bit.
+The archived epoch-9 Torch validation top-1 was 97.133%. New Base measurements
+are pending disk capacity. The launcher accepts a checkpoint-specific reference
+and a per-stage free-space floor. Reports now read architecture and results
+from the series. CPU regression, parity and archived final-report checks passed.
+The three Small series retain all 1877 declared outputs and 49 public files.
 
 ### 2026-11-18 — Full resource comparison and final held-out evaluation
 

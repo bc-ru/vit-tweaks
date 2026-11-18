@@ -23,6 +23,7 @@ def aggregate(args):
     base = Path(args.baseline_root)
     dense_dir = base/'05_dense'
     dense = verified_stage(dense_dir)
+    architecture = dense['model_spec']['model']
     reference = np.load(dense_dir/'logits.npz', allow_pickle=False)
     if bank['checkpoint']['sha256'] != dense['checkpoint']['sha256']:
         raise ValueError('Bank and dense reference disagree')
@@ -164,6 +165,7 @@ def aggregate(args):
         write_csv(out, 'finetuning.csv', ft)
         plt.rcParams.update({'figure.dpi': 140, 'axes.grid': True, 'grid.alpha': .25})
         def save(name):
+            plt.suptitle(architecture)
             plt.tight_layout(); plt.savefig(out/name); plt.close()
         global_df = df[df.configuration.str.startswith('global_') & ~df.allocated]
         for x, filename in [('rank_ratio', 'accuracy_rank.png'), ('total_params', 'accuracy_parameters.png')]:
@@ -252,17 +254,17 @@ def aggregate(args):
         wins = {key: sum(float(r[key]) < float(srows[k][key]) for k, r in arows.items())
                 for key in ('calibration_mse', 'validation_mse', 'matrix_relative_frobenius')}
         report = [
-            '# ViT-Small на AID: учёт активаций и индивидуальные ранги\n',
+            f'# {architecture} на AID: учёт активаций и индивидуальные ранги\n',
             '## Предмет исследования и гипотеза\n',
             'Проверяем, уменьшает ли локальный критерий на train-активациях ошибку преобразований и улучшает ли качество всей модели при тех же рангах. Отдельно проверяем распределение рангов при точно равном хранении. Локальный оптимум не гарантирует оптимума нелинейной модели.\n',
             '## Исходные данные\n',
-            f'Один исходный checkpoint ViT-Small, SHA-256 `{dense["checkpoint"]["sha256"]}`; AID, 30 классов, seed 42, неизменный split 7000/1500/1500. Исходная validation accuracy {100*baseline["top1"]:.3f}%, CE {baseline["loss"]:.6f}. Калибровка: 300 train-изображений (10 каждого класса), выбор NumPy default_rng(42), фиксированный resize/normalization без аугментаций. Все 197 токенов изображения имеют одинаковый вес; 59100 строк для каждой матрицы. Независимые локальные ошибки и качество модели — на тех же 1500 validation-изображениях. Test не читался.\n',
+            f'Один исходный checkpoint {architecture}, SHA-256 `{dense["checkpoint"]["sha256"]}`; AID, 30 классов, seed 42, неизменный split 7000/1500/1500. Исходная validation accuracy {100*baseline["top1"]:.3f}%, CE {baseline["loss"]:.6f}. Калибровка: 300 train-изображений (10 каждого класса), выбор NumPy default_rng(42), фиксированный resize/normalization без аугментаций. Все 197 токенов изображения имеют одинаковый вес; 59100 строк для каждой матрицы. Независимые локальные ошибки и качество модели — на тех же 1500 validation-изображениях. Test не читался.\n',
             '## Математическая постановка\n',
             r'Для $Y=XW$, $C=X^\top X/N$ (нецентрированный момент). Обычный SVD минимизирует $\|W-\widetilde W\|_F^2$; новый критерий — $\operatorname{tr}((W-\widetilde W)^\top C(W-\widetilde W))$. Используем $C_\lambda=C+\lambda I$, $\lambda=10^{-4}\operatorname{tr}(C)/n$: к MSE на токен добавляется $\lambda\|W-\widetilde W\|_F^2$. Это регуляризованный локальный критерий, не точный нерегуляризованный минимум.'+'\n',
             r'В хранимой ориентации $(out,in)$: $C_\lambda=LL^\top$, $B=W_sL=U\Sigma V^\top$, $F_2=U_r\sqrt{\Sigma_r}$, $F_1=\sqrt{\Sigma_r}V_r^\top L^{-1}$. Инференс вычисляет $(XF_1^\top)F_2^\top+b$. Bias сохранён; расширяющие и полные ранги не пропускаются. Обратная матрица явно не строится: используется треугольное решение в float64, факторы хранятся в float32.'+'\n',
             f'Моменты суммируются потоково: float32 Gram по batch с highest precision, float64 сумма на CPU; все активации не сохраняются. Численная PSD-проекция разрешена только для погрешности округления и протоколируется. PSD-проекция потребовалась для {sum(d["psd_rounding_clipped"] for d in diagnostics.values())} матриц; λ от {min(d["ridge_absolute"] for d in diagnostics.values()):.3g} до {max(d["ridge_absolute"] for d in diagnostics.values()):.3g}, максимум обусловленности регуляризованного момента {max(d["condition_regularized"] for d in diagnostics.values()):.3g}. Значения для каждой матрицы сохранены в diagnostics.json.\n',
             '## Варьируемые параметры и метрики\n',
-            'Ранги: 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0; фактический целый ранг = floor(ρ min(out,in)). 24 глобальные конфигурации attn/ffn/all_blocks, 48 региональных (блоки 0–3/4–7/8–11), 96 одиночных (блоки 0/5/11 × qkv/proj/fc1/fc2). Голова исключена. Все 168 пар имеют одинаковые веса, матрицы, ранги, параметры, validation-пиксели и протокол. Обычные SVD-оценки переиспользованы; банк обычных факторов побитово сверён со старым checkpoint ранга 192 для всех 48 матриц.\n',
+            'Ранги: 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1.0; фактический целый ранг = floor(ρ min(out,in)). 24 глобальные конфигурации attn/ffn/all_blocks, 48 региональных (блоки 0–3/4–7/8–11), 96 одиночных (блоки 0/5/11 × qkv/proj/fc1/fc2). Голова исключена. Все 168 пар имеют одинаковые веса, матрицы, ранги, параметры, validation-пиксели и протокол. Обычные SVD-оценки взяты из парной серии.\n',
             'Метрики: абсолютная/относительная Frobenius-ошибка весов, MSE преобразования на токен и относительный RMSE отдельно на train-calibration/validation, средняя/P95 L2-ошибка логитов, относительная Frobenius/максимальная абсолютная ошибка логитов, top-1, несглаженная CE, параметры, байты массивов и NPZ. Локальная ошибка не включает bias и измеряется на входах исходной модели; после одновременных замен входы следующих блоков меняются.\n',
             '## Результаты\n',
             f'Вычислены {len(pairs)} попарных конфигураций, 768 локальных точек, 6 моделей с распределённым бюджетом и {sum(selected_ft.method == "activation_svd")} дообучения. Неполные ранги: новый метод уменьшил calibration MSE в {wins["calibration_mse"]}/{len(arows)} случаях, независимую validation MSE в {wins["validation_mse"]}/{len(arows)}; Frobenius-ошибку весов — в {wins["matrix_relative_frobenius"]}/{len(arows)}.\n',
@@ -293,6 +295,6 @@ def aggregate(args):
             'Один checkpoint, seed и split; calibration из 300 изображений не покрывает всё train-распределение. λ фиксирован до запусков, чувствительность к нему не изучалась. Подбор/выбор по одной validation может завышать качество выбранных точек. Равные ρ между разными наборами не дают равных бюджетов; в бюджетной таблице равенство проверено точно. Меньшая локальная ошибка и сумма локальных ошибок не гарантируют меньшей ошибки логитов/CE или большей accuracy. Малые различия в несколько изображений не доказывают преимущества. Здесь нет измерений ускорения или пика GPU; test по заданию остаётся нетронутым. Матричные/локальные ошибки относятся к исходной факторизации до дообучения; после дообучения измеряется полная модель. Масштабы факторов после обратного преобразования отличаются от обычного SVD; одинаковый оптимизатор не устраняет влияние этой параметризации на дообучение.\n',
             'Таблицы: [пары](paired_comparison.csv), [все модели](configurations.csv), [матрицы и ранги](matrix_errors.csv), [локальные кривые](local_errors.csv), [бюджеты](budget_comparison.csv), [дообучение](finetuning.csv).\n',
             'Графики: [accuracy–ранг](accuracy_rank.png), [accuracy–параметры](accuracy_parameters.png), [локальные ошибки](local_error_rank.png), [одиночные позиции](single_positions.png), [области](region_positions.png), [распределение рангов](rank_allocation.png), [дообучение](finetuning.png).\n',
-            'Полные данные: `artifacts/experiments/aid_activation_20261117/`; manifest отчёта содержит хэши использованных стадий. Команды и форматы: [для агентов](../../ACTIVATION_STAGES.md).'])
+            f'Полные данные: `{args.root}`; manifest отчёта содержит хэши использованных стадий. Команды и форматы: [для агентов](../../ACTIVATION_STAGES.md).'])
         from aerial_svd.lowrank_common import publish_text
         publish_text(out/'REPORT_RU.md', '\n'.join(report)+'\n')

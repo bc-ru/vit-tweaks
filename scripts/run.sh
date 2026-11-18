@@ -12,6 +12,18 @@ case "$profile" in
   torch|torch-gpu) image=ghcr.io/bc-ru/pytorch-2.1.0-cuda11.8-cudnn8-runtime-timm-models:stable ;;
   *) usage; exit 2 ;;
 esac
+# Optional per-stage floor for long series sharing the system SSD.
+if [[ -n "${AERIAL_SVD_MIN_FREE_BYTES:-}" ]]; then
+  available=$(df -B1 --output=avail "$repo_root/artifacts" | tail -1)
+  if ! [[ "$AERIAL_SVD_MIN_FREE_BYTES" =~ ^[0-9]{1,18}$ ]]; then
+    echo "AERIAL_SVD_MIN_FREE_BYTES must be a nonnegative byte count" >&2
+    exit 2
+  fi
+  if (( available < 10#$AERIAL_SVD_MIN_FREE_BYTES )); then
+    echo "Insufficient disk space: $available bytes available, $AERIAL_SVD_MIN_FREE_BYTES required" >&2
+    exit 1
+  fi
+fi
 mkdir -p "$repo_root/artifacts"/{runs,checkpoints,results,matrix_results,plots,reports,logs,experiments}
 docker_args=(run --rm --pull never --init --network none --ipc=host --user "$(id -u):$(id -g)"
   --volume "$repo_root:/workspace" --workdir /workspace

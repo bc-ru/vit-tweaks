@@ -1,0 +1,51 @@
+{
+  "stage": "resource_preflight",
+  "status": "complete",
+  "experiment_status": "blocked_insufficient_disk",
+  "architecture": "vit_base_patch16_224",
+  "initial_available_bytes": 4605988864,
+  "initial_available_inodes": 27566032,
+  "previous_three_series_allocated_bytes": 42260500480,
+  "projected_output_bytes": 169042001920,
+  "retry_bytes": 17179869184,
+  "transient_bytes": 8589934592,
+  "reserved_bytes": 25769803776,
+  "required_initial_available_bytes": 220581609472,
+  "minimum_available_before_stage_bytes": 34359738368,
+  "experimental_payload_bytes": 0,
+  "inputs": {
+    "checkpoint": {
+      "bytes": 343335370,
+      "sha256": "a93c5cf00c34b25212a81fcee07432024731a9932f071cf6ccf9dba1ec7c30e4"
+    },
+    "source_torch": {
+      "bytes": 1030017926,
+      "sha256": "af13adab243c8c99650d7944cc5ff0ac636f6ed50ab0b45d2fd714f089982e44"
+    },
+    "config": {
+      "bytes": 352,
+      "sha256": "6dc908691346cda7fb77423b506320d2a60bae63f5d01135bf79ea9ef99a523c"
+    },
+    "frozen_split": {
+      "bytes": 119592,
+      "sha256": "461095915d1fd9713b12485671eba7dd21004af80dbbb11e88985891b309e57e"
+    }
+  },
+  "historical_torch_validation_top1": 0.9713333333333334,
+  "jax_validation_top1": null,
+  "jax_test_top1": null,
+  "completed": {
+    "exact_svd": 0,
+    "activation_svd": 0,
+    "allocations": 0,
+    "finetunes": 0,
+    "benchmarks": 0,
+    "test_models": 0
+  },
+  "outputs": {
+    "PREFLIGHT_RU.md": {
+      "sha256": "0125b9bd987a12abfb9086899cfc800e59c89bb01e7d1ffe698d4f1c2294d9db",
+      "bytes": 13798
+    }
+  }
+}

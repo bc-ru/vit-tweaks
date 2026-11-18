@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,6 +44,13 @@ class Workspace(unittest.TestCase):
         for parameters in ({"process_list": "123\n"}, {"driver_ok": False}):
             with self.subTest(parameters=parameters):
                 result, args = self.run_profile("gpu", **parameters)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIsNone(args)
+
+    def test_disk_floor_stops_before_docker(self):
+        for floor in ('999999999999999999', 'invalid'):
+            with self.subTest(floor=floor), patch.dict(os.environ, AERIAL_SVD_MIN_FREE_BYTES=floor):
+                result, args = self.run_profile("cpu")
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIsNone(args)
 

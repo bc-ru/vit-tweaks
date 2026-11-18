@@ -37,6 +37,7 @@ def main(argv=None):
     if len(dense) != 1:
         raise ValueError('Require exactly one completed dense reference')
     dense_path, dense_manifest = dense[0]
+    architecture = dense_manifest['model_spec']['model']
     source_hash = dense_manifest['checkpoint']['sha256']
     curves = [(p, m) for p, m in manifests if m['stage'] == '02_matrix_curves']
     if len(curves) != 1 or curves[0][1]['checkpoint']['sha256'] != source_hash:
@@ -111,6 +112,7 @@ def main(argv=None):
         baseline = df[df.series == 'dense'].iloc[0]
         plt.rcParams.update({'figure.dpi': 140, 'axes.grid': True, 'grid.alpha': .25})
         def save(name):
+            plt.suptitle(f'{architecture} · exact SVD')
             plt.tight_layout(); plt.savefig(out / name); plt.close()
         global_df = df[df.series == 'global']
         for x, filename, xlabel in [('rank_ratio', 'accuracy_rank.png', 'Relative rank'),
@@ -156,7 +158,7 @@ def main(argv=None):
             save('finetuning.png')
         counts = df.series.value_counts().to_dict()
         full = df[(df.full_rank_control == True)]
-        report = [f'# Exact-SVD ViT-Small на AID\n',
+        report = [f'# Exact-SVD {architecture} на AID\n',
                   f'Измерено validation: {len(df)-1}/168 конфигураций; исходная модель отдельно. Глобальные: {counts.get("global", 0)}/24; области: {counts.get("region", 0)}/48; одиночные: {counts.get("single", 0)}/96. Дообучений: {len(ft_rows)}/10 (9 факторов + dense control). Benchmark: {len(bench_rows)}/16 строк.\n',
                   f'Исходная accuracy: {baseline.top1:.8f}; cross-entropy: {baseline.cross_entropy:.8f}; параметров: {int(baseline.total_params)}. Все оценки — 1500 одинаковых validation-изображений; test не исполнялся. Seed 42, split 7000/1500/1500; checkpoint SHA-256 `{source_hash}`.\n',
                   'Ошибка матриц — аналитический хвост точной float32 SVD с float64 суммированием энергии (этап 02). `matrix_errors.csv` содержит каждую заменённую матрицу и действительный ранг. Среднее Frobenius в общей таблице — невзвешенное среднее относительных ошибок, а не ошибка композиции модели. Факторы симметричны sqrt(S), bias сохранён, высокие ранги не пропускаются.\n']
